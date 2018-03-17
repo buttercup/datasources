@@ -1,65 +1,162 @@
-## Functions
+## Modules
 
 <dl>
-<dt><a href="#compress">compress(text)</a> ⇒ <code>String</code></dt>
-<dd><p>Compress text using GZIP</p>
-</dd>
-<dt><a href="#decompress">decompress(text)</a> ⇒ <code>String</code></dt>
-<dd><p>Decompress a compressed string (GZIP)</p>
-</dd>
-<dt><a href="#historyArrayToString">historyArrayToString(historyArray)</a> ⇒ <code>String</code></dt>
-<dd><p>Convert array of history lines to a string</p>
-</dd>
-<dt><a href="#historyStringToArray">historyStringToArray(historyString)</a> ⇒ <code>Array.&lt;String&gt;</code></dt>
-<dd><p>Convert a history string to an array</p>
+<dt><a href="#module_ButtercupDatasources">ButtercupDatasources</a></dt>
+<dd><p>The primary module</p>
 </dd>
 </dl>
 
-<a name="compress"></a>
+## Classes
 
-## compress(text) ⇒ <code>String</code>
-Compress text using GZIP
+<dl>
+<dt><a href="#TextDatasource">TextDatasource</a></dt>
+<dd><p>Datasource for text input and output</p>
+</dd>
+</dl>
 
-**Kind**: global function  
-**Returns**: <code>String</code> - Compressed text  
+## Functions
+
+<dl>
+<dt><a href="#objectToDatasource">objectToDatasource(obj, [hostCredentials])</a> ⇒ <code>null</code> | <code><a href="#TextDatasource">TextDatasource</a></code></dt>
+<dd><p>Create a datasource from an object
+The object must have the required properties (as output by the corresponding
+<code>toObject</code> call of the datasource).</p>
+</dd>
+<dt><a href="#registerDatasource">registerDatasource(datasourceType, DSClass)</a></dt>
+<dd><p>Register a new datasource
+This is called internally by the built-in datasources, but should be called if a
+custom datasource is used.</p>
+</dd>
+<dt><a href="#stringToDatasource">stringToDatasource(str, [hostCredentials])</a> ⇒ <code>null</code> | <code><a href="#TextDatasource">TextDatasource</a></code></dt>
+<dd><p>Create a datasource from a string</p>
+</dd>
+</dl>
+
+<a name="module_ButtercupDatasources"></a>
+
+## ButtercupDatasources
+The primary module
+
+<a name="TextDatasource"></a>
+
+## TextDatasource
+Datasource for text input and output
+
+**Kind**: global class  
+
+* [TextDatasource](#TextDatasource)
+    * [new TextDatasource(content)](#new_TextDatasource_new)
+    * [.load(credentials, [emptyCreatesNew])](#TextDatasource+load) ⇒ <code>Promise.&lt;Archive&gt;</code>
+    * [.save(archive, credentials)](#TextDatasource+save) ⇒ <code>Promise.&lt;string&gt;</code>
+    * [.setContent(content)](#TextDatasource+setContent) ⇒ [<code>TextDatasource</code>](#TextDatasource)
+    * [.toObject()](#TextDatasource+toObject) ⇒ <code>Object</code>
+    * [.toString()](#TextDatasource+toString) ⇒ <code>String</code>
+
+<a name="new_TextDatasource_new"></a>
+
+### new TextDatasource(content)
+Constructor for the text datasource
+
 
 | Param | Type | Description |
 | --- | --- | --- |
-| text | <code>String</code> | The text to compress |
+| content | <code>string</code> | The content to load from |
 
-<a name="decompress"></a>
+<a name="TextDatasource+load"></a>
 
-## decompress(text) ⇒ <code>String</code>
-Decompress a compressed string (GZIP)
+### textDatasource.load(credentials, [emptyCreatesNew]) ⇒ <code>Promise.&lt;Archive&gt;</code>
+Load from the stored content using a password to decrypt
 
-**Kind**: global function  
-**Returns**: <code>String</code> - Decompressed text  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| text | <code>String</code> | The compressed text |
-
-<a name="historyArrayToString"></a>
-
-## historyArrayToString(historyArray) ⇒ <code>String</code>
-Convert array of history lines to a string
-
-**Kind**: global function  
-**Returns**: <code>String</code> - The string representation  
+**Kind**: instance method of [<code>TextDatasource</code>](#TextDatasource)  
+**Returns**: <code>Promise.&lt;Archive&gt;</code> - A promise that resolves with an open archive  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| historyArray | <code>Array.&lt;String&gt;</code> | An array of history items |
+| credentials | <code>Credentials</code> | The password or Credentials instance to decrypt with |
+| [emptyCreatesNew] | <code>Boolean</code> | Create a new Archive instance if text contents are empty (defaults to false) |
 
-<a name="historyStringToArray"></a>
+<a name="TextDatasource+save"></a>
 
-## historyStringToArray(historyString) ⇒ <code>Array.&lt;String&gt;</code>
-Convert a history string to an array
+### textDatasource.save(archive, credentials) ⇒ <code>Promise.&lt;string&gt;</code>
+Save an archive with a password
 
-**Kind**: global function  
-**Returns**: <code>Array.&lt;String&gt;</code> - An array of history items  
+**Kind**: instance method of [<code>TextDatasource</code>](#TextDatasource)  
+**Returns**: <code>Promise.&lt;string&gt;</code> - A promise resolving with the encrypted content  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| historyString | <code>String</code> | The history string |
+| archive | <code>Archive</code> | The archive to save |
+| credentials | <code>Credentials</code> | The Credentials instance to encrypt with |
+
+<a name="TextDatasource+setContent"></a>
+
+### textDatasource.setContent(content) ⇒ [<code>TextDatasource</code>](#TextDatasource)
+Set the text content
+
+**Kind**: instance method of [<code>TextDatasource</code>](#TextDatasource)  
+**Returns**: [<code>TextDatasource</code>](#TextDatasource) - Self  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| content | <code>String</code> | The encrypted text content |
+
+<a name="TextDatasource+toObject"></a>
+
+### textDatasource.toObject() ⇒ <code>Object</code>
+Output the datasource as an object
+
+**Kind**: instance method of [<code>TextDatasource</code>](#TextDatasource)  
+**Returns**: <code>Object</code> - The object representation  
+<a name="TextDatasource+toString"></a>
+
+### textDatasource.toString() ⇒ <code>String</code>
+Output the datasource configuration as a string
+
+**Kind**: instance method of [<code>TextDatasource</code>](#TextDatasource)  
+**Returns**: <code>String</code> - The string representation of the datasource  
+<a name="objectToDatasource"></a>
+
+## objectToDatasource(obj, [hostCredentials]) ⇒ <code>null</code> \| [<code>TextDatasource</code>](#TextDatasource)
+Create a datasource from an object
+The object must have the required properties (as output by the corresponding
+`toObject` call of the datasource).
+
+**Kind**: global function  
+**Returns**: <code>null</code> \| [<code>TextDatasource</code>](#TextDatasource) - A datasource instance or null of none found  
+**Access**: public  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| obj | <code>Object</code> | The object |
+| [hostCredentials] | <code>Credentials</code> | Credentials instance for remote host  authentication (not required for File/Text datasources) |
+
+<a name="registerDatasource"></a>
+
+## registerDatasource(datasourceType, DSClass)
+Register a new datasource
+This is called internally by the built-in datasources, but should be called if a
+custom datasource is used.
+
+**Kind**: global function  
+**Access**: public  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| datasourceType | <code>String</code> | The name (slug) of the datasource |
+| DSClass | <code>Object</code> | The class for the new datasource |
+
+<a name="stringToDatasource"></a>
+
+## stringToDatasource(str, [hostCredentials]) ⇒ <code>null</code> \| [<code>TextDatasource</code>](#TextDatasource)
+Create a datasource from a string
+
+**Kind**: global function  
+**Returns**: <code>null</code> \| [<code>TextDatasource</code>](#TextDatasource) - A new datasource instance or null of not found  
+**Access**: public  
+**See**: objectToDatasource  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| str | <code>String</code> | The string representation of a datasource, as output by  the `toString` method on the corresponding datasource |
+| [hostCredentials] | <code>Credentials</code> | The remote authentication credentials |
 

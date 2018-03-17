@@ -4,7 +4,7 @@
   "description": "Buttercup archive datasources",
   "main": "source/index.js",
   "scripts": {
-    "docs": "jsdoc2md source/**/*.js > API.md",
+    "docs": "jsdoc2md 'source/**/*.js' > API.md",
     "test": "run-s test:unit",
     "test:unit": "mocha -r test/index.js 'test/**/*.spec.js'"
   },

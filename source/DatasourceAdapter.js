@@ -8,6 +8,7 @@ const __datasources = {};
  * @param {Credentials=} hostCredentials Credentials instance for remote host
  *  authentication (not required for File/Text datasources)
  * @returns {null|TextDatasource} A datasource instance or null of none found
+ * @public
  */
 function objectToDatasource(obj, hostCredentials) {
     const { type } = obj;
@@ -27,6 +28,7 @@ function objectToDatasource(obj, hostCredentials) {
  * custom datasource is used.
  * @param {String} datasourceType The name (slug) of the datasource
  * @param {Object} DSClass The class for the new datasource
+ * @public
  */
 function registerDatasource(datasourceType, DSClass) {
     __datasources[datasourceType] = DSClass;
@@ -39,6 +41,7 @@ function registerDatasource(datasourceType, DSClass) {
  *  the `toString` method on the corresponding datasource
  * @param {Credentials=} hostCredentials The remote authentication credentials
  * @returns {null|TextDatasource} A new datasource instance or null of not found
+ * @public
  */
 function stringToDatasource(str, hostCredentials) {
     return objectToDatasource(JSON.parse(str), hostCredentials);

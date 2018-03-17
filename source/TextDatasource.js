@@ -3,7 +3,7 @@ const { hasValidSignature, sign, stripSignature } = require("@buttercup/signing"
 const { Archive } = require("buttercup");
 const { compress, decompress } = require("./tools/compression.js");
 const historyTools = require("./tools/history.js");
-const registerDatasource = require("./DatasourceAdapter.js").registerDatasource;
+const { registerDatasource } = require("./DatasourceAdapter.js");
 
 /**
  * Convert encrypted text to an array of commands (history)
@@ -11,6 +11,7 @@ const registerDatasource = require("./DatasourceAdapter.js").registerDatasource;
  * @param {Credentials} credentials A credentials instance that has a password, keyfile
  *  or both
  * @returns {Promise.<Array>} A promise that resolves with an array of commands
+ * @private
  */
 function convertEncryptedContentToHistory(encText, credentials) {
     const { password, keyfile } = processCredentials(credentials);
@@ -46,6 +47,7 @@ function convertEncryptedContentToHistory(encText, credentials) {
  * @param {Credentials} credentials A credentials instance that has a password, keyfile
  *  or both
  * @returns {String} Encrypted archive contents
+ * @private
  */
 function convertHistoryToEncryptedContent(historyArr, credentials) {
     const { password, keyfile } = processCredentials(credentials);
@@ -68,7 +70,6 @@ function convertHistoryToEncryptedContent(historyArr, credentials) {
  * @throws {Error} Throws if both password and keyfile are undefined
  * @throws {Error} Throws if credentials is not an object
  * @private
- * @memberof TextDatasource
  */
 function processCredentials(credentials) {
     if (typeof credentials !== "object") {

@@ -4,6 +4,7 @@ const gzip = require("gzip-js");
  * Compress text using GZIP
  * @param {String} text The text to compress
  * @returns {String} Compressed text
+ * @private
  */
 function compress(text) {
     const compressed = gzip.zip(text, {
@@ -22,6 +23,7 @@ function compress(text) {
  * Decompress a compressed string (GZIP)
  * @param {String} text The compressed text
  * @returns {String} Decompressed text
+ * @private
  */
 function decompress(text) {
     var compressedData = [],

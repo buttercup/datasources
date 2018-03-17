@@ -1,4 +1,4 @@
-const DatasourceAdapter = require("./DatasourceAdapter.js");
+const { objectToDatasource, registerDatasource, stringToDatasource } = require("./DatasourceAdapter.js");
 const TextDatasource = require("./TextDatasource.js");
 
 /**
@@ -6,6 +6,10 @@ const TextDatasource = require("./TextDatasource.js");
  * @module ButtercupDatasources
  */
 const module = {
-    DatasourceAdapter,
-    TextDatasource
+    TextDatasource,
+    objectToDatasource,
+    registerDatasource,
+    stringToDatasource
 };
+
+module.exports = module;
