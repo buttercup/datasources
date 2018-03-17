@@ -11,7 +11,7 @@ function compress(text) {
         timestamp: parseInt(Date.now() / 1000, 10)
     });
     const compressedLength = compressed.length;
-    const outputText = "";
+    let outputText = "";
     for (let i = 0; i < compressedLength; i += 1) {
         outputText += String.fromCharCode(compressed[i]);
     }

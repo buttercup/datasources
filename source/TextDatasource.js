@@ -44,7 +44,7 @@ function convertEncryptedContentToHistory(encText, credentials) {
         })
         .then(function __marshallHistoryToArray(decrypted) {
             if (decrypted && decrypted.length > 0) {
-                var decompressed = encoding.decompress(decrypted);
+                const decompressed = decompress(decrypted);
                 if (decompressed) {
                     return historyTools.historyStringToArray(decompressed);
                 }
@@ -63,7 +63,7 @@ function convertEncryptedContentToHistory(encText, credentials) {
 function convertHistoryToEncryptedContent(historyArr, credentials) {
     const { password, keyfile } = processCredentials(credentials);
     const history = historyTools.historyArrayToString(historyArr);
-    const compressed = encoding.compress(history);
+    const compressed = compress(history);
     return Promise.resolve(compressed)
         .then(function __encryptUsingPassword(encryptedData) {
             return password ? iocane.encryptWithPassword(encryptedData, password) : encryptedData;
@@ -108,7 +108,7 @@ class TextDatasource {
      * @param {string} content The content to load from
      */
     constructor(content) {
-        this._content = content;
+        this._content = content || "";
     }
 
     /**
@@ -145,7 +145,7 @@ class TextDatasource {
      * @returns {TextDatasource} Self
      */
     setContent(content) {
-        this._content = content;
+        this._content = content || "";
         return this;
     }
 
