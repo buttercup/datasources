@@ -6,19 +6,6 @@ const historyTools = require("./tools/history.js");
 const registerDatasource = require("./DatasourceAdapter.js").registerDatasource;
 
 /**
- * Current appointed callback for decrypting archive content
- * @type {Function}
- * @private
- */
-let __appointedEncToHistoryCB = convertEncryptedContentToHistory,
-    /**
-     * Current appointed callback for encrypting archive history
-     * @type {Function}
-     * @private
-     */
-    __appointedHistoryToEncCB = convertHistoryToEncryptedContent;
-
-/**
  * Convert encrypted text to an array of commands (history)
  * @param {String} encText The encrypted archive content
  * @param {Credentials} credentials A credentials instance that has a password, keyfile
@@ -124,7 +111,7 @@ class TextDatasource {
                 ? new Archive()
                 : Promise.reject(new Error("Unable to load archive: contents empty"));
         }
-        return __appointedEncToHistoryCB(this._content, credentials).then(history =>
+        return convertEncryptedContentToHistory(this._content, credentials).then(history =>
             Archive.createFromHistory(history)
         );
     }
@@ -136,7 +123,7 @@ class TextDatasource {
      * @returns {Promise.<string>} A promise resolving with the encrypted content
      */
     save(archive, credentials) {
-        return __appointedHistoryToEncCB(archive._getWestley().getHistory(), credentials);
+        return convertHistoryToEncryptedContent(archive._getWestley().getHistory(), credentials);
     }
 
     /**
@@ -169,11 +156,6 @@ class TextDatasource {
     }
 }
 
-TextDatasource.defaultEncodingHandlers = Object.freeze({
-    convertEncryptedContentToHistory,
-    convertHistoryToEncryptedContent
-});
-
 TextDatasource.fromObject = function fromObject(obj) {
     if (obj.type === "text") {
         return new TextDatasource(obj.content);
@@ -183,37 +165,6 @@ TextDatasource.fromObject = function fromObject(obj) {
 
 TextDatasource.fromString = function fromString(str) {
     return TextDatasource.fromObject(JSON.parse(str));
-};
-
-/**
- * Set the deferred handlers for encryption/decryption of the text-based payload
- * The load and save procedures can defer their work (packing and encryption) to external callbacks,
- * essentially enabling custom crypto support. While this is not recommended, it makes it possible
- * to at least perform the crypto *elsewhere*. This was designed for use on mobile platforms where
- * crypto support may be limited outside of a webview with SubtleCrypto support.
- * @param {Function|null} decodeHandler The callback function to use for decoding/decryption. Use
- *  `null` to reset it to the built-in. The function expects 2 parameters: The encrypted text and
- *  a credentials instance (that must have a password, 'keyfile' or both).
- * @param {Function|null} encodeHandler The callback function to use for encoding/encryption. Use
- *  `null` to reset it to the built-in. The function expects 2 parameters: The history array and
- *  a credentials instance (that must have a password, 'keyfile' or both).
- * @deprecated Use of this helper is no longer needed. See 'iocane' for crypto overrides.
- */
-TextDatasource.setDeferredEncodingHandlers = function setDeferredEncodingHandlers(decodeHandler, encodeHandler) {
-    if (typeof decodeHandler === "undefined" || decodeHandler === null) {
-        __appointedEncToHistoryCB = convertEncryptedContentToHistory;
-    } else if (typeof decodeHandler === "function") {
-        __appointedEncToHistoryCB = decodeHandler;
-    } else {
-        throw new Error("Invalid value for decode handler");
-    }
-    if (typeof encodeHandler === "undefined" || encodeHandler === null) {
-        __appointedHistoryToEncCB = convertHistoryToEncryptedContent;
-    } else if (typeof encodeHandler === "function") {
-        __appointedHistoryToEncCB = encodeHandler;
-    } else {
-        throw new Error("Invalid value for encode handler");
-    }
 };
 
 registerDatasource("text", TextDatasource);
