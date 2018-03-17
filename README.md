@@ -6,6 +6,8 @@
 ## About
 Datasources are how Buttercup integrates with 3rd party services like Dropbox, ownCloud and Nextcloud etc.
 
+You might want to check out the [API documentation](API.md).
+
 ## Installation
 Simply run `npm install @buttercup/datasources` to install.
 
