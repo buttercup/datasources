@@ -1,0 +1,40 @@
+{
+  "name": "@buttercup/datasources",
+  "version": "0.0.0",
+  "description": "Buttercup archive datasources",
+  "main": "source/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/buttercup/datasources.git"
+  },
+  "keywords": [
+    "Buttercup",
+    "datasource",
+    "owncloud",
+    "dropbox",
+    "nextcloud",
+    "webdav",
+    "archive"
+  ],
+  "author": "Perry Mitchell <perry@perrymitchell.net>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/buttercup/datasources/issues"
+  },
+  "homepage": "https://github.com/buttercup/datasources#readme",
+  "devDependencies": {
+    "buttercup": "^1.6.2",
+    "iocane": "^0.10.1"
+  },
+  "peerDependencies": {
+    "buttercup": "1.*",
+    "iocane": "0.*"
+  },
+  "dependencies": {
+    "@buttercup/signing": "^0.1.0",
+    "gzip-js": "^0.3.2"
+  }
+}
