@@ -9,8 +9,23 @@
 ## Classes
 
 <dl>
+<dt><a href="#BoxDatasource">BoxDatasource</a> ⇐ <code><a href="#WebDAVDatasource">WebDAVDatasource</a></code></dt>
+<dd><p>Datasource for Box archives</p>
+</dd>
+<dt><a href="#DropboxDatasource">DropboxDatasource</a> ⇐ <code><a href="#TextDatasource">TextDatasource</a></code></dt>
+<dd><p>Datasource for Dropbox archives</p>
+</dd>
+<dt><a href="#NextcloudDatasource">NextcloudDatasource</a> ⇐ <code><a href="#OwnCloudDatasource">OwnCloudDatasource</a></code></dt>
+<dd><p>Datasource for Nextcloud archives</p>
+</dd>
+<dt><a href="#OwnCloudDatasource">OwnCloudDatasource</a> ⇐ <code><a href="#WebDAVDatasource">WebDAVDatasource</a></code></dt>
+<dd><p>Datasource for OwnCloud archives</p>
+</dd>
 <dt><a href="#TextDatasource">TextDatasource</a></dt>
 <dd><p>Datasource for text input and output</p>
+</dd>
+<dt><a href="#WebDAVDatasource">WebDAVDatasource</a> ⇐ <code><a href="#TextDatasource">TextDatasource</a></code></dt>
+<dd><p>WebDAV datasource for reading and writing remote archives</p>
 </dd>
 </dl>
 
@@ -36,6 +51,524 @@ custom datasource is used.</p>
 
 ## ButtercupDatasources
 The primary module
+
+<a name="BoxDatasource"></a>
+
+## BoxDatasource ⇐ [<code>WebDAVDatasource</code>](#WebDAVDatasource)
+Datasource for Box archives
+
+**Kind**: global class  
+**Extends**: [<code>WebDAVDatasource</code>](#WebDAVDatasource)  
+
+* [BoxDatasource](#BoxDatasource) ⇐ [<code>WebDAVDatasource</code>](#WebDAVDatasource)
+    * [new BoxDatasource(resourcePath, credentials)](#new_BoxDatasource_new)
+    * _instance_
+        * [.client](#WebDAVDatasource+client) : <code>Object</code>
+        * [.endpoint](#WebDAVDatasource+endpoint) : <code>String</code>
+        * [.path](#WebDAVDatasource+path) : <code>String</code>
+        * [.toObject()](#BoxDatasource+toObject) ⇒ <code>Object</code>
+        * [.load(credentials)](#WebDAVDatasource+load) ⇒ <code>Promise.&lt;Archive&gt;</code>
+        * [.save(archive, credentials)](#WebDAVDatasource+save) ⇒ <code>Promise</code>
+        * [.setContent(content)](#TextDatasource+setContent) ⇒ [<code>TextDatasource</code>](#TextDatasource)
+        * [.toString()](#TextDatasource+toString) ⇒ <code>String</code>
+    * _static_
+        * [.fromObject(obj, hostCredentials)](#BoxDatasource.fromObject) ⇒ [<code>BoxDatasource</code>](#BoxDatasource)
+        * [.fromString(str, hostCredentials)](#BoxDatasource.fromString) ⇒ [<code>BoxDatasource</code>](#BoxDatasource)
+
+<a name="new_BoxDatasource_new"></a>
+
+### new BoxDatasource(resourcePath, credentials)
+Datasource for Box connections
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| resourcePath | <code>String</code> | The file path |
+| credentials | <code>Credentials</code> | The credentials (username/password) for Box |
+
+<a name="WebDAVDatasource+client"></a>
+
+### boxDatasource.client : <code>Object</code>
+The WebDAV client instance
+
+**Kind**: instance property of [<code>BoxDatasource</code>](#BoxDatasource)  
+<a name="WebDAVDatasource+endpoint"></a>
+
+### boxDatasource.endpoint : <code>String</code>
+The remote WebDAV endpoint
+
+**Kind**: instance property of [<code>BoxDatasource</code>](#BoxDatasource)  
+<a name="WebDAVDatasource+path"></a>
+
+### boxDatasource.path : <code>String</code>
+The remote archive path
+
+**Kind**: instance property of [<code>BoxDatasource</code>](#BoxDatasource)  
+<a name="BoxDatasource+toObject"></a>
+
+### boxDatasource.toObject() ⇒ <code>Object</code>
+Output the datasource as an object
+
+**Kind**: instance method of [<code>BoxDatasource</code>](#BoxDatasource)  
+**Overrides**: [<code>toObject</code>](#WebDAVDatasource+toObject)  
+**Returns**: <code>Object</code> - An object describing the datasource  
+<a name="WebDAVDatasource+load"></a>
+
+### boxDatasource.load(credentials) ⇒ <code>Promise.&lt;Archive&gt;</code>
+Load the archive from the datasource
+
+**Kind**: instance method of [<code>BoxDatasource</code>](#BoxDatasource)  
+**Returns**: <code>Promise.&lt;Archive&gt;</code> - A promise resolving with the archive  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| credentials | <code>Credentials</code> | The credentials for archive decryption |
+
+<a name="WebDAVDatasource+save"></a>
+
+### boxDatasource.save(archive, credentials) ⇒ <code>Promise</code>
+Save an archive to the WebDAV service
+
+**Kind**: instance method of [<code>BoxDatasource</code>](#BoxDatasource)  
+**Returns**: <code>Promise</code> - A promise resolving when the save is complete  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| archive | <code>Archive</code> | The archive to save |
+| credentials | <code>Credentials</code> | The credentials for encryption |
+
+<a name="TextDatasource+setContent"></a>
+
+### boxDatasource.setContent(content) ⇒ [<code>TextDatasource</code>](#TextDatasource)
+Set the text content
+
+**Kind**: instance method of [<code>BoxDatasource</code>](#BoxDatasource)  
+**Returns**: [<code>TextDatasource</code>](#TextDatasource) - Self  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| content | <code>String</code> | The encrypted text content |
+
+<a name="TextDatasource+toString"></a>
+
+### boxDatasource.toString() ⇒ <code>String</code>
+Output the datasource configuration as a string
+
+**Kind**: instance method of [<code>BoxDatasource</code>](#BoxDatasource)  
+**Returns**: <code>String</code> - The string representation of the datasource  
+<a name="BoxDatasource.fromObject"></a>
+
+### BoxDatasource.fromObject(obj, hostCredentials) ⇒ [<code>BoxDatasource</code>](#BoxDatasource)
+Create an instance from an object
+
+**Kind**: static method of [<code>BoxDatasource</code>](#BoxDatasource)  
+**Returns**: [<code>BoxDatasource</code>](#BoxDatasource) - A new instance  
+**Throws**:
+
+- <code>Error</code> Throws if credentials are not provided
+- <code>Error</code> Throws if the type specified is invalid
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| obj | <code>Object</code> | The object representation |
+| hostCredentials | <code>Credentials</code> | The box account credentials |
+
+<a name="BoxDatasource.fromString"></a>
+
+### BoxDatasource.fromString(str, hostCredentials) ⇒ [<code>BoxDatasource</code>](#BoxDatasource)
+Create an instance from a string
+
+**Kind**: static method of [<code>BoxDatasource</code>](#BoxDatasource)  
+**Returns**: [<code>BoxDatasource</code>](#BoxDatasource) - A new instance  
+**See**: BoxDatasource.fromObject  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| str | <code>String</code> | The string representation |
+| hostCredentials | <code>Credentials</code> | Credentials for the box account |
+
+<a name="DropboxDatasource"></a>
+
+## DropboxDatasource ⇐ [<code>TextDatasource</code>](#TextDatasource)
+Datasource for Dropbox archives
+
+**Kind**: global class  
+**Extends**: [<code>TextDatasource</code>](#TextDatasource)  
+
+* [DropboxDatasource](#DropboxDatasource) ⇐ [<code>TextDatasource</code>](#TextDatasource)
+    * [new DropboxDatasource(accessToken, resourcePath)](#new_DropboxDatasource_new)
+    * _instance_
+        * [.load(credentials)](#DropboxDatasource+load) ⇒ <code>Promise.&lt;Archive&gt;</code>
+        * [.save(archive, credentials)](#DropboxDatasource+save) ⇒ <code>Promise</code>
+        * [.toObject()](#DropboxDatasource+toObject) ⇒ <code>Object</code>
+        * [.setContent(content)](#TextDatasource+setContent) ⇒ [<code>TextDatasource</code>](#TextDatasource)
+        * [.toString()](#TextDatasource+toString) ⇒ <code>String</code>
+    * _static_
+        * [.fromObject(obj)](#DropboxDatasource.fromObject) ⇒ [<code>DropboxDatasource</code>](#DropboxDatasource)
+        * [.fromString(str)](#DropboxDatasource.fromString) ⇒ [<code>DropboxDatasource</code>](#DropboxDatasource)
+
+<a name="new_DropboxDatasource_new"></a>
+
+### new DropboxDatasource(accessToken, resourcePath)
+Datasource for Dropbox accounts
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| accessToken | <code>String</code> | The dropbox access token |
+| resourcePath | <code>String</code> | The file path |
+
+<a name="DropboxDatasource+load"></a>
+
+### dropboxDatasource.load(credentials) ⇒ <code>Promise.&lt;Archive&gt;</code>
+Load an archive from the datasource
+
+**Kind**: instance method of [<code>DropboxDatasource</code>](#DropboxDatasource)  
+**Overrides**: [<code>load</code>](#TextDatasource+load)  
+**Returns**: <code>Promise.&lt;Archive&gt;</code> - A promise that resolves with an archive  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| credentials | <code>Credentials</code> | The credentials for decryption |
+
+<a name="DropboxDatasource+save"></a>
+
+### dropboxDatasource.save(archive, credentials) ⇒ <code>Promise</code>
+Save an archive using the datasource
+
+**Kind**: instance method of [<code>DropboxDatasource</code>](#DropboxDatasource)  
+**Overrides**: [<code>save</code>](#TextDatasource+save)  
+**Returns**: <code>Promise</code> - A promise that resolves when saving has completed  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| archive | <code>Archive</code> | The archive to save |
+| credentials | <code>Credentials</code> | The credentials to save with |
+
+<a name="DropboxDatasource+toObject"></a>
+
+### dropboxDatasource.toObject() ⇒ <code>Object</code>
+Output the datasource as an object
+
+**Kind**: instance method of [<code>DropboxDatasource</code>](#DropboxDatasource)  
+**Overrides**: [<code>toObject</code>](#TextDatasource+toObject)  
+**Returns**: <code>Object</code> - An object describing the datasource  
+<a name="TextDatasource+setContent"></a>
+
+### dropboxDatasource.setContent(content) ⇒ [<code>TextDatasource</code>](#TextDatasource)
+Set the text content
+
+**Kind**: instance method of [<code>DropboxDatasource</code>](#DropboxDatasource)  
+**Returns**: [<code>TextDatasource</code>](#TextDatasource) - Self  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| content | <code>String</code> | The encrypted text content |
+
+<a name="TextDatasource+toString"></a>
+
+### dropboxDatasource.toString() ⇒ <code>String</code>
+Output the datasource configuration as a string
+
+**Kind**: instance method of [<code>DropboxDatasource</code>](#DropboxDatasource)  
+**Returns**: <code>String</code> - The string representation of the datasource  
+<a name="DropboxDatasource.fromObject"></a>
+
+### DropboxDatasource.fromObject(obj) ⇒ [<code>DropboxDatasource</code>](#DropboxDatasource)
+Create a new instance from an object
+
+**Kind**: static method of [<code>DropboxDatasource</code>](#DropboxDatasource)  
+**Returns**: [<code>DropboxDatasource</code>](#DropboxDatasource) - A new instance  
+**Throws**:
+
+- <code>Error</code> Throws if the type is invalid
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| obj | <code>Object</code> | The object representation |
+
+<a name="DropboxDatasource.fromString"></a>
+
+### DropboxDatasource.fromString(str) ⇒ [<code>DropboxDatasource</code>](#DropboxDatasource)
+Create a new instance from a string
+
+**Kind**: static method of [<code>DropboxDatasource</code>](#DropboxDatasource)  
+**Returns**: [<code>DropboxDatasource</code>](#DropboxDatasource) - A new instance  
+**Throws**:
+
+- <code>Error</code> Throws if the type is invalid
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| str | <code>String</code> | The string representation |
+
+<a name="NextcloudDatasource"></a>
+
+## NextcloudDatasource ⇐ [<code>OwnCloudDatasource</code>](#OwnCloudDatasource)
+Datasource for Nextcloud archives
+
+**Kind**: global class  
+**Extends**: [<code>OwnCloudDatasource</code>](#OwnCloudDatasource)  
+
+* [NextcloudDatasource](#NextcloudDatasource) ⇐ [<code>OwnCloudDatasource</code>](#OwnCloudDatasource)
+    * _instance_
+        * [.client](#WebDAVDatasource+client) : <code>Object</code>
+        * [.endpoint](#WebDAVDatasource+endpoint) : <code>String</code>
+        * [.path](#WebDAVDatasource+path) : <code>String</code>
+        * [.toObject()](#NextcloudDatasource+toObject) ⇒ <code>Object</code>
+        * [.load(credentials)](#WebDAVDatasource+load) ⇒ <code>Promise.&lt;Archive&gt;</code>
+        * [.save(archive, credentials)](#WebDAVDatasource+save) ⇒ <code>Promise</code>
+        * [.setContent(content)](#TextDatasource+setContent) ⇒ [<code>TextDatasource</code>](#TextDatasource)
+        * [.toString()](#TextDatasource+toString) ⇒ <code>String</code>
+    * _static_
+        * [.fromObject(obj, [hostCredentials])](#NextcloudDatasource.fromObject) ⇒ [<code>NextcloudDatasource</code>](#NextcloudDatasource)
+        * [.fromString(str, [hostCredentials])](#NextcloudDatasource.fromString) ⇒ [<code>NextcloudDatasource</code>](#NextcloudDatasource)
+
+<a name="WebDAVDatasource+client"></a>
+
+### nextcloudDatasource.client : <code>Object</code>
+The WebDAV client instance
+
+**Kind**: instance property of [<code>NextcloudDatasource</code>](#NextcloudDatasource)  
+<a name="WebDAVDatasource+endpoint"></a>
+
+### nextcloudDatasource.endpoint : <code>String</code>
+The remote WebDAV endpoint
+
+**Kind**: instance property of [<code>NextcloudDatasource</code>](#NextcloudDatasource)  
+<a name="WebDAVDatasource+path"></a>
+
+### nextcloudDatasource.path : <code>String</code>
+The remote archive path
+
+**Kind**: instance property of [<code>NextcloudDatasource</code>](#NextcloudDatasource)  
+<a name="NextcloudDatasource+toObject"></a>
+
+### nextcloudDatasource.toObject() ⇒ <code>Object</code>
+Output the datasource as an object
+
+**Kind**: instance method of [<code>NextcloudDatasource</code>](#NextcloudDatasource)  
+**Overrides**: [<code>toObject</code>](#OwnCloudDatasource+toObject)  
+**Returns**: <code>Object</code> - An object describing the datasource  
+<a name="WebDAVDatasource+load"></a>
+
+### nextcloudDatasource.load(credentials) ⇒ <code>Promise.&lt;Archive&gt;</code>
+Load the archive from the datasource
+
+**Kind**: instance method of [<code>NextcloudDatasource</code>](#NextcloudDatasource)  
+**Returns**: <code>Promise.&lt;Archive&gt;</code> - A promise resolving with the archive  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| credentials | <code>Credentials</code> | The credentials for archive decryption |
+
+<a name="WebDAVDatasource+save"></a>
+
+### nextcloudDatasource.save(archive, credentials) ⇒ <code>Promise</code>
+Save an archive to the WebDAV service
+
+**Kind**: instance method of [<code>NextcloudDatasource</code>](#NextcloudDatasource)  
+**Returns**: <code>Promise</code> - A promise resolving when the save is complete  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| archive | <code>Archive</code> | The archive to save |
+| credentials | <code>Credentials</code> | The credentials for encryption |
+
+<a name="TextDatasource+setContent"></a>
+
+### nextcloudDatasource.setContent(content) ⇒ [<code>TextDatasource</code>](#TextDatasource)
+Set the text content
+
+**Kind**: instance method of [<code>NextcloudDatasource</code>](#NextcloudDatasource)  
+**Returns**: [<code>TextDatasource</code>](#TextDatasource) - Self  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| content | <code>String</code> | The encrypted text content |
+
+<a name="TextDatasource+toString"></a>
+
+### nextcloudDatasource.toString() ⇒ <code>String</code>
+Output the datasource configuration as a string
+
+**Kind**: instance method of [<code>NextcloudDatasource</code>](#NextcloudDatasource)  
+**Returns**: <code>String</code> - The string representation of the datasource  
+<a name="NextcloudDatasource.fromObject"></a>
+
+### NextcloudDatasource.fromObject(obj, [hostCredentials]) ⇒ [<code>NextcloudDatasource</code>](#NextcloudDatasource)
+Create a new instance from an object
+
+**Kind**: static method of [<code>NextcloudDatasource</code>](#NextcloudDatasource)  
+**Returns**: [<code>NextcloudDatasource</code>](#NextcloudDatasource) - A new instance  
+**Throws**:
+
+- <code>Error</code> Throws for an invalid type specification
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| obj | <code>Object</code> | The object representation of an instance |
+| [hostCredentials] | <code>Credentials</code> | The remote server credentials |
+
+<a name="NextcloudDatasource.fromString"></a>
+
+### NextcloudDatasource.fromString(str, [hostCredentials]) ⇒ [<code>NextcloudDatasource</code>](#NextcloudDatasource)
+Create a new instance from a string
+
+**Kind**: static method of [<code>NextcloudDatasource</code>](#NextcloudDatasource)  
+**Returns**: [<code>NextcloudDatasource</code>](#NextcloudDatasource) - A new instance  
+**Throws**:
+
+- <code>Error</code> Throws for an invalid type specification
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| str | <code>String</code> | The string representation of an instance |
+| [hostCredentials] | <code>Credentials</code> | The remote server credentials |
+
+<a name="OwnCloudDatasource"></a>
+
+## OwnCloudDatasource ⇐ [<code>WebDAVDatasource</code>](#WebDAVDatasource)
+Datasource for OwnCloud archives
+
+**Kind**: global class  
+**Extends**: [<code>WebDAVDatasource</code>](#WebDAVDatasource)  
+
+* [OwnCloudDatasource](#OwnCloudDatasource) ⇐ [<code>WebDAVDatasource</code>](#WebDAVDatasource)
+    * [new OwnCloudDatasource(owncloudURL, resourcePath, [credentials])](#new_OwnCloudDatasource_new)
+    * _instance_
+        * [.client](#WebDAVDatasource+client) : <code>Object</code>
+        * [.endpoint](#WebDAVDatasource+endpoint) : <code>String</code>
+        * [.path](#WebDAVDatasource+path) : <code>String</code>
+        * [.toObject()](#OwnCloudDatasource+toObject) ⇒ <code>Object</code>
+        * [.load(credentials)](#WebDAVDatasource+load) ⇒ <code>Promise.&lt;Archive&gt;</code>
+        * [.save(archive, credentials)](#WebDAVDatasource+save) ⇒ <code>Promise</code>
+        * [.setContent(content)](#TextDatasource+setContent) ⇒ [<code>TextDatasource</code>](#TextDatasource)
+        * [.toString()](#TextDatasource+toString) ⇒ <code>String</code>
+    * _static_
+        * [.fromObject(obj, [hostCredentials])](#OwnCloudDatasource.fromObject) ⇒ [<code>OwnCloudDatasource</code>](#OwnCloudDatasource)
+        * [.fromString(str, [hostCredentials])](#OwnCloudDatasource.fromString) ⇒ [<code>OwnCloudDatasource</code>](#OwnCloudDatasource)
+
+<a name="new_OwnCloudDatasource_new"></a>
+
+### new OwnCloudDatasource(owncloudURL, resourcePath, [credentials])
+Datasource for Owncloud connections
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| owncloudURL | <code>String</code> | The URL to the owncloud instance, without "remote.php/webdav" etc. |
+| resourcePath | <code>String</code> | The file path |
+| [credentials] | <code>Credentials</code> | The credentials (username/password) for owncloud |
+
+<a name="WebDAVDatasource+client"></a>
+
+### ownCloudDatasource.client : <code>Object</code>
+The WebDAV client instance
+
+**Kind**: instance property of [<code>OwnCloudDatasource</code>](#OwnCloudDatasource)  
+<a name="WebDAVDatasource+endpoint"></a>
+
+### ownCloudDatasource.endpoint : <code>String</code>
+The remote WebDAV endpoint
+
+**Kind**: instance property of [<code>OwnCloudDatasource</code>](#OwnCloudDatasource)  
+<a name="WebDAVDatasource+path"></a>
+
+### ownCloudDatasource.path : <code>String</code>
+The remote archive path
+
+**Kind**: instance property of [<code>OwnCloudDatasource</code>](#OwnCloudDatasource)  
+<a name="OwnCloudDatasource+toObject"></a>
+
+### ownCloudDatasource.toObject() ⇒ <code>Object</code>
+Output the datasource as an object
+
+**Kind**: instance method of [<code>OwnCloudDatasource</code>](#OwnCloudDatasource)  
+**Overrides**: [<code>toObject</code>](#WebDAVDatasource+toObject)  
+**Returns**: <code>Object</code> - An object describing the datasource  
+<a name="WebDAVDatasource+load"></a>
+
+### ownCloudDatasource.load(credentials) ⇒ <code>Promise.&lt;Archive&gt;</code>
+Load the archive from the datasource
+
+**Kind**: instance method of [<code>OwnCloudDatasource</code>](#OwnCloudDatasource)  
+**Returns**: <code>Promise.&lt;Archive&gt;</code> - A promise resolving with the archive  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| credentials | <code>Credentials</code> | The credentials for archive decryption |
+
+<a name="WebDAVDatasource+save"></a>
+
+### ownCloudDatasource.save(archive, credentials) ⇒ <code>Promise</code>
+Save an archive to the WebDAV service
+
+**Kind**: instance method of [<code>OwnCloudDatasource</code>](#OwnCloudDatasource)  
+**Returns**: <code>Promise</code> - A promise resolving when the save is complete  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| archive | <code>Archive</code> | The archive to save |
+| credentials | <code>Credentials</code> | The credentials for encryption |
+
+<a name="TextDatasource+setContent"></a>
+
+### ownCloudDatasource.setContent(content) ⇒ [<code>TextDatasource</code>](#TextDatasource)
+Set the text content
+
+**Kind**: instance method of [<code>OwnCloudDatasource</code>](#OwnCloudDatasource)  
+**Returns**: [<code>TextDatasource</code>](#TextDatasource) - Self  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| content | <code>String</code> | The encrypted text content |
+
+<a name="TextDatasource+toString"></a>
+
+### ownCloudDatasource.toString() ⇒ <code>String</code>
+Output the datasource configuration as a string
+
+**Kind**: instance method of [<code>OwnCloudDatasource</code>](#OwnCloudDatasource)  
+**Returns**: <code>String</code> - The string representation of the datasource  
+<a name="OwnCloudDatasource.fromObject"></a>
+
+### OwnCloudDatasource.fromObject(obj, [hostCredentials]) ⇒ [<code>OwnCloudDatasource</code>](#OwnCloudDatasource)
+Create an instance from an object
+
+**Kind**: static method of [<code>OwnCloudDatasource</code>](#OwnCloudDatasource)  
+**Returns**: [<code>OwnCloudDatasource</code>](#OwnCloudDatasource) - A new instance  
+**Throws**:
+
+- <code>Error</code> Throws for an invalid type specification
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| obj | <code>Object</code> | The object representation of the datasource |
+| [hostCredentials] | <code>Credentials</code> | Remote server credentials |
+
+<a name="OwnCloudDatasource.fromString"></a>
+
+### OwnCloudDatasource.fromString(str, [hostCredentials]) ⇒ [<code>OwnCloudDatasource</code>](#OwnCloudDatasource)
+Create an instance from a string
+
+**Kind**: static method of [<code>OwnCloudDatasource</code>](#OwnCloudDatasource)  
+**Returns**: [<code>OwnCloudDatasource</code>](#OwnCloudDatasource) - A new instance  
+**Throws**:
+
+- <code>Error</code> Throws for an invalid type specification
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| str | <code>String</code> | The string representation of the datasource |
+| [hostCredentials] | <code>Credentials</code> | The remote server credentials |
 
 <a name="TextDatasource"></a>
 
@@ -114,6 +647,137 @@ Output the datasource configuration as a string
 
 **Kind**: instance method of [<code>TextDatasource</code>](#TextDatasource)  
 **Returns**: <code>String</code> - The string representation of the datasource  
+<a name="WebDAVDatasource"></a>
+
+## WebDAVDatasource ⇐ [<code>TextDatasource</code>](#TextDatasource)
+WebDAV datasource for reading and writing remote archives
+
+**Kind**: global class  
+**Extends**: [<code>TextDatasource</code>](#TextDatasource)  
+
+* [WebDAVDatasource](#WebDAVDatasource) ⇐ [<code>TextDatasource</code>](#TextDatasource)
+    * [new WebDAVDatasource(endpoint, webDAVPath, [credentials])](#new_WebDAVDatasource_new)
+    * _instance_
+        * [.client](#WebDAVDatasource+client) : <code>Object</code>
+        * [.endpoint](#WebDAVDatasource+endpoint) : <code>String</code>
+        * [.path](#WebDAVDatasource+path) : <code>String</code>
+        * [.load(credentials)](#WebDAVDatasource+load) ⇒ <code>Promise.&lt;Archive&gt;</code>
+        * [.save(archive, credentials)](#WebDAVDatasource+save) ⇒ <code>Promise</code>
+        * [.toObject()](#WebDAVDatasource+toObject) ⇒ <code>Object</code>
+        * [.setContent(content)](#TextDatasource+setContent) ⇒ [<code>TextDatasource</code>](#TextDatasource)
+        * [.toString()](#TextDatasource+toString) ⇒ <code>String</code>
+    * _static_
+        * [.fromObject(obj, [hostCredentials])](#WebDAVDatasource.fromObject)
+        * [.fromString(str, [hostCredentials])](#WebDAVDatasource.fromString)
+
+<a name="new_WebDAVDatasource_new"></a>
+
+### new WebDAVDatasource(endpoint, webDAVPath, [credentials])
+Constructor for the datasource
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| endpoint | <code>string</code> | URL for the WebDAV service (without resource path) |
+| webDAVPath | <code>string</code> | Resource path on the WebDAV service |
+| [credentials] | <code>Credentials</code> | Credentials (username/password) for the WebDAV service |
+
+<a name="WebDAVDatasource+client"></a>
+
+### webDAVDatasource.client : <code>Object</code>
+The WebDAV client instance
+
+**Kind**: instance property of [<code>WebDAVDatasource</code>](#WebDAVDatasource)  
+<a name="WebDAVDatasource+endpoint"></a>
+
+### webDAVDatasource.endpoint : <code>String</code>
+The remote WebDAV endpoint
+
+**Kind**: instance property of [<code>WebDAVDatasource</code>](#WebDAVDatasource)  
+<a name="WebDAVDatasource+path"></a>
+
+### webDAVDatasource.path : <code>String</code>
+The remote archive path
+
+**Kind**: instance property of [<code>WebDAVDatasource</code>](#WebDAVDatasource)  
+<a name="WebDAVDatasource+load"></a>
+
+### webDAVDatasource.load(credentials) ⇒ <code>Promise.&lt;Archive&gt;</code>
+Load the archive from the datasource
+
+**Kind**: instance method of [<code>WebDAVDatasource</code>](#WebDAVDatasource)  
+**Overrides**: [<code>load</code>](#TextDatasource+load)  
+**Returns**: <code>Promise.&lt;Archive&gt;</code> - A promise resolving with the archive  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| credentials | <code>Credentials</code> | The credentials for archive decryption |
+
+<a name="WebDAVDatasource+save"></a>
+
+### webDAVDatasource.save(archive, credentials) ⇒ <code>Promise</code>
+Save an archive to the WebDAV service
+
+**Kind**: instance method of [<code>WebDAVDatasource</code>](#WebDAVDatasource)  
+**Overrides**: [<code>save</code>](#TextDatasource+save)  
+**Returns**: <code>Promise</code> - A promise resolving when the save is complete  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| archive | <code>Archive</code> | The archive to save |
+| credentials | <code>Credentials</code> | The credentials for encryption |
+
+<a name="WebDAVDatasource+toObject"></a>
+
+### webDAVDatasource.toObject() ⇒ <code>Object</code>
+Output the datasource as an object
+
+**Kind**: instance method of [<code>WebDAVDatasource</code>](#WebDAVDatasource)  
+**Overrides**: [<code>toObject</code>](#TextDatasource+toObject)  
+**Returns**: <code>Object</code> - An object describing the datasource  
+<a name="TextDatasource+setContent"></a>
+
+### webDAVDatasource.setContent(content) ⇒ [<code>TextDatasource</code>](#TextDatasource)
+Set the text content
+
+**Kind**: instance method of [<code>WebDAVDatasource</code>](#WebDAVDatasource)  
+**Returns**: [<code>TextDatasource</code>](#TextDatasource) - Self  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| content | <code>String</code> | The encrypted text content |
+
+<a name="TextDatasource+toString"></a>
+
+### webDAVDatasource.toString() ⇒ <code>String</code>
+Output the datasource configuration as a string
+
+**Kind**: instance method of [<code>WebDAVDatasource</code>](#WebDAVDatasource)  
+**Returns**: <code>String</code> - The string representation of the datasource  
+<a name="WebDAVDatasource.fromObject"></a>
+
+### WebDAVDatasource.fromObject(obj, [hostCredentials])
+Create an instance from an object
+
+**Kind**: static method of [<code>WebDAVDatasource</code>](#WebDAVDatasource)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| obj | <code>Object</code> | The WebDAV info object |
+| [hostCredentials] | <code>Credentials</code> | The server credentials |
+
+<a name="WebDAVDatasource.fromString"></a>
+
+### WebDAVDatasource.fromString(str, [hostCredentials])
+Create an instance from a string
+
+**Kind**: static method of [<code>WebDAVDatasource</code>](#WebDAVDatasource)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| str | <code>String</code> | The string representation of the datasource |
+| [hostCredentials] | <code>Credentials</code> | The server credentials |
+
 <a name="objectToDatasource"></a>
 
 ## objectToDatasource(obj, [hostCredentials]) ⇒ <code>null</code> \| [<code>TextDatasource</code>](#TextDatasource)
