@@ -8,6 +8,17 @@ Datasources are how Buttercup integrates with 3rd party services like Dropbox, o
 
 You might want to check out the [API documentation](API.md).
 
+Supported interfaces:
+ * Text: `TextDatasource`
+ * Files: `FileDatasource`
+ * WebDAV: `WebDAVDatasource`
+ * OwnCloud: `OwnCloudDatasource`
+ * Nextcloud: `NextcloudDatasource`
+ * Dropbox: `DropboxDatasource`
+ * Box: `BoxDatasource`
+
+You can easily add new, custom datasources by creating a new class and using `registerDatasource` to register it.
+
 ## Installation
 Simply run `npm install @buttercup/datasources` to install.
 
