@@ -16,7 +16,7 @@ const FileDatasource = require("./FileDatasource.js");
  * The primary module
  * @module ButtercupDatasources
  */
-const module = {
+const output = {
     BoxDatasource,
     DropboxDatasource,
     FileDatasource,
@@ -30,4 +30,4 @@ const module = {
     webdav
 };
 
-module.exports = module;
+module.exports = output;
