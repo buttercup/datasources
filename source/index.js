@@ -9,6 +9,7 @@ const OwnCloudDatasource = require("./OwnCloudDatasource.js");
 const NextcloudDatasource = require("./NextcloudDatasource.js");
 const DropboxDatasource = require("./DropboxDatasource.js");
 const BoxDatasource = require("./BoxDatasource.js");
+const FileDatasource = require("./FileDatasource.js");
 
 /**
  * The primary module
@@ -17,6 +18,7 @@ const BoxDatasource = require("./BoxDatasource.js");
 const module = {
     BoxDatasource,
     DropboxDatasource,
+    FileDatasource,
     NextcloudDatasource,
     OwnCloudDatasource,
     TextDatasource,

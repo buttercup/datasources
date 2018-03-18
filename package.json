@@ -58,6 +58,7 @@
     "@buttercup/signing": "^0.1.0",
     "dropbox-fs": "^0.2.0",
     "gzip-js": "^0.3.2",
+    "pify": "^3.0.0",
     "url-join": "^4.0.0",
     "webdav": "^1.4.0"
   }
