@@ -1,4 +1,8 @@
-const { objectToDatasource, registerDatasource, stringToDatasource } = require("./DatasourceAdapter.js");
+const {
+    objectToDatasource,
+    registerDatasource,
+    stringToDatasource
+} = require("./DatasourceAdapter.js");
 const TextDatasource = require("./TextDatasource.js");
 
 /**

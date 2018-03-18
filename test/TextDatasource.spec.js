@@ -21,16 +21,15 @@ describe("TextDatasource", function() {
         });
 
         it("loads the archive correctly", function() {
-            return this.datasource
-                .load(createCredentials.fromPassword("test"))
-                .then(archive => {
-                    expect(archive).to.be.an.instanceof(Archive);
-                });
+            return this.datasource.load(createCredentials.fromPassword("test")).then(archive => {
+                expect(archive).to.be.an.instanceof(Archive);
+            });
         });
 
         it("rejects if the password is incorrect", function() {
-            return expect(this.datasource.load(createCredentials.fromPassword("wrong")))
-                .to.be.rejectedWith(/Authentication failed/i);
+            return expect(
+                this.datasource.load(createCredentials.fromPassword("wrong"))
+            ).to.be.rejectedWith(/Authentication failed/i);
         });
     });
 

@@ -14,11 +14,7 @@ class OwnCloudDatasource extends WebDAVDatasource {
      * @param {Credentials=} credentials The credentials (username/password) for owncloud
      */
     constructor(owncloudURL, resourcePath, credentials) {
-        super(
-            joinURL(owncloudURL, "remote.php/webdav/"),
-            resourcePath,
-            credentials
-        );
+        super(joinURL(owncloudURL, "remote.php/webdav/"), resourcePath, credentials);
         this._originalURL = owncloudURL;
     }
 

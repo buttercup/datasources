@@ -17,9 +17,9 @@ class WebDAVDatasource extends TextDatasource {
         super();
         this._endpoint = endpoint;
         this._path = webDAVPath;
-        this._client = credentials ?
-            createWebDAVClient(endpoint, credentials.username, credentials.password) :
-            createWebDAVClient(endpoint);
+        this._client = credentials
+            ? createWebDAVClient(endpoint, credentials.username, credentials.password)
+            : createWebDAVClient(endpoint);
     }
 
     /**
@@ -56,12 +56,10 @@ class WebDAVDatasource extends TextDatasource {
      * @memberof WebDAVDatasource
      */
     load(credentials) {
-        return this.client
-            .getFileContents(this.path, "text")
-            .then(content => {
-                this.setContent(content);
-                return super.load(credentials);
-            });
+        return this.client.getFileContents(this.path, "text").then(content => {
+            this.setContent(content);
+            return super.load(credentials);
+        });
     }
 
     /**
