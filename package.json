@@ -43,6 +43,8 @@
   },
   "dependencies": {
     "@buttercup/signing": "^0.1.0",
-    "gzip-js": "^0.3.2"
+    "gzip-js": "^0.3.2",
+    "url-join": "^4.0.0",
+    "webdav": "^1.4.0"
   }
 }
