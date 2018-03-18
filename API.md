@@ -15,6 +15,9 @@
 <dt><a href="#DropboxDatasource">DropboxDatasource</a> ⇐ <code><a href="#TextDatasource">TextDatasource</a></code></dt>
 <dd><p>Datasource for Dropbox archives</p>
 </dd>
+<dt><a href="#FileDatasource">FileDatasource</a> ⇐ <code><a href="#TextDatasource">TextDatasource</a></code></dt>
+<dd><p>File datasource for loading and saving files</p>
+</dd>
 <dt><a href="#NextcloudDatasource">NextcloudDatasource</a> ⇐ <code><a href="#OwnCloudDatasource">OwnCloudDatasource</a></code></dt>
 <dd><p>Datasource for Nextcloud archives</p>
 </dd>
@@ -300,6 +303,126 @@ Create a new instance from a string
 
 - <code>Error</code> Throws if the type is invalid
 
+
+| Param | Type | Description |
+| --- | --- | --- |
+| str | <code>String</code> | The string representation |
+
+<a name="FileDatasource"></a>
+
+## FileDatasource ⇐ [<code>TextDatasource</code>](#TextDatasource)
+File datasource for loading and saving files
+
+**Kind**: global class  
+**Extends**: [<code>TextDatasource</code>](#TextDatasource)  
+
+* [FileDatasource](#FileDatasource) ⇐ [<code>TextDatasource</code>](#TextDatasource)
+    * [new FileDatasource(filename)](#new_FileDatasource_new)
+    * _instance_
+        * [.path](#FileDatasource+path) : <code>String</code>
+        * [.load(credentials)](#FileDatasource+load) ⇒ <code>Promise.&lt;Archive&gt;</code>
+        * [.save(archive, credentials)](#FileDatasource+save) ⇒ <code>Promise</code>
+        * [.toObject()](#FileDatasource+toObject) ⇒ <code>Object</code>
+        * [.setContent(content)](#TextDatasource+setContent) ⇒ [<code>TextDatasource</code>](#TextDatasource)
+        * [.toString()](#TextDatasource+toString) ⇒ <code>String</code>
+    * _static_
+        * [.fromObject(obj)](#FileDatasource.fromObject) ⇒ [<code>FileDatasource</code>](#FileDatasource)
+        * [.fromString(str)](#FileDatasource.fromString) ⇒ [<code>FileDatasource</code>](#FileDatasource)
+
+<a name="new_FileDatasource_new"></a>
+
+### new FileDatasource(filename)
+Constructor for the file datasource
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| filename | <code>string</code> | The filename to load and save |
+
+<a name="FileDatasource+path"></a>
+
+### fileDatasource.path : <code>String</code>
+The file path
+
+**Kind**: instance property of [<code>FileDatasource</code>](#FileDatasource)  
+<a name="FileDatasource+load"></a>
+
+### fileDatasource.load(credentials) ⇒ <code>Promise.&lt;Archive&gt;</code>
+Load from the filename specified in the constructor using a password
+
+**Kind**: instance method of [<code>FileDatasource</code>](#FileDatasource)  
+**Overrides**: [<code>load</code>](#TextDatasource+load)  
+**Returns**: <code>Promise.&lt;Archive&gt;</code> - A promise resolving with the opened archive  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| credentials | <code>Credentials</code> | The credentials for decryption |
+
+<a name="FileDatasource+save"></a>
+
+### fileDatasource.save(archive, credentials) ⇒ <code>Promise</code>
+Save an archive to a file using a password for encryption
+
+**Kind**: instance method of [<code>FileDatasource</code>](#FileDatasource)  
+**Overrides**: [<code>save</code>](#TextDatasource+save)  
+**Returns**: <code>Promise</code> - A promise that resolves when saving is complete  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| archive | <code>Archive</code> | The archive to save |
+| credentials | <code>Credentials</code> | The credentials to save with |
+
+<a name="FileDatasource+toObject"></a>
+
+### fileDatasource.toObject() ⇒ <code>Object</code>
+Output the datasource as an object
+
+**Kind**: instance method of [<code>FileDatasource</code>](#FileDatasource)  
+**Overrides**: [<code>toObject</code>](#TextDatasource+toObject)  
+**Returns**: <code>Object</code> - An object describing the datasource  
+<a name="TextDatasource+setContent"></a>
+
+### fileDatasource.setContent(content) ⇒ [<code>TextDatasource</code>](#TextDatasource)
+Set the text content
+
+**Kind**: instance method of [<code>FileDatasource</code>](#FileDatasource)  
+**Returns**: [<code>TextDatasource</code>](#TextDatasource) - Self  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| content | <code>String</code> | The encrypted text content |
+
+<a name="TextDatasource+toString"></a>
+
+### fileDatasource.toString() ⇒ <code>String</code>
+Output the datasource configuration as a string
+
+**Kind**: instance method of [<code>FileDatasource</code>](#FileDatasource)  
+**Returns**: <code>String</code> - The string representation of the datasource  
+<a name="FileDatasource.fromObject"></a>
+
+### FileDatasource.fromObject(obj) ⇒ [<code>FileDatasource</code>](#FileDatasource)
+Create an instance from an object
+
+**Kind**: static method of [<code>FileDatasource</code>](#FileDatasource)  
+**Returns**: [<code>FileDatasource</code>](#FileDatasource) - A new instance  
+**Throws**:
+
+- <code>Error</code> Throws for an invalid type specification
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| obj | <code>Object</code> | The object representation of a datasource |
+
+<a name="FileDatasource.fromString"></a>
+
+### FileDatasource.fromString(str) ⇒ [<code>FileDatasource</code>](#FileDatasource)
+Create an instance from a string
+
+**Kind**: static method of [<code>FileDatasource</code>](#FileDatasource)  
+**Returns**: [<code>FileDatasource</code>](#FileDatasource) - A new instance  
+**See**: FileDatasource.fromObject  
 
 | Param | Type | Description |
 | --- | --- | --- |
