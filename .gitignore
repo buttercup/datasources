@@ -1,4 +1,5 @@
 *.log
+*.bcup
 .history
 .vscode
 node_modules
