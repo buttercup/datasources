@@ -38,6 +38,8 @@ class OwnCloudDatasource extends WebDAVDatasource {
  * @param {Credentials=} hostCredentials Remote server credentials
  * @static
  * @memberof OwnCloudDatasource
+ * @returns {OwnCloudDatasource} A new instance
+ * @throws {Error} Throws for an invalid type specification
  */
 OwnCloudDatasource.fromObject = function fromObject(obj, hostCredentials) {
     if (obj.type === "owncloud") {
@@ -52,6 +54,8 @@ OwnCloudDatasource.fromObject = function fromObject(obj, hostCredentials) {
  * @param {Credentials=} hostCredentials The remote server credentials
  * @static
  * @memberof OwnCloudDatasource
+ * @returns {OwnCloudDatasource} A new instance
+ * @throws {Error} Throws for an invalid type specification
  */
 OwnCloudDatasource.fromString = function fromString(str, hostCredentials) {
     return OwnCloudDatasource.fromObject(JSON.parse(str), hostCredentials);
