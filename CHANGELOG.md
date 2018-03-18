@@ -1,5 +1,10 @@
 # Buttercup Datasources changelog
 
+## v1.0.2
+_2018-03-18_
+
+ * Fix module export
+
 ## v1.0.1
 _2018-03-18_
 
