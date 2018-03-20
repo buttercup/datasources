@@ -1,7 +1,7 @@
 # Buttercup Archive Datasources
 > Datasource integrations for Buttercup archives
 
-[![Build Status](https://travis-ci.org/buttercup/datasources.svg?branch=master)](https://travis-ci.org/buttercup/datasources)
+[![Build Status](https://travis-ci.org/buttercup/datasources.svg?branch=master)](https://travis-ci.org/buttercup/datasources) [![npm version](https://badge.fury.io/js/%40buttercup%2Fdatasources.svg)](https://www.npmjs.com/package/@buttercup/datasources)
 
 ## About
 Datasources are how Buttercup integrates with 3rd party services like Dropbox, ownCloud and Nextcloud etc.
