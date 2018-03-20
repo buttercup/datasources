@@ -24,7 +24,7 @@ class DropboxDatasource extends TextDatasource {
     /**
      * Load an archive from the datasource
      * @param {Credentials} credentials The credentials for decryption
-     * @returns {Promise.<Archive>} A promise that resolves with an archive
+     * @returns {Promise.<Array.<String>>} A promise that resolves archive history
      * @memberof DropboxDatasource
      */
     load(credentials) {
@@ -43,13 +43,13 @@ class DropboxDatasource extends TextDatasource {
 
     /**
      * Save an archive using the datasource
-     * @param {Archive} archive The archive to save
+     * @param {Array.<String>} history The archive history to save
      * @param {Credentials} credentials The credentials to save with
      * @returns {Promise} A promise that resolves when saving has completed
      * @memberof DropboxDatasource
      */
-    save(archive, credentials) {
-        return super.save(archive, credentials).then(encryptedContent => {
+    save(history, credentials) {
+        return super.save(history, credentials).then(encryptedContent => {
             return new Promise((resolve, reject) => {
                 this.dfs.writeFile(this.path, encryptedContent, function _writeFile(err) {
                     if (err) {

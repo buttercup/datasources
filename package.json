@@ -54,7 +54,6 @@
     "sinon": "^4.4.6"
   },
   "peerDependencies": {
-    "buttercup": "1.*",
     "iocane": "0.*"
   },
   "dependencies": {

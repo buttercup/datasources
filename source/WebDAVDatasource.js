@@ -50,9 +50,9 @@ class WebDAVDatasource extends TextDatasource {
     }
 
     /**
-     * Load the archive from the datasource
+     * Load archive history from the datasource
      * @param {Credentials} credentials The credentials for archive decryption
-     * @returns {Promise.<Archive>} A promise resolving with the archive
+     * @returns {Promise.<Array.<String>>} A promise resolving archive history
      * @memberof WebDAVDatasource
      */
     load(credentials) {
@@ -63,15 +63,15 @@ class WebDAVDatasource extends TextDatasource {
     }
 
     /**
-     * Save an archive to the WebDAV service
-     * @param {Archive} archive The archive to save
+     * Save archive contents to the WebDAV service
+     * @param {Array.<String>} history Archive history
      * @param {Credentials} credentials The credentials for encryption
      * @returns {Promise} A promise resolving when the save is complete
      * @memberof WebDAVDatasource
      */
-    save(archive, credentials) {
+    save(history, credentials) {
         return super
-            .save(archive, credentials)
+            .save(history, credentials)
             .then(encrypted => this.client.putFileContents(this.path, encrypted));
     }
 

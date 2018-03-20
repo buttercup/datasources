@@ -31,7 +31,7 @@ class FileDatasource extends TextDatasource {
     /**
      * Load from the filename specified in the constructor using a password
      * @param {Credentials} credentials The credentials for decryption
-     * @returns {Promise<Archive>} A promise resolving with the opened archive
+     * @returns {Promise<Array.<String>>} A promise resolving with archive history
      * @memberof FileDatasource
      */
     load(credentials) {
@@ -42,15 +42,15 @@ class FileDatasource extends TextDatasource {
     }
 
     /**
-     * Save an archive to a file using a password for encryption
-     * @param {Archive} archive The archive to save
+     * Save archive history to a file
+     * @param {Array.<String>} history The archive history to save
      * @param {Credentials} credentials The credentials to save with
      * @returns {Promise} A promise that resolves when saving is complete
      * @memberof FileDatasource
      */
-    save(archive, credentials) {
+    save(history, credentials) {
         return super
-            .save(archive, credentials)
+            .save(history, credentials)
             .then(encrypted => this.writeFile(this.path, encrypted));
     }
 

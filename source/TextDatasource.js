@@ -1,6 +1,5 @@
 const iocane = require("iocane").crypto;
 const { hasValidSignature, sign, stripSignature } = require("@buttercup/signing");
-const { Archive } = require("buttercup");
 const { compress, decompress } = require("./tools/compression.js");
 const historyTools = require("./tools/history.js");
 const { registerDatasource } = require("./DatasourceAdapter.js");
@@ -37,7 +36,7 @@ function convertEncryptedContentToHistory(encText, credentials) {
                     return historyTools.historyStringToArray(decompressed);
                 }
             }
-            throw new Error("Decryption failed");
+            throw new Error("Failed reconstructing history: Decryption failed");
         });
 }
 
@@ -102,35 +101,33 @@ class TextDatasource {
     /**
      * Load from the stored content using a password to decrypt
      * @param {Credentials} credentials The password or Credentials instance to decrypt with
-     * @param {Boolean=} emptyCreatesNew Create a new Archive instance if text contents are empty (defaults to false)
-     * @returns {Promise.<Archive>} A promise that resolves with an open archive
+     * @returns {Promise.<Array.<String>>} A promise that resolves with decrypted history
+     * @throws {Error} Rejects if content is empty
+     * @memberof TextDatasource
      */
-    load(credentials, emptyCreatesNew) {
-        emptyCreatesNew = emptyCreatesNew === undefined ? false : emptyCreatesNew;
-        if (this._content.trim().length <= 0) {
-            return emptyCreatesNew
-                ? new Archive()
-                : Promise.reject(new Error("Unable to load archive: contents empty"));
+    load(credentials) {
+        if (!this._content) {
+            return Promise.reject(new Error("Failed to load archive: Content is empty"));
         }
-        return convertEncryptedContentToHistory(this._content, credentials).then(history =>
-            Archive.createFromHistory(history)
-        );
+        return convertEncryptedContentToHistory(this._content, credentials);
     }
 
     /**
-     * Save an archive with a password
-     * @param {Archive} archive The archive to save
+     * Save archive contents with a password
+     * @param {Array.<String>} history Archive history to save
      * @param {Credentials} credentials The Credentials instance to encrypt with
      * @returns {Promise.<string>} A promise resolving with the encrypted content
+     * @memberof TextDatasource
      */
-    save(archive, credentials) {
-        return convertHistoryToEncryptedContent(archive._getWestley().getHistory(), credentials);
+    save(history, credentials) {
+        return convertHistoryToEncryptedContent(history, credentials);
     }
 
     /**
      * Set the text content
      * @param {String} content The encrypted text content
      * @returns {TextDatasource} Self
+     * @memberof TextDatasource
      */
     setContent(content) {
         this._content = content || "";
@@ -140,6 +137,7 @@ class TextDatasource {
     /**
      * Output the datasource as an object
      * @returns {Object} The object representation
+     * @memberof TextDatasource
      */
     toObject() {
         return {
@@ -151,6 +149,7 @@ class TextDatasource {
     /**
      * Output the datasource configuration as a string
      * @returns {String} The string representation of the datasource
+     * @memberof TextDatasource
      */
     toString() {
         return JSON.stringify(this.toObject());
