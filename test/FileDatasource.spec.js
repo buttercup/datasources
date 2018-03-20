@@ -16,11 +16,15 @@ describe("FileDatasource", function() {
     describe("load", function() {
         beforeEach(function() {
             this.archive = new Archive();
+            this.archive.createGroup("testGroup");
             this.path = path.resolve(__dirname, "./test.bcup");
             this.datasource = new FileDatasource(this.path);
             const tds = new TextDatasource();
             return tds
-                .save(this.archive, createCredentials.fromPassword("test"))
+                .save(
+                    this.archive._getWestley().getHistory(),
+                    createCredentials.fromPassword("test")
+                )
                 .then(encryptedArchive => {
                     fs.writeFileSync(this.path, encryptedArchive);
                 });
@@ -36,15 +40,19 @@ describe("FileDatasource", function() {
         });
 
         it("loads an archive", function() {
-            return this.datasource.load(createCredentials.fromPassword("test")).then(archive => {
-                expect(archive).to.be.an.instanceof(Archive);
-            });
+            return this.datasource
+                .load(createCredentials.fromPassword("test"))
+                .then(history => Archive.createFromHistory(history))
+                .then(archive => {
+                    expect(archive.findGroupsByTitle("testGroup")).to.have.lengthOf(1);
+                });
         });
     });
 
     describe("save", function() {
         beforeEach(function() {
             this.archive = new Archive();
+            this.archive.createGroup("testing");
             this.path = path.resolve(__dirname, "./test.bcup");
             this.datasource = new FileDatasource(this.path);
             rimraf(this.path);
@@ -56,7 +64,10 @@ describe("FileDatasource", function() {
 
         it("writes to a file", function() {
             return this.datasource
-                .save(this.archive, createCredentials.fromPassword("test"))
+                .save(
+                    this.archive._getWestley().getHistory(),
+                    createCredentials.fromPassword("test")
+                )
                 .then(() => {
                     return expect(fileExists(this.path)).to.eventually.be.true;
                 });
@@ -64,14 +75,18 @@ describe("FileDatasource", function() {
 
         it("writes an archive", function() {
             return this.datasource
-                .save(this.archive, createCredentials.fromPassword("test"))
+                .save(
+                    this.archive._getWestley().getHistory(),
+                    createCredentials.fromPassword("test")
+                )
                 .then(() => {
                     const contents = fs.readFileSync(this.path, "utf8");
                     const tds = new TextDatasource(contents);
                     return tds.load(createCredentials.fromPassword("test"));
                 })
+                .then(history => Archive.createFromHistory(history))
                 .then(archive => {
-                    expect(archive).to.be.an.instanceof(Archive);
+                    expect(archive.findGroupsByTitle("testing")).to.have.lengthOf(1);
                 });
         });
     });

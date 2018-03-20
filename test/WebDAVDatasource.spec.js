@@ -31,7 +31,10 @@ describe("WebDAVDatasource", function() {
             this.archive = new Archive();
             const tds = new TextDatasource();
             return tds
-                .save(this.archive, createCredentials.fromPassword("test"))
+                .save(
+                    this.archive._getWestley().getHistory(),
+                    createCredentials.fromPassword("test")
+                )
                 .then(encrypted => {
                     sinon
                         .stub(this.datasource.client, "getFileContents")
@@ -63,7 +66,10 @@ describe("WebDAVDatasource", function() {
 
         it("writes the archive to the remote", function() {
             return this.datasource
-                .save(this.archive, createCredentials.fromPassword("test"))
+                .save(
+                    this.archive._getWestley().getHistory(),
+                    createCredentials.fromPassword("test")
+                )
                 .then(() => {
                     const [
                         writtenPath,
