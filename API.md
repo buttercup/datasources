@@ -70,8 +70,8 @@ Datasource for Box archives
         * [.endpoint](#WebDAVDatasource+endpoint) : <code>String</code>
         * [.path](#WebDAVDatasource+path) : <code>String</code>
         * [.toObject()](#BoxDatasource+toObject) ⇒ <code>Object</code>
-        * [.load(credentials)](#WebDAVDatasource+load) ⇒ <code>Promise.&lt;Archive&gt;</code>
-        * [.save(archive, credentials)](#WebDAVDatasource+save) ⇒ <code>Promise</code>
+        * [.load(credentials)](#WebDAVDatasource+load) ⇒ <code>Promise.&lt;Array.&lt;String&gt;&gt;</code>
+        * [.save(history, credentials)](#WebDAVDatasource+save) ⇒ <code>Promise</code>
         * [.setContent(content)](#TextDatasource+setContent) ⇒ [<code>TextDatasource</code>](#TextDatasource)
         * [.toString()](#TextDatasource+toString) ⇒ <code>String</code>
     * _static_
@@ -117,11 +117,11 @@ Output the datasource as an object
 **Returns**: <code>Object</code> - An object describing the datasource  
 <a name="WebDAVDatasource+load"></a>
 
-### boxDatasource.load(credentials) ⇒ <code>Promise.&lt;Archive&gt;</code>
-Load the archive from the datasource
+### boxDatasource.load(credentials) ⇒ <code>Promise.&lt;Array.&lt;String&gt;&gt;</code>
+Load archive history from the datasource
 
 **Kind**: instance method of [<code>BoxDatasource</code>](#BoxDatasource)  
-**Returns**: <code>Promise.&lt;Archive&gt;</code> - A promise resolving with the archive  
+**Returns**: <code>Promise.&lt;Array.&lt;String&gt;&gt;</code> - A promise resolving archive history  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -129,15 +129,15 @@ Load the archive from the datasource
 
 <a name="WebDAVDatasource+save"></a>
 
-### boxDatasource.save(archive, credentials) ⇒ <code>Promise</code>
-Save an archive to the WebDAV service
+### boxDatasource.save(history, credentials) ⇒ <code>Promise</code>
+Save archive contents to the WebDAV service
 
 **Kind**: instance method of [<code>BoxDatasource</code>](#BoxDatasource)  
 **Returns**: <code>Promise</code> - A promise resolving when the save is complete  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| archive | <code>Archive</code> | The archive to save |
+| history | <code>Array.&lt;String&gt;</code> | Archive history |
 | credentials | <code>Credentials</code> | The credentials for encryption |
 
 <a name="TextDatasource+setContent"></a>
@@ -202,8 +202,8 @@ Datasource for Dropbox archives
 * [DropboxDatasource](#DropboxDatasource) ⇐ [<code>TextDatasource</code>](#TextDatasource)
     * [new DropboxDatasource(accessToken, resourcePath)](#new_DropboxDatasource_new)
     * _instance_
-        * [.load(credentials)](#DropboxDatasource+load) ⇒ <code>Promise.&lt;Archive&gt;</code>
-        * [.save(archive, credentials)](#DropboxDatasource+save) ⇒ <code>Promise</code>
+        * [.load(credentials)](#DropboxDatasource+load) ⇒ <code>Promise.&lt;Array.&lt;String&gt;&gt;</code>
+        * [.save(history, credentials)](#DropboxDatasource+save) ⇒ <code>Promise</code>
         * [.toObject()](#DropboxDatasource+toObject) ⇒ <code>Object</code>
         * [.setContent(content)](#TextDatasource+setContent) ⇒ [<code>TextDatasource</code>](#TextDatasource)
         * [.toString()](#TextDatasource+toString) ⇒ <code>String</code>
@@ -224,12 +224,12 @@ Datasource for Dropbox accounts
 
 <a name="DropboxDatasource+load"></a>
 
-### dropboxDatasource.load(credentials) ⇒ <code>Promise.&lt;Archive&gt;</code>
+### dropboxDatasource.load(credentials) ⇒ <code>Promise.&lt;Array.&lt;String&gt;&gt;</code>
 Load an archive from the datasource
 
 **Kind**: instance method of [<code>DropboxDatasource</code>](#DropboxDatasource)  
 **Overrides**: [<code>load</code>](#TextDatasource+load)  
-**Returns**: <code>Promise.&lt;Archive&gt;</code> - A promise that resolves with an archive  
+**Returns**: <code>Promise.&lt;Array.&lt;String&gt;&gt;</code> - A promise that resolves archive history  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -237,7 +237,7 @@ Load an archive from the datasource
 
 <a name="DropboxDatasource+save"></a>
 
-### dropboxDatasource.save(archive, credentials) ⇒ <code>Promise</code>
+### dropboxDatasource.save(history, credentials) ⇒ <code>Promise</code>
 Save an archive using the datasource
 
 **Kind**: instance method of [<code>DropboxDatasource</code>](#DropboxDatasource)  
@@ -246,7 +246,7 @@ Save an archive using the datasource
 
 | Param | Type | Description |
 | --- | --- | --- |
-| archive | <code>Archive</code> | The archive to save |
+| history | <code>Array.&lt;String&gt;</code> | The archive history to save |
 | credentials | <code>Credentials</code> | The credentials to save with |
 
 <a name="DropboxDatasource+toObject"></a>
@@ -320,8 +320,8 @@ File datasource for loading and saving files
     * [new FileDatasource(filename)](#new_FileDatasource_new)
     * _instance_
         * [.path](#FileDatasource+path) : <code>String</code>
-        * [.load(credentials)](#FileDatasource+load) ⇒ <code>Promise.&lt;Archive&gt;</code>
-        * [.save(archive, credentials)](#FileDatasource+save) ⇒ <code>Promise</code>
+        * [.load(credentials)](#FileDatasource+load) ⇒ <code>Promise.&lt;Array.&lt;String&gt;&gt;</code>
+        * [.save(history, credentials)](#FileDatasource+save) ⇒ <code>Promise</code>
         * [.toObject()](#FileDatasource+toObject) ⇒ <code>Object</code>
         * [.setContent(content)](#TextDatasource+setContent) ⇒ [<code>TextDatasource</code>](#TextDatasource)
         * [.toString()](#TextDatasource+toString) ⇒ <code>String</code>
@@ -347,12 +347,12 @@ The file path
 **Kind**: instance property of [<code>FileDatasource</code>](#FileDatasource)  
 <a name="FileDatasource+load"></a>
 
-### fileDatasource.load(credentials) ⇒ <code>Promise.&lt;Archive&gt;</code>
+### fileDatasource.load(credentials) ⇒ <code>Promise.&lt;Array.&lt;String&gt;&gt;</code>
 Load from the filename specified in the constructor using a password
 
 **Kind**: instance method of [<code>FileDatasource</code>](#FileDatasource)  
 **Overrides**: [<code>load</code>](#TextDatasource+load)  
-**Returns**: <code>Promise.&lt;Archive&gt;</code> - A promise resolving with the opened archive  
+**Returns**: <code>Promise.&lt;Array.&lt;String&gt;&gt;</code> - A promise resolving with archive history  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -360,8 +360,8 @@ Load from the filename specified in the constructor using a password
 
 <a name="FileDatasource+save"></a>
 
-### fileDatasource.save(archive, credentials) ⇒ <code>Promise</code>
-Save an archive to a file using a password for encryption
+### fileDatasource.save(history, credentials) ⇒ <code>Promise</code>
+Save archive history to a file
 
 **Kind**: instance method of [<code>FileDatasource</code>](#FileDatasource)  
 **Overrides**: [<code>save</code>](#TextDatasource+save)  
@@ -369,7 +369,7 @@ Save an archive to a file using a password for encryption
 
 | Param | Type | Description |
 | --- | --- | --- |
-| archive | <code>Archive</code> | The archive to save |
+| history | <code>Array.&lt;String&gt;</code> | The archive history to save |
 | credentials | <code>Credentials</code> | The credentials to save with |
 
 <a name="FileDatasource+toObject"></a>
@@ -442,8 +442,8 @@ Datasource for Nextcloud archives
         * [.endpoint](#WebDAVDatasource+endpoint) : <code>String</code>
         * [.path](#WebDAVDatasource+path) : <code>String</code>
         * [.toObject()](#NextcloudDatasource+toObject) ⇒ <code>Object</code>
-        * [.load(credentials)](#WebDAVDatasource+load) ⇒ <code>Promise.&lt;Archive&gt;</code>
-        * [.save(archive, credentials)](#WebDAVDatasource+save) ⇒ <code>Promise</code>
+        * [.load(credentials)](#WebDAVDatasource+load) ⇒ <code>Promise.&lt;Array.&lt;String&gt;&gt;</code>
+        * [.save(history, credentials)](#WebDAVDatasource+save) ⇒ <code>Promise</code>
         * [.setContent(content)](#TextDatasource+setContent) ⇒ [<code>TextDatasource</code>](#TextDatasource)
         * [.toString()](#TextDatasource+toString) ⇒ <code>String</code>
     * _static_
@@ -478,11 +478,11 @@ Output the datasource as an object
 **Returns**: <code>Object</code> - An object describing the datasource  
 <a name="WebDAVDatasource+load"></a>
 
-### nextcloudDatasource.load(credentials) ⇒ <code>Promise.&lt;Archive&gt;</code>
-Load the archive from the datasource
+### nextcloudDatasource.load(credentials) ⇒ <code>Promise.&lt;Array.&lt;String&gt;&gt;</code>
+Load archive history from the datasource
 
 **Kind**: instance method of [<code>NextcloudDatasource</code>](#NextcloudDatasource)  
-**Returns**: <code>Promise.&lt;Archive&gt;</code> - A promise resolving with the archive  
+**Returns**: <code>Promise.&lt;Array.&lt;String&gt;&gt;</code> - A promise resolving archive history  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -490,15 +490,15 @@ Load the archive from the datasource
 
 <a name="WebDAVDatasource+save"></a>
 
-### nextcloudDatasource.save(archive, credentials) ⇒ <code>Promise</code>
-Save an archive to the WebDAV service
+### nextcloudDatasource.save(history, credentials) ⇒ <code>Promise</code>
+Save archive contents to the WebDAV service
 
 **Kind**: instance method of [<code>NextcloudDatasource</code>](#NextcloudDatasource)  
 **Returns**: <code>Promise</code> - A promise resolving when the save is complete  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| archive | <code>Archive</code> | The archive to save |
+| history | <code>Array.&lt;String&gt;</code> | Archive history |
 | credentials | <code>Credentials</code> | The credentials for encryption |
 
 <a name="TextDatasource+setContent"></a>
@@ -569,8 +569,8 @@ Datasource for OwnCloud archives
         * [.endpoint](#WebDAVDatasource+endpoint) : <code>String</code>
         * [.path](#WebDAVDatasource+path) : <code>String</code>
         * [.toObject()](#OwnCloudDatasource+toObject) ⇒ <code>Object</code>
-        * [.load(credentials)](#WebDAVDatasource+load) ⇒ <code>Promise.&lt;Archive&gt;</code>
-        * [.save(archive, credentials)](#WebDAVDatasource+save) ⇒ <code>Promise</code>
+        * [.load(credentials)](#WebDAVDatasource+load) ⇒ <code>Promise.&lt;Array.&lt;String&gt;&gt;</code>
+        * [.save(history, credentials)](#WebDAVDatasource+save) ⇒ <code>Promise</code>
         * [.setContent(content)](#TextDatasource+setContent) ⇒ [<code>TextDatasource</code>](#TextDatasource)
         * [.toString()](#TextDatasource+toString) ⇒ <code>String</code>
     * _static_
@@ -617,11 +617,11 @@ Output the datasource as an object
 **Returns**: <code>Object</code> - An object describing the datasource  
 <a name="WebDAVDatasource+load"></a>
 
-### ownCloudDatasource.load(credentials) ⇒ <code>Promise.&lt;Archive&gt;</code>
-Load the archive from the datasource
+### ownCloudDatasource.load(credentials) ⇒ <code>Promise.&lt;Array.&lt;String&gt;&gt;</code>
+Load archive history from the datasource
 
 **Kind**: instance method of [<code>OwnCloudDatasource</code>](#OwnCloudDatasource)  
-**Returns**: <code>Promise.&lt;Archive&gt;</code> - A promise resolving with the archive  
+**Returns**: <code>Promise.&lt;Array.&lt;String&gt;&gt;</code> - A promise resolving archive history  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -629,15 +629,15 @@ Load the archive from the datasource
 
 <a name="WebDAVDatasource+save"></a>
 
-### ownCloudDatasource.save(archive, credentials) ⇒ <code>Promise</code>
-Save an archive to the WebDAV service
+### ownCloudDatasource.save(history, credentials) ⇒ <code>Promise</code>
+Save archive contents to the WebDAV service
 
 **Kind**: instance method of [<code>OwnCloudDatasource</code>](#OwnCloudDatasource)  
 **Returns**: <code>Promise</code> - A promise resolving when the save is complete  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| archive | <code>Archive</code> | The archive to save |
+| history | <code>Array.&lt;String&gt;</code> | Archive history |
 | credentials | <code>Credentials</code> | The credentials for encryption |
 
 <a name="TextDatasource+setContent"></a>
@@ -702,8 +702,8 @@ Datasource for text input and output
 
 * [TextDatasource](#TextDatasource)
     * [new TextDatasource(content)](#new_TextDatasource_new)
-    * [.load(credentials, [emptyCreatesNew])](#TextDatasource+load) ⇒ <code>Promise.&lt;Archive&gt;</code>
-    * [.save(archive, credentials)](#TextDatasource+save) ⇒ <code>Promise.&lt;string&gt;</code>
+    * [.load(credentials)](#TextDatasource+load) ⇒ <code>Promise.&lt;Array.&lt;String&gt;&gt;</code>
+    * [.save(history, credentials)](#TextDatasource+save) ⇒ <code>Promise.&lt;string&gt;</code>
     * [.setContent(content)](#TextDatasource+setContent) ⇒ [<code>TextDatasource</code>](#TextDatasource)
     * [.toObject()](#TextDatasource+toObject) ⇒ <code>Object</code>
     * [.toString()](#TextDatasource+toString) ⇒ <code>String</code>
@@ -720,28 +720,31 @@ Constructor for the text datasource
 
 <a name="TextDatasource+load"></a>
 
-### textDatasource.load(credentials, [emptyCreatesNew]) ⇒ <code>Promise.&lt;Archive&gt;</code>
+### textDatasource.load(credentials) ⇒ <code>Promise.&lt;Array.&lt;String&gt;&gt;</code>
 Load from the stored content using a password to decrypt
 
 **Kind**: instance method of [<code>TextDatasource</code>](#TextDatasource)  
-**Returns**: <code>Promise.&lt;Archive&gt;</code> - A promise that resolves with an open archive  
+**Returns**: <code>Promise.&lt;Array.&lt;String&gt;&gt;</code> - A promise that resolves with decrypted history  
+**Throws**:
+
+- <code>Error</code> Rejects if content is empty
+
 
 | Param | Type | Description |
 | --- | --- | --- |
 | credentials | <code>Credentials</code> | The password or Credentials instance to decrypt with |
-| [emptyCreatesNew] | <code>Boolean</code> | Create a new Archive instance if text contents are empty (defaults to false) |
 
 <a name="TextDatasource+save"></a>
 
-### textDatasource.save(archive, credentials) ⇒ <code>Promise.&lt;string&gt;</code>
-Save an archive with a password
+### textDatasource.save(history, credentials) ⇒ <code>Promise.&lt;string&gt;</code>
+Save archive contents with a password
 
 **Kind**: instance method of [<code>TextDatasource</code>](#TextDatasource)  
 **Returns**: <code>Promise.&lt;string&gt;</code> - A promise resolving with the encrypted content  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| archive | <code>Archive</code> | The archive to save |
+| history | <code>Array.&lt;String&gt;</code> | Archive history to save |
 | credentials | <code>Credentials</code> | The Credentials instance to encrypt with |
 
 <a name="TextDatasource+setContent"></a>
@@ -784,8 +787,8 @@ WebDAV datasource for reading and writing remote archives
         * [.client](#WebDAVDatasource+client) : <code>Object</code>
         * [.endpoint](#WebDAVDatasource+endpoint) : <code>String</code>
         * [.path](#WebDAVDatasource+path) : <code>String</code>
-        * [.load(credentials)](#WebDAVDatasource+load) ⇒ <code>Promise.&lt;Archive&gt;</code>
-        * [.save(archive, credentials)](#WebDAVDatasource+save) ⇒ <code>Promise</code>
+        * [.load(credentials)](#WebDAVDatasource+load) ⇒ <code>Promise.&lt;Array.&lt;String&gt;&gt;</code>
+        * [.save(history, credentials)](#WebDAVDatasource+save) ⇒ <code>Promise</code>
         * [.toObject()](#WebDAVDatasource+toObject) ⇒ <code>Object</code>
         * [.setContent(content)](#TextDatasource+setContent) ⇒ [<code>TextDatasource</code>](#TextDatasource)
         * [.toString()](#TextDatasource+toString) ⇒ <code>String</code>
@@ -825,12 +828,12 @@ The remote archive path
 **Kind**: instance property of [<code>WebDAVDatasource</code>](#WebDAVDatasource)  
 <a name="WebDAVDatasource+load"></a>
 
-### webDAVDatasource.load(credentials) ⇒ <code>Promise.&lt;Archive&gt;</code>
-Load the archive from the datasource
+### webDAVDatasource.load(credentials) ⇒ <code>Promise.&lt;Array.&lt;String&gt;&gt;</code>
+Load archive history from the datasource
 
 **Kind**: instance method of [<code>WebDAVDatasource</code>](#WebDAVDatasource)  
 **Overrides**: [<code>load</code>](#TextDatasource+load)  
-**Returns**: <code>Promise.&lt;Archive&gt;</code> - A promise resolving with the archive  
+**Returns**: <code>Promise.&lt;Array.&lt;String&gt;&gt;</code> - A promise resolving archive history  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -838,8 +841,8 @@ Load the archive from the datasource
 
 <a name="WebDAVDatasource+save"></a>
 
-### webDAVDatasource.save(archive, credentials) ⇒ <code>Promise</code>
-Save an archive to the WebDAV service
+### webDAVDatasource.save(history, credentials) ⇒ <code>Promise</code>
+Save archive contents to the WebDAV service
 
 **Kind**: instance method of [<code>WebDAVDatasource</code>](#WebDAVDatasource)  
 **Overrides**: [<code>save</code>](#TextDatasource+save)  
@@ -847,7 +850,7 @@ Save an archive to the WebDAV service
 
 | Param | Type | Description |
 | --- | --- | --- |
-| archive | <code>Archive</code> | The archive to save |
+| history | <code>Array.&lt;String&gt;</code> | Archive history |
 | credentials | <code>Credentials</code> | The credentials for encryption |
 
 <a name="WebDAVDatasource+toObject"></a>
