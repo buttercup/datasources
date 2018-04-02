@@ -1,4 +1,4 @@
-const iocane = require("iocane").crypto;
+const { createSession } = require("iocane");
 const { hasValidSignature, sign, stripSignature } = require("@buttercup/signing");
 const { compress, decompress } = require("./tools/compression.js");
 const historyTools = require("./tools/history.js");
@@ -13,23 +13,17 @@ const { registerDatasource } = require("./DatasourceAdapter.js");
  * @private
  */
 function convertEncryptedContentToHistory(encText, credentials) {
-    const { password, keyfile } = processCredentials(credentials);
-    return Promise.resolve(encText)
-        .then(function __stripSignature(data) {
-            if (!hasValidSignature(data)) {
+    let password;
+    return Promise.resolve()
+        .then(() => {
+            password = processCredentials(credentials);
+            if (!hasValidSignature(encText)) {
                 throw new Error("No valid signature in archive");
             }
-            return stripSignature(data);
+            return stripSignature(encText);
         })
-        .then(function __decryptUsingKeyFile(encryptedData) {
-            // optionally decrypt using a key file
-            return keyfile ? iocane.decryptWithKeyFile(encryptedData, keyfile) : encryptedData;
-        })
-        .then(function __decryptUsingPassword(encryptedData) {
-            // optionally decrypt using a password
-            return password ? iocane.decryptWithPassword(encryptedData, password) : encryptedData;
-        })
-        .then(function __marshallHistoryToArray(decrypted) {
+        .then(encryptedData => createSession().decrypt(encryptedData, password))
+        .then(decrypted => {
             if (decrypted && decrypted.length > 0) {
                 const decompressed = decompress(decrypted);
                 if (decompressed) {
@@ -49,16 +43,14 @@ function convertEncryptedContentToHistory(encText, credentials) {
  * @private
  */
 function convertHistoryToEncryptedContent(historyArr, credentials) {
-    const { password, keyfile } = processCredentials(credentials);
-    const history = historyTools.historyArrayToString(historyArr);
-    const compressed = compress(history);
-    return Promise.resolve(compressed)
-        .then(function __encryptUsingPassword(encryptedData) {
-            return password ? iocane.encryptWithPassword(encryptedData, password) : encryptedData;
+    let password;
+    return Promise.resolve()
+        .then(() => {
+            password = processCredentials(credentials);
+            return historyTools.historyArrayToString(historyArr);
         })
-        .then(function __encryptUsingKeyFile(encryptedData) {
-            return keyfile ? iocane.encryptWithKeyFile(encryptedData, keyfile) : encryptedData;
-        })
+        .then(history => compress(history))
+        .then(compressed => createSession().encrypt(compressed, password))
         .then(sign);
 }
 
@@ -71,19 +63,14 @@ function convertHistoryToEncryptedContent(historyArr, credentials) {
  * @private
  */
 function processCredentials(credentials) {
-    if (typeof credentials !== "object") {
-        throw new Error("Expected credentials object, got " + typeof credentials);
+    if (typeof credentials !== "object" || credentials === null) {
+        throw new Error("Failed configuring datasource: Invalid credentials instance");
     }
-    // either might be undefined, but at least one needs to be defined
-    let password = credentials.password,
-        keyfile = credentials.getValue("keyfile");
-    if (!password && !keyfile) {
-        throw new Error("Neither a password nor key-file were provided");
+    const password = credentials.password;
+    if (!password) {
+        throw new Error("Failed configuring datasource: No password available");
     }
-    return {
-        password,
-        keyfile
-    };
+    return password;
 }
 
 /**
