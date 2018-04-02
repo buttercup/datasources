@@ -42,7 +42,7 @@
     "chai-as-promised": "^7.1.1",
     "file-exists": "^5.0.1",
     "husky": "^0.14.3",
-    "iocane": "^0.10.1",
+    "iocane": "^1.0.0-rc1",
     "jsdoc-to-markdown": "^4.0.1",
     "lint-staged": "^7.0.0",
     "mocha": "^5.0.4",
@@ -54,7 +54,7 @@
     "sinon": "^4.4.6"
   },
   "peerDependencies": {
-    "iocane": "0.*"
+    "iocane": "^1.0.0-rc1"
   },
   "dependencies": {
     "@buttercup/signing": "^0.1.0",
