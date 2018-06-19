@@ -56,7 +56,7 @@ class WebDAVDatasource extends TextDatasource {
      * @memberof WebDAVDatasource
      */
     load(credentials) {
-        return this.client.getFileContents(this.path, "text").then(content => {
+        return this.client.getFileContents(this.path, { format: "text" }).then(content => {
             this.setContent(content);
             return super.load(credentials);
         });

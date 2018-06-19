@@ -50,7 +50,9 @@ describe("WebDAVDatasource", function() {
         it("retrieves content from the client", function() {
             return this.datasource.load(createCredentials.fromPassword("test")).then(() => {
                 expect(
-                    this.datasource.client.getFileContents.calledWithExactly("/test.bcup", "text")
+                    this.datasource.client.getFileContents.calledWithExactly("/test.bcup", {
+                        format: "text"
+                    })
                 ).to.be.true;
             });
         });
