@@ -1,5 +1,10 @@
 # Buttercup Datasources changelog
 
+## v1.1.1
+_2018-06-19_
+
+ * Bugfix: webdav file transfer - force using text
+
 ## v1.1.0
 _2018-04-02_
 
