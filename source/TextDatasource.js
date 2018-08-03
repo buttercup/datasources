@@ -86,6 +86,17 @@ class TextDatasource {
     }
 
     /**
+     * Whether the datasource currently has content
+     * Used to check if the datasource has encrypted content that can be loaded. May be used
+     * when attempting to open a vault in offline mode.
+     * @type {Boolean}
+     * @memberof TextDatasource
+     */
+    get hasContent() {
+        return this._content && this._content.length > 0;
+    }
+
+    /**
      * Load from the stored content using a password to decrypt
      * @param {Credentials} credentials The password or Credentials instance to decrypt with
      * @returns {Promise.<Array.<String>>} A promise that resolves with decrypted history
