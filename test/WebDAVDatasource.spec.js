@@ -36,6 +36,7 @@ describe("WebDAVDatasource", function() {
                     createCredentials.fromPassword("test")
                 )
                 .then(encrypted => {
+                    this.encryptedContent = encrypted;
                     sinon
                         .stub(this.datasource.client, "getFileContents")
                         .returns(Promise.resolve(encrypted));
@@ -54,6 +55,14 @@ describe("WebDAVDatasource", function() {
                         format: "text"
                     })
                 ).to.be.true;
+            });
+        });
+
+        it("skips loading when content provided", function() {
+            this.datasource.setContent(this.encryptedContent);
+            return this.datasource.load(createCredentials.fromPassword("test")).then(history => {
+                expect(history).to.be.an("array");
+                expect(this.datasource.client.getFileContents.notCalled).to.be.true;
             });
         });
     });

@@ -47,6 +47,16 @@ describe("FileDatasource", function() {
                     expect(archive.findGroupsByTitle("testGroup")).to.have.lengthOf(1);
                 });
         });
+
+        it("skips loading when content provided", function() {
+            const contents = fs.readFileSync(this.path, "utf8");
+            sinon.spy(this.datasource, "readFile");
+            this.datasource.setContent(contents);
+            return this.datasource.load(createCredentials.fromPassword("test")).then(history => {
+                expect(history).to.be.an("array");
+                expect(this.datasource.readFile.notCalled).to.be.true;
+            });
+        });
     });
 
     describe("save", function() {
