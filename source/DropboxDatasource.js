@@ -28,6 +28,9 @@ class DropboxDatasource extends TextDatasource {
      * @memberof DropboxDatasource
      */
     load(credentials) {
+        if (this.hasContent) {
+            return super.load(credentials);
+        }
         return new Promise((resolve, reject) => {
             this.dfs.readFile(this.path, { encoding: "utf8" }, function _readFile(error, data) {
                 if (error) {
