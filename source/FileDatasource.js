@@ -35,10 +35,12 @@ class FileDatasource extends TextDatasource {
      * @memberof FileDatasource
      */
     load(credentials) {
-        return this.readFile(this.path, "utf8").then(contents => {
-            this.setContent(contents);
-            return super.load(credentials);
-        });
+        return this.hasContent
+            ? super.load(credentials)
+            : this.readFile(this.path, "utf8").then(contents => {
+                  this.setContent(contents);
+                  return super.load(credentials);
+              });
     }
 
     /**
