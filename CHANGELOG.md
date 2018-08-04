@@ -1,5 +1,10 @@
 # Buttercup Datasources changelog
 
+## v1.2.0
+_2018-08-04_
+
+ * Add remote-fetch bypass support (for offline use)
+
 ## v1.1.1
 _2018-06-19_
 
