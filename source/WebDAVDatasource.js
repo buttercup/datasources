@@ -78,6 +78,16 @@ class WebDAVDatasource extends TextDatasource {
     }
 
     /**
+     * Whether or not the datasource supports bypassing remote fetch operations
+     * @returns {Boolean} True if content can be set to bypass fetch operations,
+     *  false otherwise
+     * @memberof WebDAVDatasource
+     */
+    supportsRemoteBypass() {
+        return true;
+    }
+
+    /**
      * Output the datasource as an object
      * @returns {Object} An object describing the datasource
      * @memberof WebDAVDatasource

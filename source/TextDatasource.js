@@ -133,6 +133,16 @@ class TextDatasource {
     }
 
     /**
+     * Whether or not the datasource supports bypassing remote fetch operations
+     * @returns {Boolean} True if content can be set to bypass fetch operations,
+     *  false otherwise
+     * @memberof TextDatasource
+     */
+    supportsRemoteBypass() {
+        return false;
+    }
+
+    /**
      * Output the datasource as an object
      * @returns {Object} The object representation
      * @memberof TextDatasource
