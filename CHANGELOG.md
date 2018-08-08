@@ -1,5 +1,10 @@
 # Buttercup Datasources changelog
 
+## v1.2.1
+_2018-08-08_
+
+ * Add missing `supportsRemoteBypass` method to all datasources
+
 ## v1.2.0
 _2018-08-04_
 

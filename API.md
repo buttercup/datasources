@@ -69,9 +69,11 @@ Datasource for Box archives
         * [.client](#WebDAVDatasource+client) : <code>Object</code>
         * [.endpoint](#WebDAVDatasource+endpoint) : <code>String</code>
         * [.path](#WebDAVDatasource+path) : <code>String</code>
+        * [.hasContent](#TextDatasource+hasContent) : <code>Boolean</code>
         * [.toObject()](#BoxDatasource+toObject) ⇒ <code>Object</code>
         * [.load(credentials)](#WebDAVDatasource+load) ⇒ <code>Promise.&lt;Array.&lt;String&gt;&gt;</code>
         * [.save(history, credentials)](#WebDAVDatasource+save) ⇒ <code>Promise</code>
+        * [.supportsRemoteBypass()](#WebDAVDatasource+supportsRemoteBypass) ⇒ <code>Boolean</code>
         * [.setContent(content)](#TextDatasource+setContent) ⇒ [<code>TextDatasource</code>](#TextDatasource)
         * [.toString()](#TextDatasource+toString) ⇒ <code>String</code>
     * _static_
@@ -107,6 +109,14 @@ The remote WebDAV endpoint
 The remote archive path
 
 **Kind**: instance property of [<code>BoxDatasource</code>](#BoxDatasource)  
+<a name="TextDatasource+hasContent"></a>
+
+### boxDatasource.hasContent : <code>Boolean</code>
+Whether the datasource currently has content
+Used to check if the datasource has encrypted content that can be loaded. May be used
+when attempting to open a vault in offline mode.
+
+**Kind**: instance property of [<code>BoxDatasource</code>](#BoxDatasource)  
 <a name="BoxDatasource+toObject"></a>
 
 ### boxDatasource.toObject() ⇒ <code>Object</code>
@@ -140,6 +150,14 @@ Save archive contents to the WebDAV service
 | history | <code>Array.&lt;String&gt;</code> | Archive history |
 | credentials | <code>Credentials</code> | The credentials for encryption |
 
+<a name="WebDAVDatasource+supportsRemoteBypass"></a>
+
+### boxDatasource.supportsRemoteBypass() ⇒ <code>Boolean</code>
+Whether or not the datasource supports bypassing remote fetch operations
+
+**Kind**: instance method of [<code>BoxDatasource</code>](#BoxDatasource)  
+**Returns**: <code>Boolean</code> - True if content can be set to bypass fetch operations,
+ false otherwise  
 <a name="TextDatasource+setContent"></a>
 
 ### boxDatasource.setContent(content) ⇒ [<code>TextDatasource</code>](#TextDatasource)
@@ -202,8 +220,10 @@ Datasource for Dropbox archives
 * [DropboxDatasource](#DropboxDatasource) ⇐ [<code>TextDatasource</code>](#TextDatasource)
     * [new DropboxDatasource(accessToken, resourcePath)](#new_DropboxDatasource_new)
     * _instance_
+        * [.hasContent](#TextDatasource+hasContent) : <code>Boolean</code>
         * [.load(credentials)](#DropboxDatasource+load) ⇒ <code>Promise.&lt;Array.&lt;String&gt;&gt;</code>
         * [.save(history, credentials)](#DropboxDatasource+save) ⇒ <code>Promise</code>
+        * [.supportsRemoteBypass()](#DropboxDatasource+supportsRemoteBypass) ⇒ <code>Boolean</code>
         * [.toObject()](#DropboxDatasource+toObject) ⇒ <code>Object</code>
         * [.setContent(content)](#TextDatasource+setContent) ⇒ [<code>TextDatasource</code>](#TextDatasource)
         * [.toString()](#TextDatasource+toString) ⇒ <code>String</code>
@@ -222,6 +242,14 @@ Datasource for Dropbox accounts
 | accessToken | <code>String</code> | The dropbox access token |
 | resourcePath | <code>String</code> | The file path |
 
+<a name="TextDatasource+hasContent"></a>
+
+### dropboxDatasource.hasContent : <code>Boolean</code>
+Whether the datasource currently has content
+Used to check if the datasource has encrypted content that can be loaded. May be used
+when attempting to open a vault in offline mode.
+
+**Kind**: instance property of [<code>DropboxDatasource</code>](#DropboxDatasource)  
 <a name="DropboxDatasource+load"></a>
 
 ### dropboxDatasource.load(credentials) ⇒ <code>Promise.&lt;Array.&lt;String&gt;&gt;</code>
@@ -249,6 +277,15 @@ Save an archive using the datasource
 | history | <code>Array.&lt;String&gt;</code> | The archive history to save |
 | credentials | <code>Credentials</code> | The credentials to save with |
 
+<a name="DropboxDatasource+supportsRemoteBypass"></a>
+
+### dropboxDatasource.supportsRemoteBypass() ⇒ <code>Boolean</code>
+Whether or not the datasource supports bypassing remote fetch operations
+
+**Kind**: instance method of [<code>DropboxDatasource</code>](#DropboxDatasource)  
+**Overrides**: [<code>supportsRemoteBypass</code>](#TextDatasource+supportsRemoteBypass)  
+**Returns**: <code>Boolean</code> - True if content can be set to bypass fetch operations,
+ false otherwise  
 <a name="DropboxDatasource+toObject"></a>
 
 ### dropboxDatasource.toObject() ⇒ <code>Object</code>
@@ -320,8 +357,10 @@ File datasource for loading and saving files
     * [new FileDatasource(filename)](#new_FileDatasource_new)
     * _instance_
         * [.path](#FileDatasource+path) : <code>String</code>
+        * [.hasContent](#TextDatasource+hasContent) : <code>Boolean</code>
         * [.load(credentials)](#FileDatasource+load) ⇒ <code>Promise.&lt;Array.&lt;String&gt;&gt;</code>
         * [.save(history, credentials)](#FileDatasource+save) ⇒ <code>Promise</code>
+        * [.supportsRemoteBypass()](#FileDatasource+supportsRemoteBypass) ⇒ <code>Boolean</code>
         * [.toObject()](#FileDatasource+toObject) ⇒ <code>Object</code>
         * [.setContent(content)](#TextDatasource+setContent) ⇒ [<code>TextDatasource</code>](#TextDatasource)
         * [.toString()](#TextDatasource+toString) ⇒ <code>String</code>
@@ -343,6 +382,14 @@ Constructor for the file datasource
 
 ### fileDatasource.path : <code>String</code>
 The file path
+
+**Kind**: instance property of [<code>FileDatasource</code>](#FileDatasource)  
+<a name="TextDatasource+hasContent"></a>
+
+### fileDatasource.hasContent : <code>Boolean</code>
+Whether the datasource currently has content
+Used to check if the datasource has encrypted content that can be loaded. May be used
+when attempting to open a vault in offline mode.
 
 **Kind**: instance property of [<code>FileDatasource</code>](#FileDatasource)  
 <a name="FileDatasource+load"></a>
@@ -372,6 +419,15 @@ Save archive history to a file
 | history | <code>Array.&lt;String&gt;</code> | The archive history to save |
 | credentials | <code>Credentials</code> | The credentials to save with |
 
+<a name="FileDatasource+supportsRemoteBypass"></a>
+
+### fileDatasource.supportsRemoteBypass() ⇒ <code>Boolean</code>
+Whether or not the datasource supports bypassing remote fetch operations
+
+**Kind**: instance method of [<code>FileDatasource</code>](#FileDatasource)  
+**Overrides**: [<code>supportsRemoteBypass</code>](#TextDatasource+supportsRemoteBypass)  
+**Returns**: <code>Boolean</code> - True if content can be set to bypass fetch operations,
+ false otherwise  
 <a name="FileDatasource+toObject"></a>
 
 ### fileDatasource.toObject() ⇒ <code>Object</code>
@@ -441,9 +497,11 @@ Datasource for Nextcloud archives
         * [.client](#WebDAVDatasource+client) : <code>Object</code>
         * [.endpoint](#WebDAVDatasource+endpoint) : <code>String</code>
         * [.path](#WebDAVDatasource+path) : <code>String</code>
+        * [.hasContent](#TextDatasource+hasContent) : <code>Boolean</code>
         * [.toObject()](#NextcloudDatasource+toObject) ⇒ <code>Object</code>
         * [.load(credentials)](#WebDAVDatasource+load) ⇒ <code>Promise.&lt;Array.&lt;String&gt;&gt;</code>
         * [.save(history, credentials)](#WebDAVDatasource+save) ⇒ <code>Promise</code>
+        * [.supportsRemoteBypass()](#WebDAVDatasource+supportsRemoteBypass) ⇒ <code>Boolean</code>
         * [.setContent(content)](#TextDatasource+setContent) ⇒ [<code>TextDatasource</code>](#TextDatasource)
         * [.toString()](#TextDatasource+toString) ⇒ <code>String</code>
     * _static_
@@ -466,6 +524,14 @@ The remote WebDAV endpoint
 
 ### nextcloudDatasource.path : <code>String</code>
 The remote archive path
+
+**Kind**: instance property of [<code>NextcloudDatasource</code>](#NextcloudDatasource)  
+<a name="TextDatasource+hasContent"></a>
+
+### nextcloudDatasource.hasContent : <code>Boolean</code>
+Whether the datasource currently has content
+Used to check if the datasource has encrypted content that can be loaded. May be used
+when attempting to open a vault in offline mode.
 
 **Kind**: instance property of [<code>NextcloudDatasource</code>](#NextcloudDatasource)  
 <a name="NextcloudDatasource+toObject"></a>
@@ -501,6 +567,14 @@ Save archive contents to the WebDAV service
 | history | <code>Array.&lt;String&gt;</code> | Archive history |
 | credentials | <code>Credentials</code> | The credentials for encryption |
 
+<a name="WebDAVDatasource+supportsRemoteBypass"></a>
+
+### nextcloudDatasource.supportsRemoteBypass() ⇒ <code>Boolean</code>
+Whether or not the datasource supports bypassing remote fetch operations
+
+**Kind**: instance method of [<code>NextcloudDatasource</code>](#NextcloudDatasource)  
+**Returns**: <code>Boolean</code> - True if content can be set to bypass fetch operations,
+ false otherwise  
 <a name="TextDatasource+setContent"></a>
 
 ### nextcloudDatasource.setContent(content) ⇒ [<code>TextDatasource</code>](#TextDatasource)
@@ -568,9 +642,11 @@ Datasource for OwnCloud archives
         * [.client](#WebDAVDatasource+client) : <code>Object</code>
         * [.endpoint](#WebDAVDatasource+endpoint) : <code>String</code>
         * [.path](#WebDAVDatasource+path) : <code>String</code>
+        * [.hasContent](#TextDatasource+hasContent) : <code>Boolean</code>
         * [.toObject()](#OwnCloudDatasource+toObject) ⇒ <code>Object</code>
         * [.load(credentials)](#WebDAVDatasource+load) ⇒ <code>Promise.&lt;Array.&lt;String&gt;&gt;</code>
         * [.save(history, credentials)](#WebDAVDatasource+save) ⇒ <code>Promise</code>
+        * [.supportsRemoteBypass()](#WebDAVDatasource+supportsRemoteBypass) ⇒ <code>Boolean</code>
         * [.setContent(content)](#TextDatasource+setContent) ⇒ [<code>TextDatasource</code>](#TextDatasource)
         * [.toString()](#TextDatasource+toString) ⇒ <code>String</code>
     * _static_
@@ -607,6 +683,14 @@ The remote WebDAV endpoint
 The remote archive path
 
 **Kind**: instance property of [<code>OwnCloudDatasource</code>](#OwnCloudDatasource)  
+<a name="TextDatasource+hasContent"></a>
+
+### ownCloudDatasource.hasContent : <code>Boolean</code>
+Whether the datasource currently has content
+Used to check if the datasource has encrypted content that can be loaded. May be used
+when attempting to open a vault in offline mode.
+
+**Kind**: instance property of [<code>OwnCloudDatasource</code>](#OwnCloudDatasource)  
 <a name="OwnCloudDatasource+toObject"></a>
 
 ### ownCloudDatasource.toObject() ⇒ <code>Object</code>
@@ -640,6 +724,14 @@ Save archive contents to the WebDAV service
 | history | <code>Array.&lt;String&gt;</code> | Archive history |
 | credentials | <code>Credentials</code> | The credentials for encryption |
 
+<a name="WebDAVDatasource+supportsRemoteBypass"></a>
+
+### ownCloudDatasource.supportsRemoteBypass() ⇒ <code>Boolean</code>
+Whether or not the datasource supports bypassing remote fetch operations
+
+**Kind**: instance method of [<code>OwnCloudDatasource</code>](#OwnCloudDatasource)  
+**Returns**: <code>Boolean</code> - True if content can be set to bypass fetch operations,
+ false otherwise  
 <a name="TextDatasource+setContent"></a>
 
 ### ownCloudDatasource.setContent(content) ⇒ [<code>TextDatasource</code>](#TextDatasource)
@@ -702,9 +794,11 @@ Datasource for text input and output
 
 * [TextDatasource](#TextDatasource)
     * [new TextDatasource(content)](#new_TextDatasource_new)
+    * [.hasContent](#TextDatasource+hasContent) : <code>Boolean</code>
     * [.load(credentials)](#TextDatasource+load) ⇒ <code>Promise.&lt;Array.&lt;String&gt;&gt;</code>
     * [.save(history, credentials)](#TextDatasource+save) ⇒ <code>Promise.&lt;string&gt;</code>
     * [.setContent(content)](#TextDatasource+setContent) ⇒ [<code>TextDatasource</code>](#TextDatasource)
+    * [.supportsRemoteBypass()](#TextDatasource+supportsRemoteBypass) ⇒ <code>Boolean</code>
     * [.toObject()](#TextDatasource+toObject) ⇒ <code>Object</code>
     * [.toString()](#TextDatasource+toString) ⇒ <code>String</code>
 
@@ -718,6 +812,14 @@ Constructor for the text datasource
 | --- | --- | --- |
 | content | <code>string</code> | The content to load from |
 
+<a name="TextDatasource+hasContent"></a>
+
+### textDatasource.hasContent : <code>Boolean</code>
+Whether the datasource currently has content
+Used to check if the datasource has encrypted content that can be loaded. May be used
+when attempting to open a vault in offline mode.
+
+**Kind**: instance property of [<code>TextDatasource</code>](#TextDatasource)  
 <a name="TextDatasource+load"></a>
 
 ### textDatasource.load(credentials) ⇒ <code>Promise.&lt;Array.&lt;String&gt;&gt;</code>
@@ -759,6 +861,14 @@ Set the text content
 | --- | --- | --- |
 | content | <code>String</code> | The encrypted text content |
 
+<a name="TextDatasource+supportsRemoteBypass"></a>
+
+### textDatasource.supportsRemoteBypass() ⇒ <code>Boolean</code>
+Whether or not the datasource supports bypassing remote fetch operations
+
+**Kind**: instance method of [<code>TextDatasource</code>](#TextDatasource)  
+**Returns**: <code>Boolean</code> - True if content can be set to bypass fetch operations,
+ false otherwise  
 <a name="TextDatasource+toObject"></a>
 
 ### textDatasource.toObject() ⇒ <code>Object</code>
@@ -787,8 +897,10 @@ WebDAV datasource for reading and writing remote archives
         * [.client](#WebDAVDatasource+client) : <code>Object</code>
         * [.endpoint](#WebDAVDatasource+endpoint) : <code>String</code>
         * [.path](#WebDAVDatasource+path) : <code>String</code>
+        * [.hasContent](#TextDatasource+hasContent) : <code>Boolean</code>
         * [.load(credentials)](#WebDAVDatasource+load) ⇒ <code>Promise.&lt;Array.&lt;String&gt;&gt;</code>
         * [.save(history, credentials)](#WebDAVDatasource+save) ⇒ <code>Promise</code>
+        * [.supportsRemoteBypass()](#WebDAVDatasource+supportsRemoteBypass) ⇒ <code>Boolean</code>
         * [.toObject()](#WebDAVDatasource+toObject) ⇒ <code>Object</code>
         * [.setContent(content)](#TextDatasource+setContent) ⇒ [<code>TextDatasource</code>](#TextDatasource)
         * [.toString()](#TextDatasource+toString) ⇒ <code>String</code>
@@ -826,6 +938,14 @@ The remote WebDAV endpoint
 The remote archive path
 
 **Kind**: instance property of [<code>WebDAVDatasource</code>](#WebDAVDatasource)  
+<a name="TextDatasource+hasContent"></a>
+
+### webDAVDatasource.hasContent : <code>Boolean</code>
+Whether the datasource currently has content
+Used to check if the datasource has encrypted content that can be loaded. May be used
+when attempting to open a vault in offline mode.
+
+**Kind**: instance property of [<code>WebDAVDatasource</code>](#WebDAVDatasource)  
 <a name="WebDAVDatasource+load"></a>
 
 ### webDAVDatasource.load(credentials) ⇒ <code>Promise.&lt;Array.&lt;String&gt;&gt;</code>
@@ -853,6 +973,15 @@ Save archive contents to the WebDAV service
 | history | <code>Array.&lt;String&gt;</code> | Archive history |
 | credentials | <code>Credentials</code> | The credentials for encryption |
 
+<a name="WebDAVDatasource+supportsRemoteBypass"></a>
+
+### webDAVDatasource.supportsRemoteBypass() ⇒ <code>Boolean</code>
+Whether or not the datasource supports bypassing remote fetch operations
+
+**Kind**: instance method of [<code>WebDAVDatasource</code>](#WebDAVDatasource)  
+**Overrides**: [<code>supportsRemoteBypass</code>](#TextDatasource+supportsRemoteBypass)  
+**Returns**: <code>Boolean</code> - True if content can be set to bypass fetch operations,
+ false otherwise  
 <a name="WebDAVDatasource+toObject"></a>
 
 ### webDAVDatasource.toObject() ⇒ <code>Object</code>
