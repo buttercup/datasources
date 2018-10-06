@@ -1,5 +1,10 @@
 # Buttercup Datasources changelog
 
+## v1.3.0
+_2018-10-06_
+
+ * Update `webdav` to fix many connectivity issues
+
 ## v1.2.1
 _2018-08-08_
 
