@@ -37,7 +37,7 @@
   },
   "homepage": "https://github.com/buttercup/datasources#readme",
   "devDependencies": {
-    "buttercup": "^1.6.2",
+    "buttercup": "^2.6.3",
     "chai": "^4.1.2",
     "chai-as-promised": "^7.1.1",
     "file-exists": "^5.0.1",

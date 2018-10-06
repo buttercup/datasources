@@ -1,4 +1,4 @@
-const { Archive, createCredentials } = require("buttercup");
+const { Archive, Credentials } = require("buttercup");
 const TextDatasource = require("../source/TextDatasource.js");
 
 describe("TextDatasource", function() {
@@ -14,10 +14,7 @@ describe("TextDatasource", function() {
             this.archive.createGroup("test");
             const testDatasource = new TextDatasource();
             return testDatasource
-                .save(
-                    this.archive._getWestley().getHistory(),
-                    createCredentials.fromPassword("test")
-                )
+                .save(this.archive._getWestley().getHistory(), Credentials.fromPassword("test"))
                 .then(encryptedContents => {
                     this.datasource = new TextDatasource(encryptedContents);
                 });
@@ -25,7 +22,7 @@ describe("TextDatasource", function() {
 
         it("loads the archive correctly", function() {
             return this.datasource
-                .load(createCredentials.fromPassword("test"))
+                .load(Credentials.fromPassword("test"))
                 .then(history => Archive.createFromHistory(history))
                 .then(archive => {
                     expect(archive.findGroupsByTitle("test")).to.have.lengthOf(1);
@@ -34,7 +31,7 @@ describe("TextDatasource", function() {
 
         it("rejects if the password is incorrect", function() {
             return expect(
-                this.datasource.load(createCredentials.fromPassword("wrong"))
+                this.datasource.load(Credentials.fromPassword("wrong"))
             ).to.be.rejectedWith(/Authentication failed/i);
         });
     });
@@ -48,10 +45,7 @@ describe("TextDatasource", function() {
 
         it("saves and encrypts the archive", function() {
             return this.datasource
-                .save(
-                    this.archive._getWestley().getHistory(),
-                    createCredentials.fromPassword("test")
-                )
+                .save(this.archive._getWestley().getHistory(), Credentials.fromPassword("test"))
                 .then(encrypted => {
                     expect(encrypted).to.be.a("string");
                     expect(encrypted).to.not.contain("test");
@@ -60,13 +54,10 @@ describe("TextDatasource", function() {
 
         it("saves to a loadable format", function() {
             return this.datasource
-                .save(
-                    this.archive._getWestley().getHistory(),
-                    createCredentials.fromPassword("test")
-                )
+                .save(this.archive._getWestley().getHistory(), Credentials.fromPassword("test"))
                 .then(enc => {
                     const tds = new TextDatasource(enc);
-                    return tds.load(createCredentials.fromPassword("test"));
+                    return tds.load(Credentials.fromPassword("test"));
                 })
                 .then(history => Archive.createFromHistory(history))
                 .then(archive => {
