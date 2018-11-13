@@ -1,5 +1,10 @@
 # Buttercup Datasources changelog
 
+## v1.3.1
+_2018-11-13_
+
+ * Lock `dropbox-fs` `dropbox-streams` to `v2.0.0`
+
 ## v1.3.0
 _2018-10-06_
 
