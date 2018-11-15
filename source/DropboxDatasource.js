@@ -1,4 +1,4 @@
-const dropboxFS = require("dropbox-fs");
+const { createClient } = require("@buttercup/dropbox-client");
 const TextDatasource = require("./TextDatasource.js");
 const { registerDatasource } = require("./DatasourceAdapter.js");
 
@@ -16,9 +16,7 @@ class DropboxDatasource extends TextDatasource {
         super();
         this.path = resourcePath;
         this.token = accessToken;
-        this.dfs = dropboxFS({
-            apiKey: accessToken
-        });
+        this.client = createClient(accessToken);
     }
 
     /**
@@ -31,14 +29,7 @@ class DropboxDatasource extends TextDatasource {
         if (this.hasContent) {
             return super.load(credentials);
         }
-        return new Promise((resolve, reject) => {
-            this.dfs.readFile(this.path, { encoding: "utf8" }, function _readFile(error, data) {
-                if (error) {
-                    return reject(error);
-                }
-                return resolve(data);
-            });
-        }).then(content => {
+        return this.client.getFileContents(this.path).then(content => {
             this.setContent(content);
             return super.load(credentials);
         });
@@ -52,16 +43,9 @@ class DropboxDatasource extends TextDatasource {
      * @memberof DropboxDatasource
      */
     save(history, credentials) {
-        return super.save(history, credentials).then(encryptedContent => {
-            return new Promise((resolve, reject) => {
-                this.dfs.writeFile(this.path, encryptedContent, function _writeFile(err) {
-                    if (err) {
-                        return reject(err);
-                    }
-                    return resolve();
-                });
-            });
-        });
+        return super
+            .save(history, credentials)
+            .then(encryptedContent => this.client.putFileContents(this.path, encryptedContent));
     }
 
     /**
