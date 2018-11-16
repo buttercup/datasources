@@ -1,5 +1,14 @@
 # Buttercup Datasources changelog
 
+## v2.0.0
+_2018-11-16_
+
+ * Use new **Dropbox** client [`@buttercup/dropbox-client`](https://github.com/buttercup/dropbox-client)
+   * Replaces Dropbox-SDK/Dropbox-Streams/Got which had multiple environmental issues
+   * Uses Axios for requests
+ * Use new **WebDAV** client 
+   * Replaces `node-fetch` with Axios
+
 ## v1.3.1
 _2018-11-13_
 
