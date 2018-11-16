@@ -8,7 +8,7 @@ const WebDAVDatasource = rewire("../source/WebDAVDatasource.js");
 describe("WebDAVDatasource", function() {
     beforeEach(function() {
         this.clientMock = createMock();
-        WebDAVDatasource.__set__("createWebDAVClient", this.clientMock);
+        WebDAVDatasource.__set__("createClient", this.clientMock);
     });
 
     it("can be instantiated without error", function() {
@@ -20,8 +20,9 @@ describe("WebDAVDatasource", function() {
     it("creates a WebDAV client", function() {
         const creds = new Credentials({ username: "user", password: "pass" });
         new WebDAVDatasource("http://test.com", "/test.bcup", creds);
-        expect(this.clientMock.createSpy.calledWithExactly("http://test.com", "user", "pass")).to.be
-            .true;
+        expect(this.clientMock.createSpy.calledOnce).to.be.true;
+        const args = this.clientMock.createSpy.firstCall.args;
+        expect(args).to.deep.equal(["http://test.com", { username: "user", password: "pass" }]);
     });
 
     describe("load", function() {
