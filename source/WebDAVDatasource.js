@@ -1,4 +1,4 @@
-const createWebDAVClient = require("webdav");
+const { createClient } = require("webdav");
 const TextDatasource = require("./TextDatasource.js");
 const { registerDatasource } = require("./DatasourceAdapter.js");
 
@@ -18,8 +18,11 @@ class WebDAVDatasource extends TextDatasource {
         this._endpoint = endpoint;
         this._path = webDAVPath;
         this._client = credentials
-            ? createWebDAVClient(endpoint, credentials.username, credentials.password)
-            : createWebDAVClient(endpoint);
+            ? createClient(endpoint, {
+                  username: credentials.username,
+                  password: credentials.password
+              })
+            : createClient(endpoint);
     }
 
     /**
