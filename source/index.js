@@ -1,4 +1,5 @@
 const webdav = require("webdav");
+const { patcher: dropboxClientPatcher } = require("@buttercup/dropbox-client");
 const {
     objectToDatasource,
     registerDatasource,
@@ -24,6 +25,7 @@ const output = {
     OwnCloudDatasource,
     TextDatasource,
     WebDAVDatasource,
+    dropboxClientPatcher,
     objectToDatasource,
     registerDatasource,
     stringToDatasource,
