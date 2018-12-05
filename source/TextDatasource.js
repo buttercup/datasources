@@ -2,7 +2,7 @@ const { createSession } = require("iocane");
 const { hasValidSignature, sign, stripSignature } = require("@buttercup/signing");
 const { compress, decompress } = require("./tools/compression.js");
 const historyTools = require("./tools/history.js");
-const { registerDatasource } = require("./DatasourceAdapter.js");
+const { fireInstantiationHandlers, registerDatasource } = require("./DatasourceAdapter.js");
 
 /**
  * Convert encrypted text to an array of commands (history)
@@ -83,6 +83,7 @@ class TextDatasource {
      */
     constructor(content) {
         this._content = content || "";
+        fireInstantiationHandlers(this);
     }
 
     /**

@@ -1,4 +1,20 @@
 const __datasources = {};
+const __postHandlers = [];
+
+/**
+ * Execute all datasource postprocessors
+ * @param {TextDatasource} datasource The datasource instance
+ */
+function fireInstantiationHandlers(datasource) {
+    __postHandlers.forEach(handler => {
+        try {
+            handler(datasource);
+        } catch (err) {
+            console.error("Failed executing a datasource instantiation handler for a datasource");
+            console.error(err);
+        }
+    });
+}
 
 /**
  * Create a datasource from an object
@@ -35,6 +51,28 @@ function registerDatasource(datasourceType, DSClass) {
 }
 
 /**
+ * @typedef {Object} RegisterDatasourcePostProcessorResult
+ * @property {Function} remove - Function to call to remove the handler
+ */
+
+/**
+ * Register a post-processor for a datasource being instantiated
+ * @param {Function} callback The callback to execute with the instantiated datasource
+ * @returns {RegisterDatasourcePostProcessorResult} The result of the registration
+ */
+function registerDatasourcePostProcessor(callback) {
+    __postHandlers.push(callback);
+    return {
+        remove: () => {
+            const ind = __postHandlers.indexOf(callback);
+            if (ind >= 0) {
+                __postHandlers.splice(ind, 1);
+            }
+        }
+    };
+}
+
+/**
  * Create a datasource from a string
  * @see objectToDatasource
  * @param {String} str The string representation of a datasource, as output by
@@ -48,7 +86,9 @@ function stringToDatasource(str, hostCredentials) {
 }
 
 module.exports = {
+    fireInstantiationHandlers,
     objectToDatasource,
     registerDatasource,
+    registerDatasourcePostProcessor,
     stringToDatasource
 };

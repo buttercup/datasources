@@ -2,6 +2,7 @@ const webdav = require("webdav");
 const {
     objectToDatasource,
     registerDatasource,
+    registerDatasourcePostProcessor,
     stringToDatasource
 } = require("./DatasourceAdapter.js");
 const TextDatasource = require("./TextDatasource.js");
@@ -26,6 +27,7 @@ const output = {
     WebDAVDatasource,
     objectToDatasource,
     registerDatasource,
+    registerDatasourcePostProcessor,
     stringToDatasource,
     webdav
 };
