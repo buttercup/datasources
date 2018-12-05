@@ -1,6 +1,11 @@
 # Buttercup Datasources changelog
 
-## v2.1.0
+## v2.2.0
+_2018-12-05_
+
+ * Add `registerDatasourcePostProcessor` for handling instantiation of datasources
+
+## ~~v2.1.0~~
 _2018-12-03_
 
  * Expose `dropboxClientPatcher` for patching Dropbox requests

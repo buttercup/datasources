@@ -35,6 +35,9 @@
 ## Functions
 
 <dl>
+<dt><a href="#fireInstantiationHandlers">fireInstantiationHandlers(datasource)</a></dt>
+<dd><p>Execute all datasource postprocessors</p>
+</dd>
 <dt><a href="#objectToDatasource">objectToDatasource(obj, [hostCredentials])</a> ⇒ <code>null</code> | <code><a href="#TextDatasource">TextDatasource</a></code></dt>
 <dd><p>Create a datasource from an object
 The object must have the required properties (as output by the corresponding
@@ -45,9 +48,19 @@ The object must have the required properties (as output by the corresponding
 This is called internally by the built-in datasources, but should be called if a
 custom datasource is used.</p>
 </dd>
+<dt><a href="#registerDatasourcePostProcessor">registerDatasourcePostProcessor(callback)</a> ⇒ <code><a href="#RegisterDatasourcePostProcessorResult">RegisterDatasourcePostProcessorResult</a></code></dt>
+<dd><p>Register a post-processor for a datasource being instantiated</p>
+</dd>
 <dt><a href="#stringToDatasource">stringToDatasource(str, [hostCredentials])</a> ⇒ <code>null</code> | <code><a href="#TextDatasource">TextDatasource</a></code></dt>
 <dd><p>Create a datasource from a string</p>
 </dd>
+</dl>
+
+## Typedefs
+
+<dl>
+<dt><a href="#RegisterDatasourcePostProcessorResult">RegisterDatasourcePostProcessorResult</a> : <code>Object</code></dt>
+<dd></dd>
 </dl>
 
 <a name="module_ButtercupDatasources"></a>
@@ -1033,6 +1046,17 @@ Create an instance from a string
 | str | <code>String</code> | The string representation of the datasource |
 | [hostCredentials] | <code>Credentials</code> | The server credentials |
 
+<a name="fireInstantiationHandlers"></a>
+
+## fireInstantiationHandlers(datasource)
+Execute all datasource postprocessors
+
+**Kind**: global function  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| datasource | [<code>TextDatasource</code>](#TextDatasource) | The datasource instance |
+
 <a name="objectToDatasource"></a>
 
 ## objectToDatasource(obj, [hostCredentials]) ⇒ <code>null</code> \| [<code>TextDatasource</code>](#TextDatasource)
@@ -1064,6 +1088,18 @@ custom datasource is used.
 | datasourceType | <code>String</code> | The name (slug) of the datasource |
 | DSClass | <code>Object</code> | The class for the new datasource |
 
+<a name="registerDatasourcePostProcessor"></a>
+
+## registerDatasourcePostProcessor(callback) ⇒ [<code>RegisterDatasourcePostProcessorResult</code>](#RegisterDatasourcePostProcessorResult)
+Register a post-processor for a datasource being instantiated
+
+**Kind**: global function  
+**Returns**: [<code>RegisterDatasourcePostProcessorResult</code>](#RegisterDatasourcePostProcessorResult) - The result of the registration  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| callback | <code>function</code> | The callback to execute with the instantiated datasource |
+
 <a name="stringToDatasource"></a>
 
 ## stringToDatasource(str, [hostCredentials]) ⇒ <code>null</code> \| [<code>TextDatasource</code>](#TextDatasource)
@@ -1078,4 +1114,14 @@ Create a datasource from a string
 | --- | --- | --- |
 | str | <code>String</code> | The string representation of a datasource, as output by  the `toString` method on the corresponding datasource |
 | [hostCredentials] | <code>Credentials</code> | The remote authentication credentials |
+
+<a name="RegisterDatasourcePostProcessorResult"></a>
+
+## RegisterDatasourcePostProcessorResult : <code>Object</code>
+**Kind**: global typedef  
+**Properties**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| remove | <code>function</code> | Function to call to remove the handler |
 
