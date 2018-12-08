@@ -1,5 +1,10 @@
 # Buttercup Datasources changelog
 
+## v2.2.1
+_2018-12-08_
+
+ * Fire `registerDatasourcePostProcessor` for each datasource type
+
 ## v2.2.0
 _2018-12-05_
 
