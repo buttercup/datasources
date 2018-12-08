@@ -1,6 +1,6 @@
 const { createClient } = require("@buttercup/dropbox-client");
 const TextDatasource = require("./TextDatasource.js");
-const { registerDatasource } = require("./DatasourceAdapter.js");
+const { fireInstantiationHandlers, registerDatasource } = require("./DatasourceAdapter.js");
 
 /**
  * Datasource for Dropbox archives
@@ -17,6 +17,7 @@ class DropboxDatasource extends TextDatasource {
         this.path = resourcePath;
         this.token = accessToken;
         this.client = createClient(accessToken);
+        fireInstantiationHandlers("dropbox", this);
     }
 
     /**

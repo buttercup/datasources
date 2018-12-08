@@ -5,10 +5,10 @@ const __postHandlers = [];
  * Execute all datasource postprocessors
  * @param {TextDatasource} datasource The datasource instance
  */
-function fireInstantiationHandlers(datasource) {
+function fireInstantiationHandlers(type, datasource) {
     __postHandlers.forEach(handler => {
         try {
-            handler(datasource);
+            handler(type, datasource);
         } catch (err) {
             console.error("Failed executing a datasource instantiation handler for a datasource");
             console.error(err);

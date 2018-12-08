@@ -8,7 +8,7 @@ describe("DatasourceAdapter", function() {
             const { remove } = registerDatasourcePostProcessor(spy);
             const tds = new TextDatasource();
             expect(spy.calledOnce).to.be.true;
-            expect(spy.calledWithExactly(tds)).to.be.true;
+            expect(spy.calledWithExactly("text", tds)).to.be.true;
             remove();
         });
 

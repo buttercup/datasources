@@ -83,7 +83,7 @@ class TextDatasource {
      */
     constructor(content) {
         this._content = content || "";
-        fireInstantiationHandlers(this);
+        fireInstantiationHandlers("text", this);
     }
 
     /**

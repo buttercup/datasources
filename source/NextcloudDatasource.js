@@ -1,11 +1,21 @@
 const OwnCloudDatasource = require("./OwnCloudDatasource.js");
-const { registerDatasource } = require("./DatasourceAdapter.js");
+const { fireInstantiationHandlers, registerDatasource } = require("./DatasourceAdapter.js");
 
 /**
  * Datasource for Nextcloud archives
  * @augments OwnCloudDatasource
  */
 class NextcloudDatasource extends OwnCloudDatasource {
+    /**
+     * Constructor for the datasource
+     * @see OwnCloudDatasource
+     * @memberof NextcloudDatasource
+     */
+    constructor(...args) {
+        super(...args);
+        fireInstantiationHandlers("nextcloud", this);
+    }
+
     /**
      * Output the datasource as an object
      * @returns {Object} An object describing the datasource

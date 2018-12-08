@@ -1,5 +1,5 @@
 const WebDAVDatasource = require("./WebDAVDatasource.js");
-const { registerDatasource } = require("./DatasourceAdapter.js");
+const { fireInstantiationHandlers, registerDatasource } = require("./DatasourceAdapter.js");
 
 const BOX_URL = "https://dav.box.com/dav/";
 
@@ -15,6 +15,7 @@ class BoxDatasource extends WebDAVDatasource {
      */
     constructor(resourcePath, credentials) {
         super(BOX_URL, resourcePath, credentials);
+        fireInstantiationHandlers("box", this);
     }
 
     /**

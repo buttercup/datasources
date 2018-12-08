@@ -1,6 +1,6 @@
 const joinURL = require("url-join");
 const WebDAVDatasource = require("./WebDAVDatasource.js");
-const { registerDatasource } = require("./DatasourceAdapter.js");
+const { fireInstantiationHandlers, registerDatasource } = require("./DatasourceAdapter.js");
 
 /**
  * Datasource for OwnCloud archives
@@ -16,6 +16,7 @@ class OwnCloudDatasource extends WebDAVDatasource {
     constructor(owncloudURL, resourcePath, credentials) {
         super(joinURL(owncloudURL, "remote.php/webdav/"), resourcePath, credentials);
         this._originalURL = owncloudURL;
+        fireInstantiationHandlers("owncloud", this);
     }
 
     /**

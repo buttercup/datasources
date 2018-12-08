@@ -1,7 +1,7 @@
 const fs = require("fs");
 const pify = require("pify");
 const TextDatasource = require("./TextDatasource.js");
-const { registerDatasource } = require("./DatasourceAdapter.js");
+const { fireInstantiationHandlers, registerDatasource } = require("./DatasourceAdapter.js");
 
 /**
  * File datasource for loading and saving files
@@ -17,6 +17,7 @@ class FileDatasource extends TextDatasource {
         this._filename = filename;
         this.readFile = pify(fs.readFile);
         this.writeFile = pify(fs.writeFile);
+        fireInstantiationHandlers("file", this);
     }
 
     /**
