@@ -163,6 +163,20 @@ class TextDatasource {
     toString() {
         return JSON.stringify(this.toObject());
     }
+
+    /**
+     * Creates a hash ID based on path
+     * @returns {String} an id based on path 
+     * @memberof TextDataSource
+     */
+    hashId(path) {
+        let id = 0
+        for (i = 0; i < path.length; i++) {
+            let ascii_code = path.charCodeAt(i)
+            id += 128 * id + ascii_code
+        }
+        return id.toString(32);
+    }
 }
 
 TextDatasource.fromObject = function fromObject(obj) {
