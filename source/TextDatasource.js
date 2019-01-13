@@ -3,6 +3,7 @@ const { hasValidSignature, sign, stripSignature } = require("@buttercup/signing"
 const { compress, decompress } = require("./tools/compression.js");
 const historyTools = require("./tools/history.js");
 const { fireInstantiationHandlers, registerDatasource } = require("./DatasourceAdapter.js");
+const hash = require("hash.js");
 
 /**
  * Convert encrypted text to an array of commands (history)
@@ -165,17 +166,20 @@ class TextDatasource {
     }
 
     /**
-     * Creates a hash ID based on path
-     * @returns {String} an id based on path 
+     * Creates a hash ID based on content
+     * @returns {String} using hash.js returns a hash of content
      * @memberof TextDataSource
      */
-    hashId(path) {
-        let id = 0
-        for (i = 0; i < path.length; i++) {
-            let ascii_code = path.charCodeAt(i)
-            id += 128 * id + ascii_code
+    getID() {
+        const type = this.toObject().type;
+        const content = type === "text" ? this._content : this.toString();
+        if (!content) {
+            throw new Error("Failed getting ID: Datasource requires content for ID generation");
         }
-        return id.toString(32);
+        return hash
+            .sha256()
+            .update(content)
+            .digest("hex");
     }
 }
 
