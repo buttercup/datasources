@@ -1,9 +1,9 @@
 const { createSession } = require("iocane");
+const hash = require("hash.js");
 const { hasValidSignature, sign, stripSignature } = require("@buttercup/signing");
 const { compress, decompress } = require("./tools/compression.js");
 const historyTools = require("./tools/history.js");
 const { fireInstantiationHandlers, registerDatasource } = require("./DatasourceAdapter.js");
-const hash = require("hash.js");
 
 /**
  * Convert encrypted text to an array of commands (history)
@@ -99,6 +99,24 @@ class TextDatasource {
     }
 
     /**
+     * Get the ID of the datasource
+     * ID to uniquely identify the datasource and its parameters
+     * @returns {String} A hasn of the datasource (unique ID)
+     * @memberof TextDataSource
+     */
+    getID() {
+        const type = this.toObject().type;
+        const content = type === "text" ? this._content : this.toString();
+        if (!content) {
+            throw new Error("Failed getting ID: Datasource requires content for ID generation");
+        }
+        return hash
+            .sha256()
+            .update(content)
+            .digest("hex");
+    }
+
+    /**
      * Load from the stored content using a password to decrypt
      * @param {Credentials} credentials The password or Credentials instance to decrypt with
      * @returns {Promise.<Array.<String>>} A promise that resolves with decrypted history
@@ -163,23 +181,6 @@ class TextDatasource {
      */
     toString() {
         return JSON.stringify(this.toObject());
-    }
-
-    /**
-     * Creates a hash ID based on content
-     * @returns {String} using hash.js returns a hash of content
-     * @memberof TextDataSource
-     */
-    getID() {
-        const type = this.toObject().type;
-        const content = type === "text" ? this._content : this.toString();
-        if (!content) {
-            throw new Error("Failed getting ID: Datasource requires content for ID generation");
-        }
-        return hash
-            .sha256()
-            .update(content)
-            .digest("hex");
     }
 }
 
