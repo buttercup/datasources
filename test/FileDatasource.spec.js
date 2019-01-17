@@ -13,6 +13,26 @@ describe("FileDatasource", function() {
         }).to.not.throw();
     });
 
+    describe("getID", function() {
+        it("returns a repeatable hash", function() {
+            const tds = new FileDatasource("./test.bcup");
+            expect(tds.getID()).to.equal(
+                "3058effd1139d486054ea89e47b3049b8503e30ba8bbb8444935d11701958b19"
+            );
+            const tds2 = new FileDatasource("./test.bcup");
+            expect(tds2.getID()).to.equal(
+                "3058effd1139d486054ea89e47b3049b8503e30ba8bbb8444935d11701958b19"
+            );
+        });
+
+        it("returns a unique hash for different files", function() {
+            const tds = new FileDatasource("./test2.bcup");
+            expect(tds.getID()).to.equal(
+                "b27aa03132bbdd838e44482313670da7739d8241bee0297ee25e174905faa699"
+            );
+        });
+    });
+
     describe("load", function() {
         beforeEach(function() {
             this.archive = new Archive();

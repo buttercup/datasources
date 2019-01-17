@@ -8,6 +8,22 @@ describe("TextDatasource", function() {
         }).to.not.throw();
     });
 
+    describe("getID", function() {
+        it("returns a hash", function() {
+            const tds = new TextDatasource("fake-content");
+            expect(tds.getID()).to.equal(
+                "9c87681ea7ba17d350f3cb62894935d8f77c0aacc678966d51638d584a6eaee0"
+            );
+        });
+
+        it("throws if no content", function() {
+            const tds = new TextDatasource();
+            expect(() => {
+                tds.getID();
+            }).to.throw(/Datasource requires content/i);
+        });
+    });
+
     describe("load", function() {
         beforeEach(function() {
             this.archive = new Archive();
