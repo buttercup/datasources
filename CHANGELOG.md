@@ -1,5 +1,10 @@
 # Buttercup Datasources changelog
 
+## v2.3.0
+_2019-01-17_
+
+ * `getID` for all datasources
+
 ## v2.2.1
 _2018-12-08_
 

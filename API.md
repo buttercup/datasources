@@ -506,6 +506,7 @@ Datasource for Nextcloud archives
 **Extends**: [<code>OwnCloudDatasource</code>](#OwnCloudDatasource)  
 
 * [NextcloudDatasource](#NextcloudDatasource) ⇐ [<code>OwnCloudDatasource</code>](#OwnCloudDatasource)
+    * [new NextcloudDatasource()](#new_NextcloudDatasource_new)
     * _instance_
         * [.client](#WebDAVDatasource+client) : <code>Object</code>
         * [.endpoint](#WebDAVDatasource+endpoint) : <code>String</code>
@@ -520,6 +521,11 @@ Datasource for Nextcloud archives
     * _static_
         * [.fromObject(obj, [hostCredentials])](#NextcloudDatasource.fromObject) ⇒ [<code>NextcloudDatasource</code>](#NextcloudDatasource)
         * [.fromString(str, [hostCredentials])](#NextcloudDatasource.fromString) ⇒ [<code>NextcloudDatasource</code>](#NextcloudDatasource)
+
+<a name="new_NextcloudDatasource_new"></a>
+
+### new NextcloudDatasource()
+Constructor for the datasource
 
 <a name="WebDAVDatasource+client"></a>
 
