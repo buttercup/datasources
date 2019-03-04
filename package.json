@@ -58,11 +58,13 @@
   },
   "dependencies": {
     "@buttercup/dropbox-client": "^0.1.1",
+    "@buttercup/googledrive-client": "^0.2.0",
     "@buttercup/signing": "^0.1.0",
     "gzip-js": "^0.3.2",
     "hash.js": "^1.1.7",
     "pify": "^4.0.0",
     "url-join": "^4.0.0",
+    "verror": "^1.10.0",
     "webdav": "^2.0.0-rc1"
   }
 }
