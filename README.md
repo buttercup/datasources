@@ -15,7 +15,8 @@ Supported interfaces:
  * OwnCloud: `OwnCloudDatasource`
  * Nextcloud: `NextcloudDatasource`
  * Dropbox: `DropboxDatasource`
- * Box: `BoxDatasource`
+ * ~~Box: `BoxDatasource`~~ (Deprecated)
+ * Google Drive: `GoogleDriveDatasource`
 
 You can easily add new, custom datasources by creating a new class and using `registerDatasource` to register it.
 
@@ -37,6 +38,21 @@ tds
     .then(Archive.createFromHistory)
     .then(archive => {
         console.log(archive.toObject());
+    });
+```
+
+### Handling expired tokens
+Services like Google Drive use OAuth tokens which may eventually expire. When they do, they'll return a flag on the error called `authFailure`, which is `true` or `false`. You can use [`VError`](https://github.com/joyent/node-verror) to read the flag:
+
+```javascript
+const gdds = new GoogleDriveDatasource(token);
+gdds
+    .load(Credentials.fromPassword("myPass"))
+    .catch(err => {
+        const { authFailure = false } = VError.info(err);
+        if (authFailure) {
+            // ...
+        }
     });
 ```
 

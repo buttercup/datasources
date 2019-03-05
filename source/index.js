@@ -10,6 +10,7 @@ const WebDAVDatasource = require("./WebDAVDatasource.js");
 const OwnCloudDatasource = require("./OwnCloudDatasource.js");
 const NextcloudDatasource = require("./NextcloudDatasource.js");
 const DropboxDatasource = require("./DropboxDatasource.js");
+const GoogleDriveDatasource = require("./GoogleDriveDatasource.js");
 const BoxDatasource = require("./BoxDatasource.js");
 const FileDatasource = require("./FileDatasource.js");
 
@@ -21,6 +22,7 @@ const output = {
     BoxDatasource,
     DropboxDatasource,
     FileDatasource,
+    GoogleDriveDatasource,
     NextcloudDatasource,
     OwnCloudDatasource,
     TextDatasource,
