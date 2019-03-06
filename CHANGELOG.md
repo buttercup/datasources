@@ -3,7 +3,7 @@
 ## v2.4.0
 _2019-03-05_
 
- * Add Google Drive support via `GoogleDriveDatasource`
+ * Google Drive support via `GoogleDriveDatasource`
 
 ## v2.3.0
 _2019-01-17_
