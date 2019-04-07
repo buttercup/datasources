@@ -1,5 +1,6 @@
 const { createClient } = require("@buttercup/googledrive-client");
 const VError = require("verror");
+const AuthManager = require("./AuthManager.js");
 const TextDatasource = require("./TextDatasource.js");
 const { fireInstantiationHandlers, registerDatasource } = require("./DatasourceAdapter.js");
 
@@ -14,12 +15,15 @@ class GoogleDriveDatasource extends TextDatasource {
      * Datasource for Google Drive connections
      * @param {String} accessToken Google access token
      * @param {String} fileID The Google Drive file identifier
+     * @param {String=} refreshToken Google refresh token
      */
-    constructor(accessToken, fileID) {
+    constructor(accessToken, fileID, refreshToken = null) {
         super();
         this.fileID = fileID;
         this.token = accessToken;
+        this.refreshToken = refreshToken;
         this.client = createClient(accessToken);
+        this.authManager = AuthManager.getSharedManager();
         fireInstantiationHandlers(DATASOURCE_TYPE, this);
     }
 
@@ -29,7 +33,7 @@ class GoogleDriveDatasource extends TextDatasource {
      * @returns {Promise.<Array.<String>>} A promise that resolves archive history
      * @memberof GoogleDriveDatasource
      */
-    load(credentials) {
+    load(credentials, hasAuthed = false) {
         if (this.hasContent) {
             return super.load(credentials);
         }
@@ -41,15 +45,17 @@ class GoogleDriveDatasource extends TextDatasource {
             })
             .catch(err => {
                 const { authFailure = false } = VError.info(err);
-                throw new VError(
-                    {
-                        cause: err,
-                        info: {
-                            authFailure: !!authFailure
-                        }
-                    },
-                    "Failed fetching Google Drive vault"
-                );
+                if (!authFailure) {
+                    throw new VError(err, "Failed fetching Google Drive vault");
+                } else if (hasAuthed) {
+                    throw new VError(err, "Re-authentication failed");
+                }
+                return this.authManager
+                    .executeAuthHandlers(DATASOURCE_TYPE, this)
+                    .then(() => this.load(credentials, true))
+                    .catch(err2 => {
+                        throw new VError(err2, "Failed fetching Google Drive vault");
+                    });
             });
     }
 
@@ -60,7 +66,7 @@ class GoogleDriveDatasource extends TextDatasource {
      * @returns {Promise} A promise that resolves when saving has completed
      * @memberof GoogleDriveDatasource
      */
-    save(history, credentials) {
+    save(history, credentials, hasAuthed = false) {
         return super
             .save(history, credentials)
             .then(encryptedContent =>
@@ -71,15 +77,17 @@ class GoogleDriveDatasource extends TextDatasource {
             )
             .catch(err => {
                 const { authFailure = false } = VError.info(err);
-                throw new VError(
-                    {
-                        cause: err,
-                        info: {
-                            authFailure: !!authFailure
-                        }
-                    },
-                    "Failed fetching Google Drive vault"
-                );
+                if (!authFailure) {
+                    throw new VError(err, "Failed saving Google Drive vault");
+                } else if (hasAuthed) {
+                    throw new VError(err, "Re-authentication failed");
+                }
+                return this.authManager
+                    .executeAuthHandlers(DATASOURCE_TYPE, this)
+                    .then(() => this.save(history, credentials, true))
+                    .catch(err2 => {
+                        throw new VError(err2, "Failed saving Google Drive vault");
+                    });
             });
     }
 
@@ -102,6 +110,7 @@ class GoogleDriveDatasource extends TextDatasource {
         return {
             type: DATASOURCE_TYPE,
             token: this.token,
+            refreshToken: this.refreshToken,
             fileID: this.fileID
         };
     }
@@ -117,7 +126,7 @@ class GoogleDriveDatasource extends TextDatasource {
  */
 GoogleDriveDatasource.fromObject = function fromObject(obj) {
     if (obj.type === DATASOURCE_TYPE) {
-        return new GoogleDriveDatasource(obj.token, obj.fileID);
+        return new GoogleDriveDatasource(obj.token, obj.fileID, obj.refreshToken);
     }
     throw new Error(`Unknown or invalid type: ${obj.type}`);
 };

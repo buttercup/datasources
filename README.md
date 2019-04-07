@@ -41,20 +41,20 @@ tds
     });
 ```
 
-### Handling expired tokens
-Services like Google Drive use OAuth tokens which may eventually expire. When they do, they'll return a flag on the error called `authFailure`, which is `true` or `false`. You can use [`VError`](https://github.com/joyent/node-verror) to read the flag:
+### Handling expiried authorisation tokens
+Services like Google Drive use OAuth tokens which may eventually expire. You can listen for these expirations and handle their renewal by registering a listener on the `AuthManager` shared instance:
 
 ```javascript
-const gdds = new GoogleDriveDatasource(token);
-gdds
-    .load(Credentials.fromPassword("myPass"))
-    .catch(err => {
-        const { authFailure = false } = VError.info(err);
-        if (authFailure) {
-            // ...
-        }
-    });
+const { AuthManager } = require("@buttercup/datasources");
+
+AuthManager.getSharedManager().registerHandler("googledrive", googleDriveDS => {
+    // handle refreshing or fetching of tokens
+    // attach them to datasource
+    // return a promise
+});
 ```
+
+It should be noted that when using a datasource & workspace combination (inherent when using `ArchiveManager`) you should also update the workspace in the registered handler.
 
 ### Registering a custom datasource
 You can add your own datasources by using the `registerDatasource` method. Datasources must have the following properties:

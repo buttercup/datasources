@@ -5,6 +5,7 @@ const {
     registerDatasourcePostProcessor,
     stringToDatasource
 } = require("./DatasourceAdapter.js");
+const AuthManager = require("./AuthManager.js");
 const TextDatasource = require("./TextDatasource.js");
 const WebDAVDatasource = require("./WebDAVDatasource.js");
 const OwnCloudDatasource = require("./OwnCloudDatasource.js");
@@ -19,6 +20,7 @@ const FileDatasource = require("./FileDatasource.js");
  * @module ButtercupDatasources
  */
 const output = {
+    AuthManager,
     BoxDatasource,
     DropboxDatasource,
     FileDatasource,
