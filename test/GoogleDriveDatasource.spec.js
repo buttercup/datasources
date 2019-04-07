@@ -53,8 +53,7 @@ describe("GoogleDriveDatasource", function() {
                     throw new Error("Should not have resolved");
                 })
                 .catch(err => {
-                    const info = VError.info(err);
-                    expect(info).to.have.property("authFailure", true);
+                    expect(err.message).to.match(/No handlers registered/i);
                 });
         });
     });

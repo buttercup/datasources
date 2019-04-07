@@ -15,11 +15,13 @@ class GoogleDriveDatasource extends TextDatasource {
      * Datasource for Google Drive connections
      * @param {String} accessToken Google access token
      * @param {String} fileID The Google Drive file identifier
+     * @param {String=} refreshToken Google refresh token
      */
-    constructor(accessToken, fileID) {
+    constructor(accessToken, fileID, refreshToken = null) {
         super();
         this.fileID = fileID;
         this.token = accessToken;
+        this.refreshToken = refreshToken;
         this.client = createClient(accessToken);
         this.authManager = AuthManager.getSharedManager();
         fireInstantiationHandlers(DATASOURCE_TYPE, this);
@@ -108,6 +110,7 @@ class GoogleDriveDatasource extends TextDatasource {
         return {
             type: DATASOURCE_TYPE,
             token: this.token,
+            refreshToken: this.refreshToken,
             fileID: this.fileID
         };
     }
@@ -123,7 +126,7 @@ class GoogleDriveDatasource extends TextDatasource {
  */
 GoogleDriveDatasource.fromObject = function fromObject(obj) {
     if (obj.type === DATASOURCE_TYPE) {
-        return new GoogleDriveDatasource(obj.token, obj.fileID);
+        return new GoogleDriveDatasource(obj.token, obj.fileID, obj.refreshToken);
     }
     throw new Error(`Unknown or invalid type: ${obj.type}`);
 };
