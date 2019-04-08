@@ -35,7 +35,7 @@ describe("GoogleDriveDatasource", function() {
 
         it("makes a request with the correct file ID", function() {
             return this.datasource.load(Credentials.fromPassword("test")).then(() => {
-                expect(this.datasource.client.getFileContents.calledWithExactly("def")).to.be.true;
+                expect(this.datasource.client.getFileContents.calledWithExactly("abc")).to.be.true;
             });
         });
 
@@ -65,7 +65,7 @@ describe("GoogleDriveDatasource", function() {
                 .then(() => {
                     expect(this.datasource.client.putFileContents.calledOnce).to.be.true;
                     const args = this.datasource.client.putFileContents.firstCall.args[0];
-                    expect(args).to.have.property("id", "def");
+                    expect(args).to.have.property("id", "abc");
                     expect(args)
                         .to.have.property("contents")
                         .that.matches(/^b~>buttercup\/a/);
