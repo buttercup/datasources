@@ -13,11 +13,11 @@ const DATASOURCE_TYPE = "googledrive";
 class GoogleDriveDatasource extends TextDatasource {
     /**
      * Datasource for Google Drive connections
-     * @param {String} accessToken Google access token
      * @param {String} fileID The Google Drive file identifier
+     * @param {String} accessToken Google access token
      * @param {String=} refreshToken Google refresh token
      */
-    constructor(accessToken, fileID, refreshToken = null) {
+    constructor(fileID, accessToken, refreshToken = null) {
         super();
         this.fileID = fileID;
         this.updateTokens(accessToken, refreshToken);
@@ -136,7 +136,7 @@ class GoogleDriveDatasource extends TextDatasource {
  */
 GoogleDriveDatasource.fromObject = function fromObject(obj) {
     if (obj.type === DATASOURCE_TYPE) {
-        return new GoogleDriveDatasource(obj.token, obj.fileID, obj.refreshToken);
+        return new GoogleDriveDatasource(obj.fileID, obj.token, obj.refreshToken);
     }
     throw new Error(`Unknown or invalid type: ${obj.type}`);
 };
