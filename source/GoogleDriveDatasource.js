@@ -20,9 +20,7 @@ class GoogleDriveDatasource extends TextDatasource {
     constructor(accessToken, fileID, refreshToken = null) {
         super();
         this.fileID = fileID;
-        this.token = accessToken;
-        this.refreshToken = refreshToken;
-        this.client = createClient(accessToken);
+        this.updateTokens(accessToken, refreshToken);
         this.authManager = AuthManager.getSharedManager();
         fireInstantiationHandlers(DATASOURCE_TYPE, this);
     }
@@ -113,6 +111,18 @@ class GoogleDriveDatasource extends TextDatasource {
             refreshToken: this.refreshToken,
             fileID: this.fileID
         };
+    }
+
+    /**
+     * Update the OAuth2 tokens
+     * @param {String} accessToken The access token
+     * @param {String=} refreshToken The refresh token
+     * @memberof GoogleDriveDatasource
+     */
+    updateTokens(accessToken, refreshToken) {
+        this.token = accessToken;
+        this.refreshToken = refreshToken;
+        this.client = createClient(accessToken);
     }
 }
 
