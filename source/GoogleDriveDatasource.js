@@ -123,6 +123,7 @@ class GoogleDriveDatasource extends TextDatasource {
         this.token = accessToken;
         this.refreshToken = refreshToken;
         this.client = createClient(accessToken);
+        this.emit("updated");
     }
 }
 

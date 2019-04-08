@@ -1,3 +1,4 @@
+const EventEmitter = require("events");
 const { createSession } = require("iocane");
 const hash = require("hash.js");
 const { hasValidSignature, sign, stripSignature } = require("@buttercup/signing");
@@ -77,12 +78,13 @@ function processCredentials(credentials) {
 /**
  * Datasource for text input and output
  */
-class TextDatasource {
+class TextDatasource extends EventEmitter {
     /**
      * Constructor for the text datasource
      * @param {string} content The content to load from
      */
     constructor(content) {
+        super();
         this._content = content || "";
         fireInstantiationHandlers("text", this);
     }
