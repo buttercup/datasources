@@ -1,5 +1,11 @@
 # Buttercup Datasources changelog
 
+## v3.0.0
+_2019-04-13_
+
+ * Improved Google Drive authentication
+ * Events for handling re-authorisation
+
 ## v2.4.0
 _2019-03-05_
 
