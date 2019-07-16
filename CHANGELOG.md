@@ -1,5 +1,10 @@
 # Buttercup Datasources changelog
 
+## v3.1.0
+_2019-07-16_
+
+ * Dropbox request upgrade: `cowl` instead of `axios` for compatibility
+
 ## v3.0.0
 _2019-04-13_
 
