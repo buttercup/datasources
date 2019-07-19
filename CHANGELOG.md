@@ -1,5 +1,10 @@
 # Buttercup Datasources changelog
 
+## v3.2.0
+_2019-07-19_
+
+ * Google Drive request upgrade: `cowl` instead of `axios` for compatibility
+
 ## v3.1.0
 _2019-07-16_
 
