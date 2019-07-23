@@ -1,5 +1,11 @@
 # Buttercup Datasources changelog
 
+## v3.2.2
+_2019-07-23_
+
+ * **Bugfix**:
+   * Update Dropbox client to fix PUT requests
+
 ## v3.2.1
 _2019-07-22_
 
