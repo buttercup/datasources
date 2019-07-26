@@ -1,5 +1,5 @@
-# Buttercup Archive Datasources
-> Datasource integrations for Buttercup archives
+# Buttercup Vault Datasources
+> Datasource integrations for Buttercup vaults
 
 [![Buttercup](https://cdn.rawgit.com/buttercup-pw/buttercup-assets/6582a033/badge/buttercup-slim.svg)](https://buttercup.pw) [![Build Status](https://travis-ci.org/buttercup/datasources.svg?branch=master)](https://travis-ci.org/buttercup/datasources) [![npm version](https://badge.fury.io/js/%40buttercup%2Fdatasources.svg)](https://www.npmjs.com/package/@buttercup/datasources)
 
