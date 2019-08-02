@@ -1,5 +1,10 @@
 # Buttercup Datasources changelog
 
+## v3.2.4
+_2019-08-02_
+
+ * Upgrade Google Drive client to remove `UInt8Array` dependency
+
 ## v3.2.3
 _2019-08-02_
 
