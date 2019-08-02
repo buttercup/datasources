@@ -1,5 +1,11 @@
 # Buttercup Datasources changelog
 
+## v3.2.3
+_2019-08-02_
+
+ * **Bugfix**:
+   * Google Drive re-authorisation would fail on non-lower-case headers
+
 ## v3.2.2
 _2019-07-23_
 
