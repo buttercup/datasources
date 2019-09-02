@@ -1,3 +1,51 @@
+const { hasValidSignature, sign, stripSignature } = require("@buttercup/signing");
+const { createSession } = require("iocane");
+const { compress, decompress } = require("./compression.js");
+
+/**
+ * Convert encrypted text to an array of commands (history)
+ * @param {String} encText The encrypted archive content
+ * @param {Credentials} credentials A credentials instance that has a password, keyfile
+ *  or both
+ * @returns {Promise.<Array>} A promise that resolves with an array of commands
+ * @private
+ */
+function convertEncryptedContentToHistory(encText, credentials) {
+    return Promise.resolve()
+        .then(() => {
+            if (!hasValidSignature(encText)) {
+                throw new Error("No valid signature in archive");
+            }
+            return stripSignature(encText);
+        })
+        .then(encryptedData => createSession().decrypt(encryptedData, credentials.password))
+        .then(decrypted => {
+            if (decrypted && decrypted.length > 0) {
+                const decompressed = decompress(decrypted);
+                if (decompressed) {
+                    return historyStringToArray(decompressed);
+                }
+            }
+            throw new Error("Failed reconstructing history: Decryption failed");
+        });
+}
+
+/**
+ * Convert an array of commands (history) to an encrypted string
+ * @param {Array.<String>} historyArr An array of commands
+ * @param {Credentials} credentials A credentials instance that has a password, keyfile
+ *  or both
+ * @returns {String} Encrypted archive contents
+ * @private
+ */
+function convertHistoryToEncryptedContent(historyArr, credentials) {
+    return Promise.resolve()
+        .then(() => historyArrayToString(historyArr))
+        .then(history => compress(history))
+        .then(compressed => createSession().encrypt(compressed, credentials.password))
+        .then(sign);
+}
+
 /**
  * Convert array of history lines to a string
  * @param {Array.<String>} historyArray An array of history items
@@ -19,6 +67,8 @@ function historyStringToArray(historyString) {
 }
 
 module.exports = {
+    convertEncryptedContentToHistory,
+    convertHistoryToEncryptedContent,
     historyArrayToString,
     historyStringToArray
 };

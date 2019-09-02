@@ -1,79 +1,10 @@
 const EventEmitter = require("events");
-const { createSession } = require("iocane");
 const hash = require("hash.js");
-const { hasValidSignature, sign, stripSignature } = require("@buttercup/signing");
-const { compress, decompress } = require("./tools/compression.js");
-const historyTools = require("./tools/history.js");
+const {
+    convertEncryptedContentToHistory,
+    convertHistoryToEncryptedContent
+} = require("./tools/history.js");
 const { fireInstantiationHandlers, registerDatasource } = require("./DatasourceAdapter.js");
-
-/**
- * Convert encrypted text to an array of commands (history)
- * @param {String} encText The encrypted archive content
- * @param {Credentials} credentials A credentials instance that has a password, keyfile
- *  or both
- * @returns {Promise.<Array>} A promise that resolves with an array of commands
- * @private
- */
-function convertEncryptedContentToHistory(encText, credentials) {
-    let password;
-    return Promise.resolve()
-        .then(() => {
-            password = processCredentials(credentials);
-            if (!hasValidSignature(encText)) {
-                throw new Error("No valid signature in archive");
-            }
-            return stripSignature(encText);
-        })
-        .then(encryptedData => createSession().decrypt(encryptedData, password))
-        .then(decrypted => {
-            if (decrypted && decrypted.length > 0) {
-                const decompressed = decompress(decrypted);
-                if (decompressed) {
-                    return historyTools.historyStringToArray(decompressed);
-                }
-            }
-            throw new Error("Failed reconstructing history: Decryption failed");
-        });
-}
-
-/**
- * Convert an array of commands (history) to an encrypted string
- * @param {Array.<String>} historyArr An array of commands
- * @param {Credentials} credentials A credentials instance that has a password, keyfile
- *  or both
- * @returns {String} Encrypted archive contents
- * @private
- */
-function convertHistoryToEncryptedContent(historyArr, credentials) {
-    let password;
-    return Promise.resolve()
-        .then(() => {
-            password = processCredentials(credentials);
-            return historyTools.historyArrayToString(historyArr);
-        })
-        .then(history => compress(history))
-        .then(compressed => createSession().encrypt(compressed, password))
-        .then(sign);
-}
-
-/**
- * Pre-process credentials data
- * @param {Credentials} credentials Password or Credentials instance
- * @returns {{ password: (String|undefined), keyfile: (String|undefined) }} Credential data
- * @throws {Error} Throws if both password and keyfile are undefined
- * @throws {Error} Throws if credentials is not an object
- * @private
- */
-function processCredentials(credentials) {
-    if (typeof credentials !== "object" || credentials === null) {
-        throw new Error("Failed configuring datasource: Invalid credentials instance");
-    }
-    const password = credentials.password;
-    if (!password) {
-        throw new Error("Failed configuring datasource: No password available");
-    }
-    return password;
-}
 
 /**
  * Datasource for text input and output
