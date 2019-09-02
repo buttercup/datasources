@@ -14,6 +14,10 @@ const DropboxDatasource = require("./DropboxDatasource.js");
 const GoogleDriveDatasource = require("./GoogleDriveDatasource.js");
 const BoxDatasource = require("./BoxDatasource.js");
 const FileDatasource = require("./FileDatasource.js");
+const {
+    convertEncryptedContentToHistory,
+    convertHistoryToEncryptedContent
+} = require("./tools/history.js");
 
 /**
  * The primary module
@@ -29,6 +33,8 @@ const output = {
     OwnCloudDatasource,
     TextDatasource,
     WebDAVDatasource,
+    convertEncryptedContentToHistory,
+    convertHistoryToEncryptedContent,
     objectToDatasource,
     registerDatasource,
     registerDatasourcePostProcessor,
