@@ -1,5 +1,10 @@
 # Buttercup Datasources changelog
 
+## v3.3.0
+_2019-09-02_
+
+ * Expose history encryption/decryption methods
+
 ## v3.2.4
 _2019-08-02_
 
