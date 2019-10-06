@@ -37,21 +37,21 @@
   },
   "homepage": "https://github.com/buttercup/datasources#readme",
   "devDependencies": {
-    "buttercup": "^2.15.0",
+    "buttercup": "^2.15.4",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "file-exists": "^5.0.1",
-    "husky": "^3.0.1",
+    "husky": "^3.0.8",
     "iocane": "^1.0.2",
-    "jsdoc-to-markdown": "^5.0.0",
-    "lint-staged": "^9.2.0",
-    "mocha": "^6.2.0",
+    "jsdoc-to-markdown": "^5.0.1",
+    "lint-staged": "^9.4.1",
+    "mocha": "^6.2.1",
     "npm-run-all": "^4.1.5",
     "prettier": "^1.18.2",
     "prettier-check": "^2.0.0",
     "rewire": "^4.0.1",
-    "rimraf": "^2.6.3",
-    "sinon": "^7.3.2"
+    "rimraf": "^2.7.1",
+    "sinon": "^7.5.0"
   },
   "peerDependencies": {
     "iocane": ">=1.0.1"
