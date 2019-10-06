@@ -1,5 +1,11 @@
 # Buttercup Datasources changelog
 
+## v3.4.0
+_2019-10-06_
+
+ * Upgrade Google Drive client
+ * Upgrade Dropbox client
+
 ## v3.3.0
 _2019-09-02_
 
