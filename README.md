@@ -81,6 +81,16 @@ registerDatasource("custom", CustomDatasource);
 
 **Note**: The first argument `"custom"` should match the `type` property in the object presentation of the datasource.
 
+#### Implementing OAuth2
+If your datasource uses OAuth2 and stores tokens on it, you should use the following 2 public instance properties:
+
+ * `Datasource#token` - The access token
+ * `Datasource#refreshToken` - The refresh token, if available
+
+Buttercup looks for these internally when doing updates to vault sources (saved on the device). If tokens are updated at some point, Buttercup will read from these to ensure the local (encrypted) copy is kept up to date.
+
+If you update tokens at any point, make sure to emit an event: `this.emit("updated")`. Emit the event after the properties are updated so that Buttercup correctly performs the save process with the right values.
+
 ## Compatibility
 This library uses `webdav` under the hood for WebDAV-related requests. This in turn uses `node-fetch` to make requests, but this won't work in every environment. You can override it easily:
 
