@@ -1,5 +1,10 @@
 # Buttercup Datasources changelog
 
+## v4.0.1
+_2020-01-03_
+
+ * Patch release for dependency updates downstream (`buttercup` core)
+
 ## v4.0.0
 _2020-01-03_
 
