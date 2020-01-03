@@ -23,7 +23,7 @@ You can easily add new, custom datasources by creating a new class and using `re
 ## Installation
 Simply run `npm install @buttercup/datasources` to install.
 
-This library has both `buttercup` and `iocane` as peer dependencies, as they're required for normal function.
+This library has `@buttercup/app-env` as a peer dependency - it is required for normal function. This is usually handled in combination with `buttercup` core.
 
 ## Usage
 Datasources are exported by the module so you can import only what you need:
@@ -90,12 +90,3 @@ If your datasource uses OAuth2 and stores tokens on it, you should use the follo
 Buttercup looks for these internally when doing updates to vault sources (saved on the device). If tokens are updated at some point, Buttercup will read from these to ensure the local (encrypted) copy is kept up to date.
 
 If you update tokens at any point, make sure to emit an event: `this.emit("updated")`. Emit the event after the properties are updated so that Buttercup correctly performs the save process with the right values.
-
-## Compatibility
-This library uses `webdav` under the hood for WebDAV-related requests. This in turn uses `node-fetch` to make requests, but this won't work in every environment. You can override it easily:
-
-```javascript
-const { webdav } = require("@buttercup/datasources");
-
-webdav.setFetchMethod(window.fetch);
-```

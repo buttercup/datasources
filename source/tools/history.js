@@ -1,6 +1,5 @@
 const { hasValidSignature, sign, stripSignature } = require("@buttercup/signing");
-const { createSession } = require("iocane");
-const { compress, decompress } = require("./compression.js");
+const { getCompressFn, getDecompressFn, getDecryptFn, getEncryptFn } = require("./appEnv.js");
 
 /**
  * Convert encrypted text to an array of commands (history)
@@ -11,6 +10,8 @@ const { compress, decompress } = require("./compression.js");
  * @private
  */
 function convertEncryptedContentToHistory(encText, credentials) {
+    const decompress = getDecompressFn();
+    const decrypt = getDecryptFn();
     return Promise.resolve()
         .then(() => {
             if (!hasValidSignature(encText)) {
@@ -18,7 +19,7 @@ function convertEncryptedContentToHistory(encText, credentials) {
             }
             return stripSignature(encText);
         })
-        .then(encryptedData => createSession().decrypt(encryptedData, credentials.password))
+        .then(encryptedData => decrypt(encryptedData, credentials.password))
         .then(decrypted => {
             if (decrypted && decrypted.length > 0) {
                 const decompressed = decompress(decrypted);
@@ -39,10 +40,12 @@ function convertEncryptedContentToHistory(encText, credentials) {
  * @private
  */
 function convertHistoryToEncryptedContent(historyArr, credentials) {
+    const compress = getCompressFn();
+    const encrypt = getEncryptFn();
     return Promise.resolve()
         .then(() => historyArrayToString(historyArr))
         .then(history => compress(history))
-        .then(compressed => createSession().encrypt(compressed, credentials.password))
+        .then(compressed => encrypt(compressed, credentials.password))
         .then(sign);
 }
 

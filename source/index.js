@@ -12,7 +12,6 @@ const OwnCloudDatasource = require("./OwnCloudDatasource.js");
 const NextcloudDatasource = require("./NextcloudDatasource.js");
 const DropboxDatasource = require("./DropboxDatasource.js");
 const GoogleDriveDatasource = require("./GoogleDriveDatasource.js");
-const BoxDatasource = require("./BoxDatasource.js");
 const FileDatasource = require("./FileDatasource.js");
 const {
     convertEncryptedContentToHistory,
@@ -25,7 +24,6 @@ const {
  */
 const output = {
     AuthManager,
-    BoxDatasource,
     DropboxDatasource,
     FileDatasource,
     GoogleDriveDatasource,
