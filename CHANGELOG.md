@@ -1,5 +1,12 @@
 # Buttercup Datasources changelog
 
+## v4.0.0
+_2020-01-03_
+
+ * **Breaking changes**:
+   * Requires [@buttercup/app-env](https://github.com/buttercup/app-env) to initialise the environment before datasources can be used
+ * Removed Box datasource
+
 ## v3.4.0
 _2019-10-06_
 
