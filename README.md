@@ -15,7 +15,6 @@ Supported interfaces:
  * OwnCloud: `OwnCloudDatasource`
  * Nextcloud: `NextcloudDatasource`
  * Dropbox: `DropboxDatasource`
- * ~~Box: `BoxDatasource`~~ (Deprecated)
  * Google Drive: `GoogleDriveDatasource`
 
 You can easily add new, custom datasources by creating a new class and using `registerDatasource` to register it.
