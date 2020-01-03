@@ -30,7 +30,7 @@ describe("TextDatasource", function() {
             this.archive.createGroup("test");
             const testDatasource = new TextDatasource();
             return testDatasource
-                .save(this.archive._getWestley().getHistory(), Credentials.fromPassword("test"))
+                .save(this.archive._getWestley().history, Credentials.fromPassword("test"))
                 .then(encryptedContents => {
                     this.datasource = new TextDatasource(encryptedContents);
                 });
@@ -61,7 +61,7 @@ describe("TextDatasource", function() {
 
         it("saves and encrypts the archive", function() {
             return this.datasource
-                .save(this.archive._getWestley().getHistory(), Credentials.fromPassword("test"))
+                .save(this.archive._getWestley().history, Credentials.fromPassword("test"))
                 .then(encrypted => {
                     expect(encrypted).to.be.a("string");
                     expect(encrypted).to.not.contain("test");
@@ -70,7 +70,7 @@ describe("TextDatasource", function() {
 
         it("saves to a loadable format", function() {
             return this.datasource
-                .save(this.archive._getWestley().getHistory(), Credentials.fromPassword("test"))
+                .save(this.archive._getWestley().history, Credentials.fromPassword("test"))
                 .then(enc => {
                     const tds = new TextDatasource(enc);
                     return tds.load(Credentials.fromPassword("test"));

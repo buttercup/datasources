@@ -8,7 +8,7 @@ function getEncryptedContents() {
     archive.createGroup("test");
     const testDatasource = new TextDatasource();
     return testDatasource
-        .save(archive._getWestley().getHistory(), Credentials.fromPassword("test"))
+        .save(archive._getWestley().history, Credentials.fromPassword("test"))
         .then(encContents => [archive, encContents]);
 }
 
@@ -61,7 +61,7 @@ describe("GoogleDriveDatasource", function() {
     describe("save", function() {
         it("makes a request with the expected parameters", function() {
             return this.datasource
-                .save(this.archive._getWestley().getHistory(), Credentials.fromPassword("test"))
+                .save(this.archive._getWestley().history, Credentials.fromPassword("test"))
                 .then(() => {
                     expect(this.datasource.client.putFileContents.calledOnce).to.be.true;
                     const args = this.datasource.client.putFileContents.firstCall.args[0];

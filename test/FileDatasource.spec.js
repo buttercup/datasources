@@ -41,7 +41,7 @@ describe("FileDatasource", function() {
             this.datasource = new FileDatasource(this.path);
             const tds = new TextDatasource();
             return tds
-                .save(this.archive._getWestley().getHistory(), Credentials.fromPassword("test"))
+                .save(this.archive._getWestley().history, Credentials.fromPassword("test"))
                 .then(encryptedArchive => {
                     fs.writeFileSync(this.path, encryptedArchive);
                 });
@@ -91,7 +91,7 @@ describe("FileDatasource", function() {
 
         it("writes to a file", function() {
             return this.datasource
-                .save(this.archive._getWestley().getHistory(), Credentials.fromPassword("test"))
+                .save(this.archive._getWestley().history, Credentials.fromPassword("test"))
                 .then(() => {
                     return expect(fileExists(this.path)).to.eventually.be.true;
                 });
@@ -99,7 +99,7 @@ describe("FileDatasource", function() {
 
         it("writes an archive", function() {
             return this.datasource
-                .save(this.archive._getWestley().getHistory(), Credentials.fromPassword("test"))
+                .save(this.archive._getWestley().history, Credentials.fromPassword("test"))
                 .then(() => {
                     const contents = fs.readFileSync(this.path, "utf8");
                     const tds = new TextDatasource(contents);
