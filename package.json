@@ -42,7 +42,7 @@
   "homepage": "https://github.com/buttercup/datasources#readme",
   "devDependencies": {
     "@buttercup/app-env": "^0.1.1",
-    "buttercup": "3.0.0-rc2.0",
+    "buttercup": "3.0.0-rc2.1",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "file-exists": "^5.0.1",
