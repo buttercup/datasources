@@ -1,6 +1,6 @@
-const { createClient } = require("webdav");
 const TextDatasource = require("./TextDatasource.js");
 const { fireInstantiationHandlers, registerDatasource } = require("./DatasourceAdapter.js");
+const { getWebDAVFactory } = require("./tools/appEnv.js");
 
 /**
  * WebDAV datasource for reading and writing remote archives
@@ -17,6 +17,7 @@ class WebDAVDatasource extends TextDatasource {
         super();
         this._endpoint = endpoint;
         this._path = webDAVPath;
+        const createClient = getWebDAVFactory();
         this._client = credentials
             ? createClient(endpoint, {
                   username: credentials.username,

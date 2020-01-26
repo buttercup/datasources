@@ -16,9 +16,14 @@ function getEncryptFn() {
     return getSharedAppEnv().getProperty("crypto/v1/encryptText");
 }
 
+function getWebDAVFactory() {
+    return getSharedAppEnv().getProperty("net/webdav/v1/newClient");
+}
+
 module.exports = {
     getCompressFn,
     getDecompressFn,
     getDecryptFn,
-    getEncryptFn
+    getEncryptFn,
+    getWebDAVFactory
 };
