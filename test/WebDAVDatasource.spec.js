@@ -8,7 +8,7 @@ const WebDAVDatasource = rewire("../source/WebDAVDatasource.js");
 describe("WebDAVDatasource", function() {
     beforeEach(function() {
         this.clientMock = createMock();
-        WebDAVDatasource.__set__("createClient", this.clientMock);
+        WebDAVDatasource.__set__("getWebDAVFactory", () => this.clientMock);
     });
 
     it("can be instantiated without error", function() {

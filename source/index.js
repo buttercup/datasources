@@ -1,4 +1,3 @@
-const webdav = require("webdav");
 const {
     objectToDatasource,
     registerDatasource,
@@ -36,8 +35,7 @@ const output = {
     objectToDatasource,
     registerDatasource,
     registerDatasourcePostProcessor,
-    stringToDatasource,
-    webdav
+    stringToDatasource
 };
 
 module.exports = output;
