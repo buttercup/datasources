@@ -1,5 +1,10 @@
 # Buttercup Datasources changelog
 
+## v4.1.0
+_2020-01-26_
+
+ * Upgrade to new WebDAV client for reduced payload size
+
 ## v4.0.1
 _2020-01-03_
 
