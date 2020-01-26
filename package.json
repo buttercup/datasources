@@ -1,6 +1,6 @@
 {
   "name": "@buttercup/datasources",
-  "version": "4.0.1",
+  "version": "4.1.0",
   "description": "Buttercup archive datasources",
   "main": "source/index.js",
   "scripts": {
