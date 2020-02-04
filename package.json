@@ -6,7 +6,6 @@
   "scripts": {
     "docs": "jsdoc2md 'source/**/*.js' > API.md",
     "format": "prettier --write '{source,test}/**/*.js'",
-    "precommit": "lint-staged",
     "test": "run-s test:unit test:format",
     "test:format": "prettier-check '{source,test}/**/*.js'",
     "test:unit": "mocha -r test/index.js 'test/**/*.spec.js'"
@@ -20,6 +19,11 @@
       "prettier --write",
       "git add"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   },
   "repository": {
     "type": "git",
