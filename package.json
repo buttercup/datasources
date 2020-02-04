@@ -41,8 +41,8 @@
   },
   "homepage": "https://github.com/buttercup/datasources#readme",
   "devDependencies": {
-    "@buttercup/app-env": "^0.2.0",
-    "buttercup": "3.0.0-rc2.1",
+    "@buttercup/app-env": "^0.3.0",
+    "buttercup": "3.0.0-rc3.2",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "file-exists": "^5.0.1",
@@ -58,7 +58,7 @@
     "sinon": "^7.5.0"
   },
   "peerDependencies": {
-    "@buttercup/app-env": ">= 0.2.0"
+    "@buttercup/app-env": ">= 0.3.0"
   },
   "dependencies": {
     "@buttercup/dropbox-client": "^0.4.0",
