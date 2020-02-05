@@ -1,5 +1,10 @@
 # Buttercup Datasources changelog
 
+## v4.1.1
+_2020-02-05_
+
+ * Upgrade WebDAV for parsing fixes
+
 ## v4.1.0
 _2020-01-26_
 
