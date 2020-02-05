@@ -4,6 +4,7 @@ const { fireInstantiationHandlers, registerDatasource } = require("./DatasourceA
 /**
  * Datasource for Nextcloud archives
  * @augments OwnCloudDatasource
+ * @deprecated Use WebDAVDatasource instead
  */
 class NextcloudDatasource extends OwnCloudDatasource {
     /**
@@ -14,6 +15,15 @@ class NextcloudDatasource extends OwnCloudDatasource {
     constructor(...args) {
         super(...args);
         fireInstantiationHandlers("nextcloud", this);
+    }
+
+    /**
+     * Nextcloud does not support attachments - use WebDAV instead
+     * @returns {Boolean}
+     * @memberof NextcloudDatasource
+     */
+    supportsAttachments() {
+        return false;
     }
 
     /**

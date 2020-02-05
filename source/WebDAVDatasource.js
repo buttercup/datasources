@@ -1,3 +1,4 @@
+const path = require("path-posix");
 const TextDatasource = require("./TextDatasource.js");
 const { fireInstantiationHandlers, registerDatasource } = require("./DatasourceAdapter.js");
 const { getWebDAVFactory } = require("./tools/appEnv.js");
@@ -27,6 +28,10 @@ class WebDAVDatasource extends TextDatasource {
         fireInstantiationHandlers("webdav", this);
     }
 
+    get attachmentsPath() {
+        return path.join(path.basename(this.path), ".buttercup");
+    }
+
     /**
      * The WebDAV client instance
      * @type {Object}
@@ -52,6 +57,59 @@ class WebDAVDatasource extends TextDatasource {
      */
     get path() {
         return this._path;
+    }
+
+    _ensureAttachmentsPaths(vaultID) {
+        const vaultDir = path.join(this.attachmentsPath, vaultID);
+        return this.client
+            .exists(this.attachmentsPath)
+            .then(doesExist =>
+                doesExist
+                    ? true
+                    : this.client.createDirectory(this.attachmentsPath).then(() => false)
+            )
+            .then(didExist => (didExist ? this.client.exists(vaultDir) : false))
+            .then(didExist => (didExist ? null : this.client.createDirectory(vaultDir)));
+    }
+
+    /**
+     * Get attachment buffer
+     * - Downloads the attachment contents into a buffer
+     * @param {String} vaultID The ID of the vault
+     * @param {String} attachmentID The ID of the attachment
+     * @returns {Promise.<Buffer|ArrayBuffer>}
+     * @memberof WebDAVDatasource
+     */
+    getAttachment(vaultID, attachmentID) {
+        return Promise.reject(new Error("Attachments not supported"));
+    }
+
+    /**
+     * Get attachment details
+     * @param {String} vaultID The ID of the vault
+     * @param {String} attachmentID The ID of the attachment
+     * @returns {AttachmentDetails} The attactment details
+     * @memberof WebDAVDatasource
+     */
+    getAttachmentDetails(vaultID, attachmentID) {
+        const attachmentFilename = `${attachmentID}.bcatt`;
+        const attachmentPath = path.join(this.attachmentsPath, vaultID, attachmentFilename);
+        return this._ensureAttachmentsPaths(vaultID)
+            .then(() => this.client.stat(attachmentPath))
+            .then(details => ({
+                id: attachmentID,
+                vaultID,
+                name: attachmentFilename,
+                filename: attachmentPath,
+                size: details.size,
+                mime: details.mime || null
+            }))
+            .catch(err => {
+                if (err.response && err.response.status === 404) {
+                    throw new Error("Failed fetching attachment details: Attachment not found");
+                }
+                throw err;
+            });
     }
 
     /**
@@ -80,6 +138,15 @@ class WebDAVDatasource extends TextDatasource {
         return super
             .save(history, credentials)
             .then(encrypted => this.client.putFileContents(this.path, encrypted));
+    }
+
+    /**
+     * Check if the datasource supports attachments
+     * @returns {Boolean}
+     * @memberof WebDAVDatasource
+     */
+    supportsAttachments() {
+        return true;
     }
 
     /**

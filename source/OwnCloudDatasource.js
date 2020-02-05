@@ -5,6 +5,7 @@ const { fireInstantiationHandlers, registerDatasource } = require("./DatasourceA
 /**
  * Datasource for OwnCloud archives
  * @augments WebDAVDatasource
+ * @deprecated Use WebDAVDatasource instead
  */
 class OwnCloudDatasource extends WebDAVDatasource {
     /**
@@ -17,6 +18,23 @@ class OwnCloudDatasource extends WebDAVDatasource {
         super(joinURL(owncloudURL, "remote.php/webdav/"), resourcePath, credentials);
         this._originalURL = owncloudURL;
         fireInstantiationHandlers("owncloud", this);
+    }
+
+    getAttachment(vaultID, attachmentID) {
+        return Promise.reject(new Error("Attachments not supported"));
+    }
+
+    getAttachmentDetails(vaultID, attachmentID) {
+        return Promise.reject(new Error("Attachments not supported"));
+    }
+
+    /**
+     * ownCloud does not support attachments - use WebDAV instead
+     * @returns {Boolean}
+     * @memberof OwnCloudDatasource
+     */
+    supportsAttachments() {
+        return false;
     }
 
     /**

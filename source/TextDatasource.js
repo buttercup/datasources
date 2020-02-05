@@ -7,6 +7,16 @@ const {
 const { fireInstantiationHandlers, registerDatasource } = require("./DatasourceAdapter.js");
 
 /**
+ * @typedef {Object} AttachmentDetails
+ * @property {String} id The attachment ID
+ * @property {String} vaultID The vault ID
+ * @property {String} name Base filename
+ * @property {String} filename Full filename and path
+ * @property {Number} size Size in bytes (0 if invalid)
+ * @property {String|null} mime MIME type if available
+ */
+
+/**
  * Datasource for text input and output
  */
 class TextDatasource extends EventEmitter {
@@ -32,10 +42,33 @@ class TextDatasource extends EventEmitter {
     }
 
     /**
+     * Get attachment buffer
+     * - Downloads the attachment contents into a buffer
+     * @param {String} vaultID The ID of the vault
+     * @param {String} attachmentID The ID of the attachment
+     * @returns {Promise.<Buffer|ArrayBuffer>}
+     * @memberof TextDatasource
+     */
+    getAttachment(vaultID, attachmentID) {
+        return Promise.reject(new Error("Attachments not supported"));
+    }
+
+    /**
+     * Get attachment details
+     * @param {String} vaultID The ID of the vault
+     * @param {String} attachmentID The ID of the attachment
+     * @returns {AttachmentDetails} The attactment details
+     * @memberof TextDatasource
+     */
+    getAttachmentDetails(vaultID, attachmentID) {
+        return Promise.reject(new Error("Attachments not supported"));
+    }
+
+    /**
      * Get the ID of the datasource
      * ID to uniquely identify the datasource and its parameters
      * @returns {String} A hasn of the datasource (unique ID)
-     * @memberof TextDataSource
+     * @memberof TextDatasource
      */
     getID() {
         const type = this.toObject().type;
@@ -83,6 +116,15 @@ class TextDatasource extends EventEmitter {
     setContent(content) {
         this._content = content || "";
         return this;
+    }
+
+    /**
+     * Whether or not the datasource supports attachments
+     * @returns {Boolean}
+     * @memberof TextDatasource
+     */
+    supportsAttachments() {
+        return false;
     }
 
     /**
