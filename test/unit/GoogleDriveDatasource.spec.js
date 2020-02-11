@@ -1,7 +1,7 @@
 const { Archive, Credentials } = require("buttercup");
 const VError = require("verror");
-const GoogleDriveDatasource = require("../source/GoogleDriveDatasource.js");
-const TextDatasource = require("../source/TextDatasource.js");
+const GoogleDriveDatasource = require("../../source/GoogleDriveDatasource.js");
+const TextDatasource = require("../../source/TextDatasource.js");
 
 function getEncryptedContents() {
     const archive = new Archive();

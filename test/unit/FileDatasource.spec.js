@@ -3,8 +3,8 @@ const fs = require("fs");
 const rimraf = require("rimraf").sync;
 const fileExists = require("file-exists");
 const { Archive, Credentials } = require("buttercup");
-const FileDatasource = require("../source/FileDatasource.js");
-const TextDatasource = require("../source/TextDatasource.js");
+const FileDatasource = require("../../source/FileDatasource.js");
+const TextDatasource = require("../../source/TextDatasource.js");
 
 describe("FileDatasource", function() {
     it("instantiates without error", function() {

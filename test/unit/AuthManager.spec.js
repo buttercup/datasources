@@ -1,4 +1,4 @@
-const AuthManager = require("../source/AuthManager.js");
+const AuthManager = require("../../source/AuthManager.js");
 
 describe("AuthManager", function() {
     beforeEach(function() {

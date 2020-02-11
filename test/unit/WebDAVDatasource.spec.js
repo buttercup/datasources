@@ -1,9 +1,9 @@
 const { Archive, Credentials } = require("buttercup");
 const rewire = require("rewire");
-const TextDatasource = require("../source/TextDatasource.js");
+const TextDatasource = require("../../source/TextDatasource.js");
 const createMock = require("./WebDAVClientMock.js");
 
-const WebDAVDatasource = rewire("../source/WebDAVDatasource.js");
+const WebDAVDatasource = rewire("../../source/WebDAVDatasource.js");
 
 describe("WebDAVDatasource", function() {
     beforeEach(function() {

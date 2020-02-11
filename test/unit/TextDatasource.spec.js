@@ -1,5 +1,5 @@
 const { Archive, Credentials } = require("buttercup");
-const TextDatasource = require("../source/TextDatasource.js");
+const TextDatasource = require("../../source/TextDatasource.js");
 
 describe("TextDatasource", function() {
     it("can be instantiated without error", function() {

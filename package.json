@@ -8,7 +8,7 @@
     "format": "prettier --write '{source,test}/**/*.js'",
     "test": "run-s test:unit test:format",
     "test:format": "prettier-check '{source,test}/**/*.js'",
-    "test:unit": "mocha -r test/index.js 'test/**/*.spec.js'"
+    "test:unit": "mocha -r test/index.js 'test/unit/**/*.spec.js'"
   },
   "files": [
     "source/**/*.js",

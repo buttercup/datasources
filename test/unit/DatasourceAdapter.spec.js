@@ -1,5 +1,5 @@
-const { registerDatasourcePostProcessor } = require("../source/DatasourceAdapter.js");
-const TextDatasource = require("../source/TextDatasource.js");
+const { registerDatasourcePostProcessor } = require("../../source/DatasourceAdapter.js");
+const TextDatasource = require("../../source/TextDatasource.js");
 
 describe("DatasourceAdapter", function() {
     describe("registerDatasourcePostProcessor", function() {
