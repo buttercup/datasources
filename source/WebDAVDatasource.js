@@ -1,5 +1,12 @@
 const path = require("path-posix");
+const VError = require("verror");
 const TextDatasource = require("./TextDatasource.js");
+const {
+    decryptAttachment,
+    getAttachmentPath,
+    getButtercupPath,
+    getVaultAttachmentsPath
+} = require("./tools/attachments.js");
 const { fireInstantiationHandlers, registerDatasource } = require("./DatasourceAdapter.js");
 const { getWebDAVFactory } = require("./tools/appEnv.js");
 
@@ -28,13 +35,20 @@ class WebDAVDatasource extends TextDatasource {
         fireInstantiationHandlers("webdav", this);
     }
 
-    get attachmentsPath() {
-        return path.join(path.basename(this.path), ".buttercup");
+    /**
+     * Buttercup directory path
+     * @type {String}
+     * @readonly
+     * @memberof WebDAVDatasource
+     */
+    get buttercupDirectory() {
+        return getButtercupPath(path.basename(this.path));
     }
 
     /**
      * The WebDAV client instance
      * @type {Object}
+     * @readonly
      * @memberof WebDAVDatasource
      */
     get client() {
@@ -44,6 +58,7 @@ class WebDAVDatasource extends TextDatasource {
     /**
      * The remote WebDAV endpoint
      * @type {String}
+     * @readonly
      * @memberof WebDAVDatasource
      */
     get endpoint() {
@@ -53,20 +68,28 @@ class WebDAVDatasource extends TextDatasource {
     /**
      * The remote archive path
      * @type {String}
+     * @readonly
      * @memberof WebDAVDatasource
      */
     get path() {
         return this._path;
     }
 
+    /**
+     * Ensure attachment paths exist
+     * @param {String} vaultID The vault ID
+     * @returns {Promise}
+     * @memberof WebDAVDatasource
+     * @protected
+     */
     _ensureAttachmentsPaths(vaultID) {
-        const vaultDir = path.join(this.attachmentsPath, vaultID);
+        const vaultDir = getVaultAttachmentsPath(this.buttercupDirectory, vaultID);
         return this.client
-            .exists(this.attachmentsPath)
+            .exists(this.buttercupDirectory)
             .then(doesExist =>
                 doesExist
                     ? true
-                    : this.client.createDirectory(this.attachmentsPath).then(() => false)
+                    : this.client.createDirectory(this.buttercupDirectory).then(() => false)
             )
             .then(didExist => (didExist ? this.client.exists(vaultDir) : false))
             .then(didExist => (didExist ? null : this.client.createDirectory(vaultDir)));
@@ -77,11 +100,24 @@ class WebDAVDatasource extends TextDatasource {
      * - Downloads the attachment contents into a buffer
      * @param {String} vaultID The ID of the vault
      * @param {String} attachmentID The ID of the attachment
+     * @param {Credentials=} credentials Credentials to decrypt
+     *  the buffer, defaults to null (no decryption)
      * @returns {Promise.<Buffer|ArrayBuffer>}
      * @memberof WebDAVDatasource
      */
-    getAttachment(vaultID, attachmentID) {
-        return Promise.reject(new Error("Attachments not supported"));
+    getAttachment(vaultID, attachmentID, credentials = null) {
+        const attachmentPath = getAttachmentPath(this.buttercupDirectory, vaultID, attachmentID);
+        return this.client
+            .getFileContents(attachmentPath)
+            .then(encBuffer => {
+                if (!credentials) {
+                    return encBuffer;
+                }
+                return decryptAttachment(encBuffer, credentials);
+            })
+            .catch(err => {
+                throw new VError(err, "Failed fetching attachment");
+            });
     }
 
     /**

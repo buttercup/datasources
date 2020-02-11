@@ -46,10 +46,12 @@ class TextDatasource extends EventEmitter {
      * - Downloads the attachment contents into a buffer
      * @param {String} vaultID The ID of the vault
      * @param {String} attachmentID The ID of the attachment
+     * @param {Credentials=} credentials Credentials to decrypt
+     *  the buffer, defaults to null (no decryption)
      * @returns {Promise.<Buffer|ArrayBuffer>}
      * @memberof TextDatasource
      */
-    getAttachment(vaultID, attachmentID) {
+    getAttachment(vaultID, attachmentID, credentials = null) {
         return Promise.reject(new Error("Attachments not supported"));
     }
 

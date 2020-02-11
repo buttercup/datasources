@@ -1,5 +1,10 @@
 const { hasValidSignature, sign, stripSignature } = require("@buttercup/signing");
-const { getCompressFn, getDecompressFn, getDecryptFn, getEncryptFn } = require("./appEnv.js");
+const {
+    getCompressFn,
+    getDecompressFn,
+    getDecryptTextFn,
+    getEncryptTextFn
+} = require("./appEnv.js");
 
 /**
  * Convert encrypted text to an array of commands (history)
@@ -11,7 +16,7 @@ const { getCompressFn, getDecompressFn, getDecryptFn, getEncryptFn } = require("
  */
 function convertEncryptedContentToHistory(encText, credentials) {
     const decompress = getDecompressFn();
-    const decrypt = getDecryptFn();
+    const decrypt = getDecryptTextFn();
     return Promise.resolve()
         .then(() => {
             if (!hasValidSignature(encText)) {
@@ -41,7 +46,7 @@ function convertEncryptedContentToHistory(encText, credentials) {
  */
 function convertHistoryToEncryptedContent(historyArr, credentials) {
     const compress = getCompressFn();
-    const encrypt = getEncryptFn();
+    const encrypt = getEncryptTextFn();
     return Promise.resolve()
         .then(() => historyArrayToString(historyArr))
         .then(history => compress(history))
