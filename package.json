@@ -6,9 +6,10 @@
   "scripts": {
     "docs": "jsdoc2md 'source/**/*.js' > API.md",
     "format": "prettier --write '{source,test}/**/*.js'",
-    "test": "run-s test:unit test:format",
+    "test": "run-s test:unit test:integration test:format",
     "test:format": "prettier-check '{source,test}/**/*.js'",
-    "test:unit": "mocha -r test/index.js 'test/unit/**/*.spec.js'"
+    "test:integration": "mocha -r test/integration/index.js 'test/integration/**/*.spec.js'",
+    "test:unit": "mocha -r test/unit/index.js 'test/unit/**/*.spec.js'"
   },
   "files": [
     "source/**/*.js",
@@ -49,6 +50,7 @@
     "buttercup": "3.0.0-rc3.2",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
+    "copy-dir": "^1.2.0",
     "file-exists": "^5.0.1",
     "husky": "^3.0.8",
     "jsdoc-to-markdown": "^5.0.1",
@@ -59,7 +61,9 @@
     "prettier-check": "^2.0.0",
     "rewire": "^4.0.1",
     "rimraf": "^2.7.1",
-    "sinon": "^7.5.0"
+    "sinon": "^7.5.0",
+    "webdav": "^3.2.0",
+    "webdav-server": "^2.6.2"
   },
   "peerDependencies": {
     "@buttercup/app-env": ">= 0.4.0"
