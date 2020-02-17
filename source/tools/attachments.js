@@ -6,8 +6,13 @@ function decryptAttachment(buff, credentials) {
     return decrypt(buff, credentials.password);
 }
 
+function encryptAttachment(buff, credentials) {
+    const encrypt = getEncryptDataFn();
+    return encrypt(buff, credentials.password);
+}
+
 function getAttachmentPath(buttercupDir, vaultID, attachmentID) {
-    return path.join(buttercupDir, vaultID, attachmentID);
+    return path.join(buttercupDir, vaultID, `${attachmentID}.bcatt`);
 }
 
 function getButtercupPath(vaultDir) {
@@ -20,6 +25,7 @@ function getVaultAttachmentsPath(buttercupDir, vaultID) {
 
 module.exports = {
     decryptAttachment,
+    encryptAttachment,
     getAttachmentPath,
     getButtercupPath,
     getVaultAttachmentsPath

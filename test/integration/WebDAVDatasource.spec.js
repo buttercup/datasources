@@ -1,4 +1,8 @@
+const path = require("path");
+const fs = require("fs");
 const { Archive, Credentials, Group } = require("buttercup");
+const fileExists = require("file-exists");
+const uuid = require("uuid/v4");
 const WebDAVDatasource = require("../../source/WebDAVDatasource.js");
 
 describe("WebDAVDatasource", function() {
@@ -33,6 +37,27 @@ describe("WebDAVDatasource", function() {
                 .then(hist => Archive.createFromHistory(hist))
                 .then(newArchive => {
                     expect(newArchive.findGroupsByTitle("General")[0]).to.be.an.instanceOf(Group);
+                });
+        });
+    });
+
+    describe("putAttachment", function() {
+        it("writes the attachment", function() {
+            const vaultID = uuid();
+            const attachmentID = uuid();
+            const source = fs.readFileSync(path.resolve(__dirname, "../serverContents/logs.jpg"));
+            return this.existingDatasource
+                .putAttachment(vaultID, attachmentID, source, Credentials.fromPassword("test"))
+                .then(() =>
+                    fileExists(
+                        path.resolve(
+                            __dirname,
+                            `../testContents/.buttercup/${vaultID}/${attachmentID}.bcatt`
+                        )
+                    )
+                )
+                .then(exists => {
+                    expect(exists).to.be.true;
                 });
         });
     });

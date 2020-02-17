@@ -3,6 +3,7 @@ const VError = require("verror");
 const TextDatasource = require("./TextDatasource.js");
 const {
     decryptAttachment,
+    encryptAttachment,
     getAttachmentPath,
     getButtercupPath,
     getVaultAttachmentsPath
@@ -42,7 +43,7 @@ class WebDAVDatasource extends TextDatasource {
      * @memberof WebDAVDatasource
      */
     get buttercupDirectory() {
-        return getButtercupPath(path.basename(this.path));
+        return getButtercupPath(path.dirname(this.path));
     }
 
     /**
@@ -128,10 +129,10 @@ class WebDAVDatasource extends TextDatasource {
      * @memberof WebDAVDatasource
      */
     getAttachmentDetails(vaultID, attachmentID) {
-        const attachmentFilename = `${attachmentID}.bcatt`;
-        const attachmentPath = path.join(this.attachmentsPath, vaultID, attachmentFilename);
-        return this._ensureAttachmentsPaths(vaultID)
-            .then(() => this.client.stat(attachmentPath))
+        const attachmentPath = getAttachmentPath(this.buttercupDirectory, vaultID, attachmentID);
+        const attachmentFilename = path.basename(attachmentPath);
+        return this.client
+            .stat(attachmentPath)
             .then(details => ({
                 id: attachmentID,
                 vaultID,
@@ -161,6 +162,25 @@ class WebDAVDatasource extends TextDatasource {
                   this.setContent(content);
                   return super.load(credentials);
               });
+    }
+
+    /**
+     * Put attachment data
+     * @param {String} vaultID The ID of the vault
+     * @param {String} attachmentID The ID of the attachment
+     * @param {Buffer|ArrayBuffer} buffer The attachment data
+     * @param {Credentials=} credentials Credentials for
+     *  encrypting the buffer. If not provided, the buffer
+     *  is presumed to be in encrypted-form and will be
+     *  written as-is.
+     * @returns {Promise}
+     * @memberof WebDAVDatasource
+     */
+    putAttachment(vaultID, attachmentID, buffer, credentials = null) {
+        const attachmentPath = getAttachmentPath(this.buttercupDirectory, vaultID, attachmentID);
+        return this._ensureAttachmentsPaths(vaultID)
+            .then(() => (credentials ? encryptAttachment(buffer, credentials) : buffer))
+            .then(data => this.client.putFileContents(attachmentPath, data));
     }
 
     /**

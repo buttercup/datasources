@@ -99,6 +99,22 @@ class TextDatasource extends EventEmitter {
     }
 
     /**
+     * Put attachment data
+     * @param {String} vaultID The ID of the vault
+     * @param {String} attachmentID The ID of the attachment
+     * @param {Buffer|ArrayBuffer} buffer The attachment data
+     * @param {Credentials=} credentials Credentials for
+     *  encrypting the buffer. If not provided, the buffer
+     *  is presumed to be in encrypted-form and will be
+     *  written as-is.
+     * @returns {Promise}
+     * @memberof TextDatasource
+     */
+    putAttachment(vaultID, attachmentID, buffer, credentials = null) {
+        return Promise.reject(new Error("Attachments not supported"));
+    }
+
+    /**
      * Save archive contents with a password
      * @param {Array.<String>} history Archive history to save
      * @param {Credentials} credentials The Credentials instance to encrypt with
