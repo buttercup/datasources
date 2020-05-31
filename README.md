@@ -3,6 +3,10 @@
 
 [![Buttercup](https://cdn.rawgit.com/buttercup-pw/buttercup-assets/6582a033/badge/buttercup-slim.svg)](https://buttercup.pw) [![Build Status](https://travis-ci.org/buttercup/datasources.svg?branch=master)](https://travis-ci.org/buttercup/datasources) [![npm version](https://badge.fury.io/js/%40buttercup%2Fdatasources.svg)](https://www.npmjs.com/package/@buttercup/datasources)
 
+## :warning: Deprecated
+
+This repository is deprecated since [Buttercup core](https://github.com/buttercup/buttercup-core) version 4, as it is now included in the core library. It is no longer required to include this library as its functionality can be found in the [`buttercup`](https://www.npmjs.com/package/buttercup) dependency.
+
 ## About
 Datasources are how Buttercup integrates with 3rd party services like Dropbox, ownCloud and Nextcloud etc.
 
